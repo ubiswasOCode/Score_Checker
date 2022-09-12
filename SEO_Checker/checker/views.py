@@ -80,21 +80,22 @@ def Score_checker(request):
         # creating a list of all common heading tags
         heading_tags = ["h1"]
         heading1_text = []
+        h1_tags = Soup.find_all(heading_tags)
         for tags in Soup.find_all(heading_tags):
             print(tags.name + ' -> ' + tags.text.strip())
             li=(tags.name)
             li1=li.split()
             heading1_text.append(tags.text.strip())
             # print(li1)
-            if len(li1) is None:
-                error['h1'] = "h1 is Missing"
-                context["meta_h1_msg"]=f"h1 is Missing"
-            elif len(li1) >=2:
-                warning['h1'] = "h1 is huge"
-                context["meta_h1_msg"]=f"h1 is huge"
-            else:
-                print(f"it h1 is Best")
-                context["meta_h1_msg"]=f"it h1 is Best"
+        if len(h1_tags) is None:
+            error['h1'] = "h1 is Missing"
+            context["meta_h1_msg"]=f"h1 is Missing"
+        elif len(h1_tags) >=2:
+            warning['h1'] = "h1 is huge"
+            context["meta_h1_msg"]=f"h1 is huge"
+        else:
+            print(f"it h1 is Best")
+            context["meta_h1_msg"]=f"it h1 is Best"
 
         # context["heading_tags"] = heading_tags
         context["heading1_text"] = heading1_text
@@ -103,21 +104,22 @@ def Score_checker(request):
         # ##H2 Tags
         heading2_tags = ["h2"]
         heading2_text = []
+        h2_tags = Soup.find_all(heading_tags)
         for tags2 in Soup.find_all(heading2_tags):
             print(tags2.name + ' -> ' + tags2.text.strip())
             # print(tags,"---------------tags")
             convert_lst = (tags2.name)
             convert_split = convert_lst.split()
             heading2_text.append(tags2.text.strip())
-            if len(convert_split) is None:
-                error['h2'] = "h2 is Missing"
-                context["meta_h2_msg"]=f"h2 is Missing"
-            elif len(convert_split) >=20:
-                warning['h2'] = f"h2 is huge"
-                context["meta_h2_msg"]=f"h2 is Missing"
-            else:
-                print("h2 is Best")
-                context["meta_h2_msg"]=f"it h2 is Best"
+        if len(h2_tags) is None:
+            error['h2'] = "h2 is Missing"
+            context["meta_h2_msg"]=f"h2 is Missing"
+        elif len(h2_tags) >=2:
+            warning['h2'] = f"h2 is huge"
+            context["meta_h2_msg"]=f"h2 is huge"
+        else:
+            print("h2 is Best")
+            context["meta_h2_msg"]=f"it h2 is Best"
         # context["heading2_tags"] = heading2_tags
         context["heading2_text"] = heading2_text
             
@@ -125,22 +127,18 @@ def Score_checker(request):
         ##H3 Tags
         heading3_tags = ["h3"]
         heading3_text = []
-        for tags3 in Soup.find_all(heading3_tags):
-            print(tags3.name + ' -> ' + tags3.text.strip())
-            # print(tags,"---------------tags")
-
-            convert_lst1 = (tags3.name)
-            convert_split1 = convert_lst1.split()
+        h3_tags = Soup.find_all(heading3_tags)
+        for tags3 in h3_tags:
             heading3_text.append(tags3.text.strip())
-            if len(convert_split1) is None:
-                error['h3'] = "h3 is Missing"
-                context["meta_h3_msg"]=f"h3 is Missing"
-            elif len(convert_split1) >= 3:
-                warning['h3'] = "h3 is huge"
-                context["meta_h3_msg"]=f"h3 is huge"
-            else:
-                print("h3 is Best")
-        context["meta_h3_msg"]=f"h3 is Best"
+        if len(h3_tags) is None:
+            error['h3'] = "h3 is Missing"
+            context["meta_h3_msg"]=f"h3 is Missing"
+        elif len(h3_tags) >= 3:
+            warning['h3'] = "h3 is huge"
+            context["meta_h3_msg"]=f"h3 is huge"
+        else:
+            print("h3 is Best")
+            context["meta_h3_msg"]=f"h3 is Best"
         context["heading3_text"] = heading3_text
         
                 
