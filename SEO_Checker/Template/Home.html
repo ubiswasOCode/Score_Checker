@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action='/' id="update" method="GET">
+     <!-- {% csrf_token %} -->
+    
+        <label for="">Enter Url </label>
+            <input type="text" name="url" id=url placeholder="enter url"><br><br>
+    
+            <button type="submit" value="button">Submit</button><br><br>
+            
+        <table width="600px"> 
+
+            <tr>
+            <th><label for="">Meta Title</label><br><br></th>
+            
+                 <td> {{meta_title_msg}}<br>{{title_tag}}</td>
+            </tr>
+    
+            <tr>
+            <th><label for="">Meta Keyword</label><br><br></th>
+            <td>{{meta_keyword_msg}}<br>{{keyword}}</td>
+            </tr>
+    
+            <tr>
+            <th><label for="">Meta Description</label><br><br></th>
+            <td> {{meta_desc_msg}}<br>{{desc}}</td>
+            </tr>
+    
+            <tr>
+            <th><label for="">Heading 1</label><br><br></th>
+            <td>{{meta_h1_msg}}<br>{{li1}}</td>
+            </tr>
+
+
+            <!-- <tr>
+                <th><label for="">Heading 2</label><br><br></th>
+                <td>{{meta_h2_msg}}<br>{{convert_lst}}</td>
+                </tr>
+     -->
+            <!-- <tr>
+            <th><label for="">Meta Robots</label><br><br></th>
+            <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
+            </tr>    
+            
+            <tr>
+            <th><label for="">Open Graph</label><br><br></th>
+            <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
+            </tr>  -->
+           
+        <table>
+    </form>
+</body>
+
+</html>
