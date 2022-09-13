@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
@@ -46,23 +46,15 @@
     <div class="container mt-4">
 
     
-    <form action='/score_checker/' id="update" method="GET">
-        <!-- {% csrf_token %} -->
-       
-           <label for="">Enter Url </label>
-               <input type="text" name="url" id=url placeholder="enter url"><br><br>
-       
-               <button type="submit" value="button">Submit</button><br><br>
-               
-               <button type="button" class="btn btn-danger" >{{value.err}}</button>
-               <button type="button" class="btn btn-warning" >{{value.warn}}</button>
-               <button type="button" class="btn btn-success">{{value.per}}/100</button>
    
-               
-
-    </form>
+   
     {% if context.title_tag %}
+    <button type="button" class="btn btn-danger" >{{value.err}}</button>
+    <button type="button" class="btn btn-warning" >{{value.warn}}</button>
+    <button type="button" class="btn btn-success">{{value.per}}/100</button>
+   
     <table class="table">
+
      
         <tbody>
             <tr>
@@ -137,6 +129,20 @@
 
         </tbody>
       </table>
+
+    {% else %}
+
+    <form action='/score_checker/' id="update" method="GET">
+      <!-- {% csrf_token %} -->
+     
+         <label for="">Enter Url </label>
+             <input type="text" name="url" id=url placeholder="enter url"><br><br>
+     
+             <button type="submit" class="btn btn-primary">Submit</button>          
+
+  </form>
+  
+
     
     {%  endif %}
     </div>
