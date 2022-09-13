@@ -10,3 +10,5 @@ requests==2.22.0
 lxml==4.9.1
 metadata-parser==0.10.5
 beautifulsoup4==4.11.1
+fontawesome-free==5.15.4
+fontawesomefree==6.2.0
