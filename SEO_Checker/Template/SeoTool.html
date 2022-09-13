@@ -54,7 +54,9 @@
        
                <button type="submit" value="button">Submit</button><br><br>
                
-           <table width="600px"> 
+               <button type="button" class="btn btn-danger" >{{value.err}}</button>
+               <button type="button" class="btn btn-warning" >{{value.warn}}</button>
+               <button type="button" class="btn btn-success">{{value.per}}/100</button>
    
                
 
@@ -122,12 +124,12 @@
 
                 <tr>
                     <th><label for="">Robot.txt</label><br><br></th>
-                    <td>{{context.rob_mess}}<br>{{context.rob}}</td>
+                    <td>{{context.rob_mess}}{{context.rob}}</td>
                 </tr>
 
                 <tr>
                     <th><label for="">Sitemap.Xml</label><br><br></th>
-                    <td>{{context.site_mess}}<br>{{context.site}}</td>
+                    <td>{{context.site_mess}}{{context.site}}</td>
                 </tr>
 
 
@@ -135,9 +137,7 @@
 
         </tbody>
       </table>
-    <button type="button" class="btn btn-danger" >{{value.err}}</button>
-    <button type="button" class="btn btn-warning">{{value.warn}}</button>
-    <button type="button" class="btn btn-success">{{value.percent}}</button>
+    
     {%  endif %}
     </div>
     <!-- Optional JavaScript; choose one of the two! -->
