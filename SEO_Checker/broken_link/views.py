@@ -6,15 +6,16 @@ from bs4 import BeautifulSoup, SoupStrainer
 import requests
 
 
-def base(request):
-    return render(request, "Broken.html")
+
 
 # Prompt user to enter the URL
-def get_links_from_url(url,visited,request):
-    url = request.GET.get('url')
-    page = requests.get(url)
+def get_links_from_url(request):
+    url= request.GET.get('url')
     if url:
-    # Get the response code of given URL
+
+        page = requests.get(url)
+
+        # Get the response code of given URL
         response_code = str(page.status_code)
 
         soup = BeautifulSoup(page.text, 'html.parser')
@@ -66,6 +67,5 @@ def get_links_from_url(url,visited,request):
                 page_urls.remove(page_url)
         else:
             break
-
 
     return render(request,"Broken.html")

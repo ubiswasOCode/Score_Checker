@@ -31,10 +31,10 @@ def Score_checker(request):
             context["meta_title_msg"] = "titile is Missing" 
         # print(error)
         elif len(title_tag)>=30  and len(title_tag)<=350:
-            warning['title']="titile is big"
+            warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
             context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
         else:
-            print(f"title is best")
+            print(f"Congratulations your webpage is using a title tag.")
             context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
         # print(page.get_metadata('title'))
         # print(title_tag)
@@ -48,10 +48,10 @@ def Score_checker(request):
             context["meta_desc_msg"] = "description is Missing" 
         elif len(desc) >= 160 :
             # print(f"description should be Greater than 160 characters {len(desc)}  characters")
-            warning['description'] = "description is Big"
+            warning['description'] =f"description should be Greater than 160 characters {len(desc)}  characters"
             context["meta_desc_msg"] = f"description should be Greater than 160 characters {len(desc)}  characters"
         else:
-            print(f"description is best")
+            print( f"Congratulations your webpage is using a limited description tag.")
             context["meta_desc_msg"] = f"Congratulations your webpage is using a limited description tag."
             
         print(page.get_metadata('description'))
@@ -65,7 +65,7 @@ def Score_checker(request):
             error['keyword'] = "keyword is Missing"
             context["meta_keyword_msg"]="keyword is Missing"
         elif len(keyword) >= 10:
-            warning['Keyword'] = "Keyword is huge"
+            warning['Keyword'] =f"Keyword should be Greater than 10 characters {len(desc)}  characters"
             context["meta_keyword_msg"]=f"Keyword should be Greater than 10 characters {len(desc)}  characters"
         else:
             print(f"Keyword is Less than 10 keywords")
@@ -99,7 +99,7 @@ def Score_checker(request):
             context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
 
         # context["heading_tags"] = heading_tags
-        context["heading1_text"] = heading1_text
+            context["heading1_text"] = heading1_text
         
         # #
         # ##H2 Tags
@@ -116,13 +116,13 @@ def Score_checker(request):
             error['h2'] = "h2 is Missing"
             context["meta_h2_msg"]=f"h2 is Missing"
         elif len(h2_tags) >=2:
-            warning['h2'] = f"h2 is huge"
+            warning['h2'] = f"Your page contains headings two or more heading tag"
             context["meta_h2_msg"]=f"Your page contains headings two or more heading tag"
         else:
-            print("h2 is Best")
+            print(f"Congratulations! Your page contains headings. Their contents are listed below:")
             context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
         # context["heading2_tags"] = heading2_tags
-        context["heading2_text"] = heading2_text
+            context["heading2_text"] = heading2_text
             
 
         ##H3 Tags
@@ -135,12 +135,12 @@ def Score_checker(request):
             error['h3'] = "h3 is Missing"
             context["meta_h3_msg"]=f"h3 is Missing"
         elif len(h3_tags) >= 3:
-            warning['h3'] = "h3 is huge"
+            warning['h3'] = f"Your page contains headings two or more heading tag"
             context["meta_h3_msg"]=f"Your page contains headings two or more heading tag"
         else:
-            print("h3 is Best")
+            print(f"Congratulations! Your page contains headings. Their contents are listed below:")
             context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
-        context["heading3_text"] = heading3_text
+            context["heading3_text"] = heading3_text
         
                 
         # #
@@ -155,10 +155,10 @@ def Score_checker(request):
                     error['img'] = "img is Missing"
                     context["img_msg"]=f"img is Missing"
                 elif len(images) >= 200 :
-                    warning['img'] = "img is huge"
+                    warning['img'] = f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
                     context["img_msg"]=f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
                 else:
-                    print("image is Best")
+                    print(f"your webpage is used limited image ")
                     context["img_msg"]=f"your webpage is used limited image "
         
         # #
@@ -172,10 +172,10 @@ def Score_checker(request):
                 error['style'] = "style is Missing"
                 context["style_msg"]=f"style is Missing"
             elif len(taggg) >= 100:
-                warning['style'] = "style is huge"
+                warning['style'] = f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
                 context["style_msg"]=f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
             else:
-                print("style is Best")
+                print(f"your webpage is used limited style tag")
                 context["style_msg"]=f"your webpage is used limited style tag"
         
         
@@ -192,7 +192,7 @@ def Score_checker(request):
                     warning['a'] = f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
                     context["anc_msg"]=f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
                 else:
-                    print("anchor tag is Best")
+                    print(f"Congratulations! Your page contains anchor ")
                     context["anc_msg"]=f"Congratulations! Your page contains anchor "
           
         #Check Robot.Txt File Is availabale or not          
@@ -200,9 +200,11 @@ def Score_checker(request):
         robots = requests.get(url+"/robots.txt")
         print(robots,"--------------file")
        
-        if robots is None:
+        if robots is None:  
+            print(f"Robbot File is Missing")
             error['rob_mess'] =f"Robbot File is Missing"
         else:
+            print(f"Robot.txt is Available")
             context["rob"]=f"Robot.txt is Available"
 
 
@@ -213,8 +215,10 @@ def Score_checker(request):
         print(robots,"--------------file")
        
         if site_map is None:
+            print(f"Sitemap.xml File is Missing")
             error['site_mess'] =f"Sitemap.xml File is Missing"
         else:
+            print(f"Sitemap.xml is Available")
             context["site"]=f"Sitemap.xml is Available"
         print(site_map,"_____-abi")
         
@@ -223,11 +227,17 @@ def Score_checker(request):
 
         err=len(error)
         warn=len(warning)
+        print(warning)
+        print(error)
+        
         print(err)
         print(warn)
 
         case=11
         temp=case
+        total_right=err+warn
+        total_correct=case-total_right
+        print(total_correct,"-------------------Correct")
 
 
         for i in range(1,err+1):
@@ -242,8 +252,12 @@ def Score_checker(request):
         per=round(percent)
         
            
-        value={"err":err,
+        value={ 
+                "error":error,
+                "warning":warning,
+                "err":err,
                 "warn":warn,
+                "total_correct":total_correct,
                 "per":per}
 
      

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'checker',
     'broken_link',
     'fontawesome-free',
+    'meta'
 ]
 
 MIDDLEWARE = [
