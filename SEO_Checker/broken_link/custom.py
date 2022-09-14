@@ -1,19 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-# Import libraries
-from bs4 import BeautifulSoup, SoupStrainer
-import requests
-
-
-
-
-# Prompt user to enter the URL
-def get_links_from_url(request):
-  
-
-    return render(request,"Broken.html")
-
 
 def get_links_from_url(url,visited):
     page = requests.get(url)

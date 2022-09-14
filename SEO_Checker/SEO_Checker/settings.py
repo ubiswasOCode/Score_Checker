@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'checker',
     'broken_link',
-    'fontawesome-free',
+    'fontawesomefree',
     'meta'
 ]
 
