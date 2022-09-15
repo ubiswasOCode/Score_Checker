@@ -50,7 +50,7 @@ def get_links_from_url(request):
             if page_url not in visited:
                 visited.append(page_url)
                 page_urls.remove(page_url)
-                if url  not in page_url:
+                if url not in page_url:
                     external_links.append(page_url)
 
                 else:
