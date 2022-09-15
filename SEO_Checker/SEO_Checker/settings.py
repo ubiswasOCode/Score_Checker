@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'checker',
     'broken_link',
+<<<<<<< HEAD
     'fontawesome-free',
     'meta',
     'density'
+=======
+    'fontawesomefree',
+    'meta'
+>>>>>>> 26b6685e60cac869cfb53a3c385ee0787224eaad
 ]
 
 MIDDLEWARE = [
