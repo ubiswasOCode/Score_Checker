@@ -1,5 +1,5 @@
 
-
+from operator import le
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
@@ -12,19 +12,26 @@ def Density_Check(request):
     if request.method == "POST":
     
         url = request.POST.get('url')
-        data = Dencity(url)
+        data = Density(url)
         print(data)
         
         
-    
-
     return render(request, 'Density.html',{'data': data })
 
+# def Density_cal():
+#     total_words=len(one)
+    
+#     msg=[]
+    
+#     msg.append('\n' + str(round(exist_keys,3)) + '%' + ' keyword density')
+#     msg.append('\nThe keyword appears ' + str(density) + ' times in the page.')
 
+        
 
-def Dencity(url):
+def Density(url):
     req = requests.get(url)
     soup = BeautifulSoup(req.content, 'html.parser')
+    
     one=[]
     two = []
     three = []
@@ -33,7 +40,7 @@ def Dencity(url):
     for para in soup.find_all("p"):
         text = para.get_text()
         # print(text)
-        "Reinforcement Learning"
+
         # convert into List
         li = list(text.split())
         if len(li) == 1:
@@ -119,13 +126,31 @@ def Dencity(url):
 
     #After Removing
     One_Word = list(set(one))
+    print(one,"---------------------one")
     if "C++" in One_Word:
         One_Word.remove("C++")
     
     data = {}
     for kwrd in One_Word:
         results = soup.body.find_all(string=re.compile('.*{0}.*'.format(kwrd)), recursive=True)
-        data[kwrd] = f"{len(results)} times"
+        data[kwrd] = len(results)
+        # print(results,"-----------------------results")
+    
+    
+        
+    # Two_Word=list(set(two))
+    # for Kword1 in Two_Word:
+    #     results = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword1)), recursive=True)
+    #     data[Kword1] = f"{len(results)} times"
+    
+    
+    Total_word=len(one)
+    for key,val in data.items():
+        # print(key,"and",val)
+        # print(val)
+       
+        print("Density=",(int(val)/int(Total_word))*100,key)
+        
     
     return data
 
