@@ -136,21 +136,38 @@ def Density(url):
         data[kwrd] = len(results)
         # print(results,"-----------------------results")
     
-    
-        
-    # Two_Word=list(set(two))
-    # for Kword1 in Two_Word:
-    #     results = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword1)), recursive=True)
-    #     data[Kword1] = f"{len(results)} times"
-    
-    
-    Total_word=len(one)
+    Total_word1=len(one)
     for key,val in data.items():
         # print(key,"and",val)
         # print(val)
-       
-        print("Density=",(int(val)/int(Total_word))*100,key)
+        print("Density=",(int(val)/int(Total_word1))*100,key)
         
+    #Two Word Frequency and Density calculate
+    Two_Word=list(set(two))
+    print(two,"--------------------------Two")
+    for Kword1 in Two_Word:
+        results1 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword1)), recursive=True)
+        data[Kword1] = len(results1)
+    
+    Total_word2=len(two)
+    for key1,val1 in data.items():
+        # print(key,"and",val)
+        # print(val)
+        print("Density Two WOrd=",(int(val1)/int(Total_word2))*100,key1)
+    
+    # #Three Word Frequency and Density calculate
+    Three_Word=list(set(three))
+    print(three,"---------------Three")
+    for Kword2 in Three_Word:
+        results2 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword2)), recursive=True)
+        data[Kword2] = len(results2)
+    
+    # Three_Word1=len(three)
+    # for key2,val2 in data.items():
+    #     # print(key,"and",val)
+    #     # print(val)
+    #     print("Density Three WOrd=",(int(val2)/int(Three_Word1))*100,key2)
+    
     
     return data
 
