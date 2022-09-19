@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'meta',
     'density',
     'fontawesomefree',
+    'Word_check'
 ]
 
 MIDDLEWARE = [

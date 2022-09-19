@@ -9,6 +9,7 @@ import re
 
 
 def Density_Check(request):
+    
     context = dict()
     data={}
     data1={}
@@ -18,14 +19,14 @@ def Density_Check(request):
     
         url = request.POST.get('url')
         data = Density(url)
-        print(data,"------------------------__alll Dictinory ")
+        # print(data,"------------------------alll Dictinory ")
         
-        context={  "data":data,
-                    "data1":data1,
-                    "data2":data2,
-                    "data3":data3}
+    context={  "data":data,
+                "data1":data1,
+                "data2":data2,
+                "data3":data3}
         
-    return render(request, 'Density.html',{'context': context })
+    return render(request, 'Density.html', context )
 
 # def Density_cal():
 #     total_words=len(one)
@@ -206,7 +207,7 @@ def Density(url):
         print("Density Four WOrd=",(int(val3)/int(Four_word1))*100,key3)
     
     
-    return data
+    return data 
 
 
 
