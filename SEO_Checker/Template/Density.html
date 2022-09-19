@@ -19,8 +19,8 @@
 
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,18 +72,26 @@
               <tbody>
                   <tr>
                       <th><label for="">One Word<br><br></th>
-                      
-                      </tr>
+                        {% for key, val in data.items %}
+                        <p>{{key}} ===> {{val}}</p>
+                        {% endfor %}
+                    </tr>
               
                       
-      
+                    <!-- <tr>
+                      <th><label for="">Two Word<br><br></th>
+                        {% for key, val in data.items %}
+                        <p>Word={{key1}} ===> {{val1}}</p>
+                        {% endfor %}
+                    </tr>
+       -->
               </tbody>
             </table>
 
             <div class="container">
-            {% for key, val in data.items %}
+            <!-- {% for key, val in data.items %}
             <p>{{key}} ===> {{val}}</p>
-            {% endfor %}
+            {% endfor %} -->
           </div>
             
   

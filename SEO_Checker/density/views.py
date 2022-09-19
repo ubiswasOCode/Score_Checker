@@ -1,5 +1,6 @@
 
 from operator import le
+from unittest.util import three_way_cmp
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
@@ -8,15 +9,23 @@ import re
 
 
 def Density_Check(request):
-    data = {}
+    context = dict()
+    data={}
+    data1={}
+    data2={}
+    data3={}
     if request.method == "POST":
     
         url = request.POST.get('url')
         data = Density(url)
-        print(data)
+        print(data,"------------------------__alll Dictinory ")
         
+        context={  "data":data,
+                    "data1":data1,
+                    "data2":data2,
+                    "data3":data3}
         
-    return render(request, 'Density.html',{'data': data })
+    return render(request, 'Density.html',{'context': context })
 
 # def Density_cal():
 #     total_words=len(one)
@@ -141,33 +150,60 @@ def Density(url):
         # print(key,"and",val)
         # print(val)
         print("Density=",(int(val)/int(Total_word1))*100,key)
+      
         
     #Two Word Frequency and Density calculate
+    data1={}
     Two_Word=list(set(two))
     print(two,"--------------------------Two")
     for Kword1 in Two_Word:
         results1 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword1)), recursive=True)
-        data[Kword1] = len(results1)
+        data1[Kword1] = len(results1)
+        
     
     Total_word2=len(two)
-    for key1,val1 in data.items():
+    for key1,val1 in data1.items():
         # print(key,"and",val)
         # print(val)
         print("Density Two WOrd=",(int(val1)/int(Total_word2))*100,key1)
     
-    # #Three Word Frequency and Density calculate
-    set_three=set(three)
-    Three_Word=list(set(set_three))
-    print(three,"---------------Three")
-    for Kword2 in Three_Word:
-        results2 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword2)), recursive=True)
-        data[Kword2] = len(results2)
     
-    # Three_Word1=len(three)
-    # for key2,val2 in data.items():
-    #     # print(key,"and",val)
-    #     # print(val)
-    #     print("Density Three WOrd=",(int(val2)/int(Three_Word1))*100,key2)
+    # #Three Word Frequency and Density calculate
+    if "100+ Latest Updates" in three:
+        three.remove("100+ Latest Updates")
+    if "Learn C++ Tutorial" in three:
+        three.remove("Learn C++ Tutorial")
+    print(three,"-----------Three List")
+    Convert_set=set(three)
+    Three_word=list(set(Convert_set))
+    print(Three_word,"===============Three Word")
+    
+    data2={}
+    for Kword2 in Three_word:
+        results2 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword2)), recursive=True)
+        data2[Kword2] = len(results2)
+        
+        # print(results2,"------------------ Three Word")
+    Three_Word1=len(Three_word)
+    for key2,val2 in data2.items():
+        # print(key,"and",val)
+        # print(val)
+        print("Density Three WOrd=",(int(val2)/int(Three_Word1))*100,key2)
+        
+    
+    #Four Word Frequency and Density calculate
+    Four_word=list(set(four))
+    print(four,"--------------------------Four")
+    data3={}
+    for Kword3 in Four_word:
+        results3 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword3)), recursive=True)
+        data3[Kword3] = len(results3)
+    
+    Four_word1=len(Four_word)
+    for key3,val3 in data3.items():
+        # print(key,"and",val)
+        # print(val)
+        print("Density Four WOrd=",(int(val3)/int(Four_word1))*100,key3)
     
     
     return data
