@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import readtime
 from collections import Counter
 # Create your views here.
 
@@ -31,10 +31,14 @@ def Word_Count(request):
     print(i,"______-item is")
     print(len(i),"----------------length")
    
-    #Calculate Total Sentense 
-    
-
-
+    #Calculate Readtime
+    read_time=readtime.of_text(word)
+    reading_time=read_time.seconds
+    print(reading_time,"-------------seconds")
+    context['Reading_Time']=f"Word reading time {(reading_time)}"
+    text_time=word.text
+    print(text_time,"---------text time")
+    context['text_time']=f"Word Time {(text_time)}"
     
     
     
