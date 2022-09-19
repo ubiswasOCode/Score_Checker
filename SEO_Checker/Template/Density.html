@@ -71,21 +71,44 @@
        
               <tbody>
                   <tr>
-                      <th><label for="">Keywords<br><br></th>
+                      <th><label for="">One Word<br><br></th>
                       
-                           <td>{{value.word}}<br></td>
-                       
                       </tr>
               
                       
       
               </tbody>
             </table>
+
+            <div class="container">
             {% for key, val in data.items %}
             <p>{{key}} ===> {{val}}</p>
             {% endfor %}
+          </div>
+            
   
      
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                  The current link item
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                
+              </div>
+              
+            </div>
+
+            <div class="col-md-8">
+              
+            </div>
+          </div>
         </div>
       </div>
       

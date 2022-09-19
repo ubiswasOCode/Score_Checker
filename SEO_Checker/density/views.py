@@ -156,7 +156,8 @@ def Density(url):
         print("Density Two WOrd=",(int(val1)/int(Total_word2))*100,key1)
     
     # #Three Word Frequency and Density calculate
-    Three_Word=list(set(three))
+    set_three=set(three)
+    Three_Word=list(set(set_three))
     print(three,"---------------Three")
     for Kword2 in Three_Word:
         results2 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword2)), recursive=True)
