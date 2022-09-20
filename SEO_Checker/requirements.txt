@@ -12,3 +12,5 @@ metadata-parser==0.10.5
 beautifulsoup4==4.11.1
 fontawesome-free==5.15.4
 fontawesomefree==6.2.0
+readtime==2.0.0
+regex==2022.9.13

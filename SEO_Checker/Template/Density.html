@@ -14,6 +14,9 @@
     text-align: center;
    margin-top: 50px;
 }
+.hide{
+  display: none;
+}
 
 </style>
 
@@ -29,10 +32,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Link</a>
+                <a class="nav-link" href="#">Link</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,7 +48,9 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
-              
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
             </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,6 +59,7 @@
           </div>
         </div>
       </nav>
+
 
       <div class="container mt-3 ">
         <form action='/density/' id="update" class="input_url" method="POST">
@@ -65,55 +71,84 @@
                 <button type="submit" class="btn btn-primary">Submit</button>     
             
         </form>
+
         <div class="container mt-4">
-          <table class="table">
-  
-       
-              <tbody>
-                  <tr>
-                      <th><label for="">One Word<br><br></th>
-                        {% for key, val in context.data1.items %}
-                        <p>{{key}} ===> {{val}}</p>
-                        {% endfor %}
-                    </tr>
-              
-                      
-                    <!-- <tr>
-                      <th><label for="">Two Word<br><br></th>
-                        {% for key, val in data.items %}
-                        <p>Word={{key1}} ===> {{val1}}</p>
-                        {% endfor %}
-                    </tr>
-       -->
-              </tbody>
-            </table>
-
-            <div class="container">
-            <!-- {% for key, val in data.items %}
-            <p>{{key}} ===> {{val}}</p>
-            {% endfor %} -->
-          </div>
-            
-  
-     
-        </div>
-
-        <div class="container">
           <div class="row">
             <div class="col-md-4">
               <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                  The current link item
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                  <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                    The current link item
+                  </a> -->
+                <a href="#" onclick="showTable('one_word')"  class="list-group-item list-group-item-action"aria-current="true">One Word</a>
+                <a href="#" onclick="showTable('TWO_word')" class="list-group-item list-group-item-action">Two Word</a>
+                <a href="#" onclick="showTable('Three_word')"  class="list-group-item list-group-item-action">Three Word</a>
                 
               </div>
               
             </div>
 
             <div class="col-md-8">
+              <!-- One Word Density  -->
+              <table class="table" id="one_word">
+                <tbody>
+                  <tr>
+                    <th>Word</th>
+                    <th>Freq.</th>
+                    <th>Density</th>
+                    <th>Title</th>
+                  </tr>
+
+                  {% for key,val in data.items %}
+                   <tr>
+                      <td>{{key}}</td>
+                      <td>{{val}}</td>
+                      <td>{{value.density1}}</td>
+                    {% endfor %}
+                   
+                   </tr>
+                </tbody>
+              </table>
+
+              <!-- Two Word Density Check -->
+              <table class="table hide" id="TWO_word">
+                <tbody>
+                  <tr>
+                    <th>Word</th>
+                    <th>Freq.</th>
+                    <th>Density</th>
+                  </tr>
+
+                  {% for key1,val1 in data1.items %}
+                  <tr>
+                    <td>{{key1}}</td>
+                     <td>{{val1}}</td>
+                     <td>{{value.density2}}</td>
+                   {% endfor %}
+                  
+                  </tr>
+                </tbody>
+              </table>
+
+
+               <!-- THree Word Density Check -->
+              <table class="table hide" id="Three_word">
+                <tbody>
+                  <tr>
+                    <th>Word</th>
+                    <th>Freq.</th>
+                    <th>Density</th>
+                  </tr>
+
+                  {% for key2,val2 in data2.items %}
+                  <tr>
+                    <td>{{key2}}</td>
+                     <td>{{val2}}</td>
+                     <td>{{value.density3}}</td>
+                   {% endfor %}
+                  
+                  </tr>
+                </tbody>
+              </table>
               
             </div>
           </div>
@@ -121,7 +156,25 @@
       </div>
       
     
-    </div>  
+    </div> 
+    <script>
+      function showTable(table_id){
+        let table = document.getElementById(table_id)
+        table.classList.remove("hide")
+        if(table_id === 'one_word'){
+          document.getElementById("TWO_word").classList.add("hide")
+          document.getElementById("Three_word").classList.add("hide")
+        }else if(table_id === 'TWO_word'){
+          document.getElementById("one_word").classList.add("hide")
+          document.getElementById("Three_word").classList.add("hide")
+        }else if(table_id === 'Three_word'){
+          document.getElementById("one_word").classList.add("hide")
+          document.getElementById("TWO_word").classList.add("hide")
+        }
+        console.log(table_id)
+      }
+    </script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 
 </html>

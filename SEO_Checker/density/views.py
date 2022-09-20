@@ -11,20 +11,11 @@ import re
 def Density_Check(request):
     
     context = dict()
-    data={}
-    data1={}
-    data2={}
-    data3={}
     if request.method == "POST":
     
         url = request.POST.get('url')
-        data = Density(url)
+        context = Density(url)
         # print(data,"------------------------alll Dictinory ")
-        
-    context={  "data":data,
-                "data1":data1,
-                "data2":data2,
-                "data3":data3}
         
     return render(request, 'Density.html', context )
 
@@ -41,12 +32,36 @@ def Density_Check(request):
 def Density(url):
     req = requests.get(url)
     soup = BeautifulSoup(req.content, 'html.parser')
-    
+    value={}    
+
     one=[]
     two = []
     three = []
     four = []
-
+    
+    #Append into One List
+    all_list=one+two+three+four
+    print(all_list,"---------------------Listssssssss")
+    
+    #Get Meta Title
+    page=metadata_parser.MetadataParser(url)
+    meta_title=page.get_metadata('title')
+    print(meta_title,"--------------------meta Title")
+    meta_list=list(meta_title)
+    
+      #Check it is Title or not
+    for x in all_list:
+        if x in meta_list:
+            print(x,"---------------Yes")
+        else: 
+            print(x,"--------------------------no")
+            
+    #Get Description
+    meta_desc=page.get_metadata("description")
+    print(meta_desc,"---------------Description")
+    desc_list=list(meta_desc)
+    
+    
     for para in soup.find_all("p"):
         text = para.get_text()
         # print(text)
@@ -151,8 +166,11 @@ def Density(url):
         # print(key,"and",val)
         # print(val)
         print("Density=",(int(val)/int(Total_word1))*100,key)
-      
+        density1=round((int(val)/int(Total_word1))*100,2)
+    print(density1,"---------------One Word Density")
         
+    
+    
     #Two Word Frequency and Density calculate
     data1={}
     Two_Word=list(set(two))
@@ -167,6 +185,8 @@ def Density(url):
         # print(key,"and",val)
         # print(val)
         print("Density Two WOrd=",(int(val1)/int(Total_word2))*100,key1)
+        density2=round((int(val1)/int(Total_word2))*100,2)
+    print(density2,"---------------Two Word Density")
     
     
     # #Three Word Frequency and Density calculate
@@ -190,8 +210,8 @@ def Density(url):
         # print(key,"and",val)
         # print(val)
         print("Density Three WOrd=",(int(val2)/int(Three_Word1))*100,key2)
+        density3=round((int(val2)/int(Three_Word1))*100,2)
         
-    
     #Four Word Frequency and Density calculate
     Four_word=list(set(four))
     print(four,"--------------------------Four")
@@ -205,9 +225,15 @@ def Density(url):
         # print(key,"and",val)
         # print(val)
         print("Density Four WOrd=",(int(val3)/int(Four_word1))*100,key3)
+        density4=round((int(val3)/int(Four_word1))*100,2)
     
-    
-    return data 
+    value={"density1":density1,
+           "density2":density2,
+           "density3":density3,
+           "density4":density4
+           }
+
+    return  {"data":data, "data1": data1, "data2":data2, "data3":data3,"value":value}
 
 
 
