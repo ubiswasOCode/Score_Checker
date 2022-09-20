@@ -101,8 +101,8 @@
                   {% for key,val in data.items %}
                    <tr>
                       <td>{{key}}</td>
-                      <td>{{val}}</td>
-                      <td>{{value.density1}}</td>
+                      <td>{{val.freq}}</td>
+                      <td>{{val.density}}</td>
                     {% endfor %}
                    
                    </tr>
@@ -121,8 +121,8 @@
                   {% for key1,val1 in data1.items %}
                   <tr>
                     <td>{{key1}}</td>
-                     <td>{{val1}}</td>
-                     <td>{{value.density2}}</td>
+                     <td>{{val1.freq1}}</td>
+                     <td>{{val1.density1}}</td>
                    {% endfor %}
                   
                   </tr>
@@ -142,8 +142,8 @@
                   {% for key2,val2 in data2.items %}
                   <tr>
                     <td>{{key2}}</td>
-                     <td>{{val2}}</td>
-                     <td>{{value.density3}}</td>
+                     <td>{{val2.freq2}}</td>
+                     <td>{{val2.density2}}</td>
                    {% endfor %}
                   
                   </tr>
