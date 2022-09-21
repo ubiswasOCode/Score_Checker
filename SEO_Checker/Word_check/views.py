@@ -19,7 +19,7 @@ def Word_Count(request):
     context['Total_word']=f"total word is {(Total_string)}"
     
     
-    string = word.lower();  
+    string = word.lower()
     #Split the string into words using built-in function  
     words = string.split(" ")
     for i in range(0, len(words)):  

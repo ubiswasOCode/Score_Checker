@@ -8,6 +8,8 @@ import requests
 
 from bs4 import BeautifulSoup
 
+
+
 def Score_checker(request):
     
     url=request.GET.get('url')
