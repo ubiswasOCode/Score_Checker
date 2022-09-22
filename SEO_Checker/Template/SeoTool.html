@@ -184,7 +184,7 @@
       <div class="container mt-4">
         <div class="row btn_con_back">
           <div class="col-md-2 btn_back border border-primary">
-            <span><button type="button" class="btn btn-success sucess">{{value.total_correct}}<br></button></span>
+            <span><button type="button"  class="btn btn-success sucess">{{value.total_correct}}<br></button></span>
             <p>Sucess</p>
           </div>
           <div class="col-md-2 btn_back border border-primary">
@@ -192,7 +192,7 @@
             <p>Error</p>
           </div>
           <div class="col-md-2 btn_back border border-primary">
-            <span><button type="button" class="btn btn-warning warningss">{{value.warn}}</button></span>
+            <span><button type="button" id="warningssssss" class="btn btn-warning warningss">{{value.warn}}</button></span>
             <p>Warning</p>
           </div>
           <!-- <div class="col-md-2 btn_back">
@@ -207,7 +207,7 @@
             <b>Warning:</b> <br><br>
                 {% for key, val in value.warning.items %}
             
-                <div class="alert alert-primary warn" role="alert" >
+                <div class="alert alert-primary warn" id="warningssssss" role="alert" >
                   {{key}} - {{val}}
                 </div>
                 {% endfor %}
