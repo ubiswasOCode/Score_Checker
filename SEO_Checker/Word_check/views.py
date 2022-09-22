@@ -12,14 +12,14 @@ def Word_Count(request):
     context = dict()
    
     #Calculate Total Word
-    context['word_length']=f"total Length is {len(main_word)}"
+    context['word_length']=f"{len(main_word)}"
     
     #Count Total String
     Total_string = main_word.count(" ")+1
-    context['Total_word']=f"total word is {(Total_string)}"
+    context['Total_word']=f"{(Total_string)}"
     
     
-    string = word.lower()
+    string = main_word.lower()
     #Split the string into words using built-in function  
     words = string.split(" ")
     for i in range(0, len(words)):  
@@ -43,11 +43,11 @@ def Word_Count(request):
     read_time=readtime.of_text(word)
     reading_time=read_time.seconds
     print(reading_time,"-------------seconds")
-    context['Reading_Time']=f"Word reading time {(reading_time)} Seconds "
+    context['Reading_Time']=f" {(reading_time)} "
 
     #Counting Heading or Not
-    line_count = 0
-    list_con=word.split()
+  
+    list_con=main_word.split()
     for line in list_con:
         if len(line)<=12:
             pass
@@ -55,9 +55,28 @@ def Word_Count(request):
     context["is_Heading"]=f"yes, it is a Heading"
     
     #check Longest Word
-    longest=max(word.split(), key=len)
+    longest=max(main_word.split(), key=len)
     print(longest,"----------------Longest Word")
    
+   
+    #Total Word With Space
+    print(len(main_word))
         
+    # or Without Space
+    without_space="".join(main_word.split())
+    print(len(without_space)) 
+
+
+    #Syllables Count
+    syllable_count=0
+    for w in main_word:
+        if(w=='a' or w=='e' or w=='i' or w=='o' or w=='u' or w=='A' or w=='E' or w=='I' or w=='O' or w=='U'):
+                syllable_count=syllable_count+1
+    print("The number of syllables in the word is: ")
+    print(syllable_count)
+    context["syllable"]=f"{(syllable_count)}"
+    
+    #
+  
     
     return render(request,"word_count.html",context)
