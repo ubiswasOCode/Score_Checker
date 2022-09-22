@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'broken_link',
     'meta',
     'density',
-    'fontawesomefree',
     'Word_check'
 ]
 
