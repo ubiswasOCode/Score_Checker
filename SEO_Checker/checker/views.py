@@ -267,7 +267,7 @@ def Score_checker(request):
 
 def Home(request):
     
-    return render(request, "Home.html")
+    return render(request, "Boot_head_foot.html")
 
 
 
