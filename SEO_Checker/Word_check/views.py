@@ -89,4 +89,4 @@ def Word_Count(request):
         print(len(number_of_sentences),"-----total sen")
         context["len_sen"]=f"{(len(number_of_sentences))}"
     
-    return render(request,"word_count.html",context)
+    return render(request,"inner_page.html",context)

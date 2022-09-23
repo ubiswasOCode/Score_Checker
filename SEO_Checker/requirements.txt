@@ -8,6 +8,7 @@ pyparsing==3.0.9
 tomli==2.0.1
 requests==2.22.0
 lxml==4.9.1
+nltk==3.7
 metadata-parser==0.10.5
 beautifulsoup4==4.11.1
 fontawesome-free==5.15.4

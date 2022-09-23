@@ -1,0 +1,342 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+    .form-control-dark {
+        border-color: var(--bs-gray);
+      }
+      .form-control-dark:focus {
+        border-color: #fff;
+        box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+      }
+      
+      .text-small {
+        font-size: 85%;
+      }
+      
+      .dropdown-toggle {
+        outline: 0;
+      }
+      .feature-icon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: .75rem;
+      }
+      
+      .icon-link > .bi {
+        margin-top: .125rem;
+        margin-left: .125rem;
+        fill: currentcolor;
+        transition: transform .25s ease-in-out;
+      }
+      .icon-link:hover > .bi {
+        transform: translate(.25rem);
+      }
+      
+      .icon-square {
+        width: 3rem;
+        height: 3rem;
+        border-radius: .75rem;
+      }
+      
+      .text-shadow-1 { text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .25); }
+      .text-shadow-2 { text-shadow: 0 .25rem .5rem rgba(0, 0, 0, .25); }
+      .text-shadow-3 { text-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .25); }
+      
+      .card-cover {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+      }
+      
+      .feature-icon-small {
+        width: 3rem;
+        height: 3rem;
+      }
+      .foot_back
+      {
+        background-color: rgba(0, 0, 0, 0.918);
+      }
+      .my-4 {
+        margin-bottom: 0 !important;
+      }
+      .content
+      {
+        height: 520px;
+      }
+      .STATISTICS
+      {
+          background-color: antiquewhite;
+          height: 250px;
+      }
+      .STATISTICS h5
+      {
+         margin-top: 20px;
+         text-align: center;
+      }
+      .STATISTICS p{
+          font-size: 15px;
+          text-align: center;
+      }
+      .read_time
+      {
+          background-color: antiquewhite;
+          height: 250px;
+      }
+      .read_time h5
+      {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .read_time p
+      {
+          font-size: 15px;
+          text-align: center;
+      }
+      textarea::placeholder {
+        font-size: 30px;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .list-group a {
+        background-image: linear-gradient(
+          to right,
+          #54b3d6,
+          #54b3d6 50%,
+          #000 50%
+        );
+        background-size: 200% 100%;
+        background-position: -100%;
+        display: inline-block;
+        padding: 5px 0;
+        position: relative;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.3s ease-in-out;
+      }
+      
+     .list-group a:before{
+        content: '';
+        background: #54b3d6;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.3s ease-in-out;
+      }
+      
+     .list-group a:hover {
+       background-position: 0;
+      }
+      
+      a:hover::before{
+        width: 100%;
+      }
+      .read_btn
+      {
+        font-size: 20px;
+       
+      }
+      .word_btn{
+        font-size: 20px;
+      }
+     
+     
+    </style>
+
+ <script src="https://kit.fontawesome.com/249b712e24.js" crossorigin="anonymous"></script>
+ 
+</head>
+<body>
+    <!-- Header -->
+    
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
+        <img src="{% static 'img/Doddle-1.png' %}" style="width:200px;height:40px" alt="logo">
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+        <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button>
+        <button type="button" class="btn btn-primary">Sign-up</button> -->
+        </div>
+    </header>
+
+     <!-- Herosssss -->
+     <div class="px-3 py-3 mt-3 text-center">
+      <h1 class="display-5 fw-bold">Word Counter</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">To use this Word Count Checker, please copy and paste your content into the box below, and then sit back and watch as Word Count Checker will run a real-time scan.</p>
+      </div>
+    </div>
+
+
+
+    <!-- Grid -->
+  <div class="container text-center">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-10">
+          <div class="container">
+            <form action='/Word_Count/' id="word" name="word" class="input_url1" method="POST">
+
+             {% csrf_token %}
+                <!-- <label for="" class="text_main">Enter Word </label> -->
+                <textarea rows="8" id="word" name="word" placeholder="Enter Text Here" style="width:100%"></textarea><br>
+            
+                <button type="submit" class="btn btn-primary mt-2 btn-center">Count Words</button>          
+        
+            </form>
+          </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    
+
+      
+      <div class="row mt-4 content">
+        <div class="col-3">
+          <div class="list-group">
+            <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+              The current link item
+            </a> -->
+          <a href="#STATISTICS"  class="list-group-item list-group-item-action  btn btn-outline-primary word_btn">WORDS STATISTICS</a>
+          <a href="#READING"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">READING TIME</a>
+         
+          
+        </div>
+          
+        </div>
+        <div class="col-6 STATISTICS " id="STATISTICS">
+          
+          <h5>BASIC WORDS COUNT STATISTICS</h5>
+                <hr>
+                <p>Total Words &nbsp &nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{Total_word}}</p>
+                <hr>
+                <p>Total Characters (With Space) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{word_length}}</p>
+                <hr>
+                <p>Total Characters (Without Space) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp {{withoutt_spc}}</p>
+                <hr>
+                <br>
+        
+                <div class="row read_time " id="READING">
+                  <h5>READING TIME</h5>
+                <hr>
+                <p>Estimated Reading Time  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{Total_word}}</p>
+                <hr>
+                <p>Estimated Speaking Time (With Space)   &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{word_length}}</p>
+                <hr>
+                  </div>
+
+        </div>
+
+        <div class="col-3">
+          <div class="alert alert-success" role="alert">
+            {{word_length}} &nbsp Characters
+          </div>
+          <div class="alert alert-primary" role="alert">
+            {{Total_word}} &nbsp Words
+          </div>
+          <div class="alert alert-danger" role="alert">
+            {{Reading_Time}} &nbsp Reading Time
+          </div>
+          <div class="alert alert-success" role="alert">
+            {{len_sen}} &nbsp Sentences
+          </div>
+          <div class="alert alert-danger" role="alert">
+            {{syllable}}&nbsp Syllable
+          </div>
+        </div>
+    </div>
+  </div>
+   
+
+<!-- Footer  -->
+
+    <footer class="py-3 my-4 foot_back">
+      <ul class="nav justify-content-center pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      </ul>
+      <p class="text-center text-muted">© 2022 Company, Inc</p>
+    </footer>
+
+</body>
+</html>
