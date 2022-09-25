@@ -25,7 +25,9 @@ urlpatterns = [
     path('',include('broken_link.urls')),
     path('',include('meta.urls')),
     path('',include('density.urls')),
-    path('',include('Word_check.urls'))
+    path('',include('Word_check.urls')),
+    path('',include('qrCode.urls')),
+    path('',include('ChangeCase.urls'))
 ]
 
 if settings.DEBUG:

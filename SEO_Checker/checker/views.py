@@ -263,7 +263,7 @@ def Score_checker(request):
                 "per":per}
 
      
-    return render(request,"SeoTool.html",{"context":context,"value":value})
+    return render(request,"SeoChecknew.html",{"context":context,"value":value})
 
 def Home(request):
     
