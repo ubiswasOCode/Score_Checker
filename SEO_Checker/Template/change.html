@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .button_back{
+            background-color:aquamarine ;
+            height: 150px;
+            
+            }
+            textarea::placeholder {
+                font-size: 30px;
+                text-align: center;
+                padding: 40px;
+              }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-8">
+                <form action='/ChangeCase/' id="word" name="word" class="input_url1" method="POST">
+                    {% csrf_token %}
+                
+                    <!-- <label for="" class="text_main">Enter Word </label> -->
+                    <textarea rows="9" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br>
+                
+                    <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
+            
+                </form>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- Button and Data-->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="list-group">
+                    <button type="button" class="btn btn-outline-primary">lower</button><br>
+                    <button type="button" class="btn btn-outline-primary">UPPER</button><br>
+                    <button type="button" class="btn btn-outline-primary">Capitalize</button>
+                 
+                  
+                </div>
+                 
+            </div>
+            <div class="col-md-8">
+                <textarea rows="9" id="passed" name="word"style="width:700px ;"  disabled="disabled"></textarea>
+                
+            </div>
+            <div class="col-md-2">
+                <div class="list-group">
+                    <button type="button" class="btn btn-outline-primary">tOGGLE cASE</button><br>
+                    <button type="button" class="btn btn-outline-primary">aLtErNaTe cAsE</button><br>
+                    <button type="button" class="btn btn-outline-primary">Sentense case</button>
+                 
+                  
+                </div>
+                 
+            </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
+
+<script>
+    var showValue = function(val){
+        document.getElementById('passed').value = parseInt(val);
+    }
+</script>
+</html>
