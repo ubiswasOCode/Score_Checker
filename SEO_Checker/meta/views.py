@@ -9,9 +9,9 @@ import metadata_parser
 # Create your views here.
 def Meta(request):
 
-    url= request.GET.get('url', None)
     context = dict()
-    if url:
+    if request.method == "POST":
+        url = request.POST.get('url')
         
 
         page=metadata_parser.MetadataParser(url)
@@ -114,4 +114,4 @@ def Meta(request):
 
 
    
-    return render(request,"metad.html",context)
+    return render(request,"NewMeta.html",context)

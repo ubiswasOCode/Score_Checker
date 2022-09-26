@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+         .input_url1
+    {
+        text-align: center;
+        margin-top: 50px;
+        border-radius: 30%;
+    }
+    input#url
+    {
+        height: 40px;
+    width: 350px;
+    border-radius: 8px;
+
+    }
+    input::placeholder {
+    font-size: 20px;
+    margin-left: 10px;
+    padding: 10px;
+    }
+    .content h1
+    {
+        text-align: center;
+    }
+    /* .content 
+    {
+        background-color: bisque;
+    } */
+    .content p
+    {
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+          <div class="col 2">
+    
+          </div>
+          <div class="col 8">
+              <form action='/Meta/' id="update" class="input_url1" method="POST">
+                  
+                {% csrf_token %}
+                      <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br>
+              
+                      <button type="submit" class="btn btn-primary">Submit</button>          
+              
+              </form>
+          </div>
+          <div class="col 2">
+    
+          </div>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <div class="container mt-4" >
+        <div class="row">
+          <div class="col-md-2 ">
+  
+          </div>
+          <div class="col-md-8 content ">
+              <h1>WEBSITE Meta Data </h1>
+              <p>If you want to check the SEO score for your site or your competitor’s. Enter the domain name or URL into the given field and click “Check SEO Score”.You will get the results in no time!</p>
+          </div>
+          <div class="col-md-2">
+  
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Data -->
+      <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md 6">
+                <table class="table">
+
+     
+                    <tbody>
+                        <tr>
+                            <th><label for="">Meta Title</label><br><br></th>
+                            
+                                 <td>   {{meta_title_msg}}<br>{{meta_title}}</td>
+                            </tr>
+                    
+                            <tr>
+                            <th><label for="">Meta Keyword</label><br><br></th>
+                            <td>{{meta_desc_msg}}<br>{{meta_desc}}</td>
+                            </tr>
+                    
+                            <tr>
+                            <th><label for="">Meta Description</label><br><br></th>
+                            <td> {{meta_key_msg}}<br>{{meta_key}}</td>
+                            </tr>
+                    
+                            <tr>
+                            <th><label for="">Meta Viewport</label><br><br></th>
+                            <td>{{meta_view_msg}}<br>{{meta_view}}</td>
+                            </tr>
+                    
+                            <tr>
+                            <th><label for="">Meta Robots</label><br><br></th>
+                            <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
+                            </tr>    
+                            
+                            <tr>
+                            <th><label for="">Open Graph</label><br><br></th>
+                            <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
+                            </tr> 
+            
+            
+                    </tbody>
+                  </table>
+
+            </div>
+            <div class="col-md-3">
+                
+            </div>
+        </div>
+      </div>
+
+    
+</body>
+{% endblock%}
+</html>

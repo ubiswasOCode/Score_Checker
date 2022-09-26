@@ -1,17 +1,8 @@
+
+{% extends 'base.html' %}
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-
+{% block head%}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     var chart_data = [
@@ -30,7 +21,7 @@
     var data = google.visualization.arrayToDataTable(cha_data);
     
     // Optional; add a title and set the width and height of the chart
-    var options = {'title':'SEO Score Checker', 'width':550, 'height':400};
+    var options = {'title':'SEO Score Checker', 'width':300, 'height':300};
     
     // Display the chart inside the <div> element with id="piechart"
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -38,108 +29,7 @@
     }
     </script>
 <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-    .form-control-dark {
-        border-color: var(--bs-gray);
-      }
-      .form-control-dark:focus {
-        border-color: #fff;
-        box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
-      }
-      
-      .text-small {
-        font-size: 85%;
-      }
-      
-      .dropdown-toggle {
-        outline: 0;
-      }
-      .feature-icon {
-        width: 4rem;
-        height: 4rem;
-        border-radius: .75rem;
-      }
-      
-      .icon-link > .bi {
-        margin-top: .125rem;
-        margin-left: .125rem;
-        fill: currentcolor;
-        transition: transform .25s ease-in-out;
-      }
-      .icon-link:hover > .bi {
-        transform: translate(.25rem);
-      }
-      
-      .icon-square {
-        width: 3rem;
-        height: 3rem;
-        border-radius: .75rem;
-      }
-      
-      .text-shadow-1 { text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .25); }
-      .text-shadow-2 { text-shadow: 0 .25rem .5rem rgba(0, 0, 0, .25); }
-      .text-shadow-3 { text-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .25); }
-      
-      .card-cover {
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-      }
-      
-      .feature-icon-small {
-        width: 3rem;
-        height: 3rem;
-      }
+  
       .foot_back
       {
         background-color: rgba(0, 0, 0, 0.918);
@@ -178,47 +68,22 @@
     {
         text-align: center;
     }
-    .content 
-    {
-        background-color: bisque;
-    }
+ 
     .content p
     {
         text-align: center;
     }
-    
+    .Percentage
+    {
+      position: absolute;
+      right: 0px;
+      margin-top: 350px;
+    }
     
 </style>
-
- <script src="https://kit.fontawesome.com/249b712e24.js" crossorigin="anonymous"></script>
- 
-</head>
-<body>
-    <!-- Header -->
-    
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
-            <img src="{% static '/img/Doddle-1.png' %}" style="width:200px;height:40px" alt="logo">
-          </a>
-    
-          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-          </ul>
-    
-          <div class="col-md-3 text-end">
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </header>
-   
-
+{% endblock %}
+<!--  -->
+{% block content %}
 <!-- Input Form -->
   <div class="container">
     <div class="row">
@@ -242,7 +107,7 @@
   </div>
 
      <!-- All Data -->
-    <div class="container mt-4" style="background-color:yellow ;">
+    <div class="container mt-4" >
       <div class="row">
         <div class="col-md-2 ">
 
@@ -258,15 +123,102 @@
     </div>
 
     <!-- Chart or Content -->
-    <div class="container-fluid mt-2" style="background-color: rgb(15, 119, 167);">
+    <div class="container-fluid mt-4" >
         <div class="row">
-          <div class="col-md-2">
-            ad
+          <div class="col-md-3">
+              <div class="list-group">
+                <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                  The current link item
+                </a> -->
+                  <a href="#Common SEO Issue"  class="list-group-item list-group-item-action  btn btn-outline-primary word_btn">Common SEO Issue</a>
+                  <a href="#Speed Optimizations"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">Speed Optimizations</a>
+                  <a href="#Speed Optimizations"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">Server and Security</a>
+                  <a href="#Speed Optimizations"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">Mobile Usability</a>
+                  <a href="#Speed Optimizations"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">Advance SEO</a>
+              
+              </div>
           </div>
-          <div class="col-md-4">
-sdsds
+          <div class="col-md-6">
+            <table class="table border">
+
+      
+              <tbody>
+                  <tr>
+                      <th><label for="">Meta Title</label><br><br></th>
+                      
+                          <td> {{context.meta_title_msg}}<br>{{context.title_tag}}</td>
+                      </tr>
+              
+                      <tr>
+                      <th><label for="">Meta Keyword</label><br><br></th>
+                      <td>{{context.meta_keyword_msg}}<br>{{context.keyword}}</td>
+                      </tr>
+              
+                      <tr>
+                      <th><label for="">Meta Description</label><br><br></th>
+                      <td> {{context.meta_desc_msg}}<br>{{context.desc}}</td>
+                      </tr>
+              
+                      <tr>
+                      <th><label for="">Heading 1</label><br><br></th>
+                      <td>{{context.meta_h1_msg}}<br>{{context.heading_tags}}
+                      <br>
+                      {% for text in context.heading1_text %}
+                      {{text}} <br>
+                      {% endfor  %}</td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Heading 2</label><br><br></th>
+                          <td>{{context.meta_h2_msg}}<br>{{context.heading2_tags}}<br>
+                              {% for text in context.heading2_text %}
+                              {{text}} <br>
+                              {% endfor  %}</td></td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Heading 3</label><br><br></th>
+                          <td>{{context.meta_h3_msg}}<br>{{context.convert_split1}}<br>
+                              {% for text in context.heading3_text %}
+                              {{text}} <br>
+                              {% endfor  %}</td></td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Images</label><br><br></th>
+                          <td>{{context.img_msg}}<br>{{context.images}}</td>
+                      </tr>
+    
+    
+                      <tr>
+                          <th><label for="">Style Tag</label><br><br></th>
+                          <td>{{context.style_msg}}<br>{{context.style_tags}}</td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Anchar Tag</label><br><br></th>
+                          <td>{{context.anc_msg}}<br>{{context.anc}}</td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Robot.txt</label><br><br></th>
+                          <td>{{context.rob_mess}}{{context.rob}}</td>
+                      </tr>
+    
+                      <tr>
+                          <th><label for="">Sitemap.Xml</label><br><br></th>
+                          <td>{{context.site_mess}}{{context.site}}</td>
+                      </tr>
+    
+    
+    
+    
+              </tbody>
+            </table>
           </div>
-          <div id="piechart" class="col-md-6">
+          
+          <div id="piechart" class="col-md-3">
+
             <script>
             
               chart_data = [
@@ -278,25 +230,12 @@ sdsds
               google.charts.setOnLoadCallback(drawChart);
 
             </script>
+           
+         
+          </div>
+          <div class="row Percentage">
             <h4>Total Percentage is={{value.per}}</h4>
           </div>
         </div>
     </div>
-    
- 
-
-<!-- Footer  -->
-
-    <footer class="py-3 my-4  foot_back">
-      <ul class="nav justify-content-center pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-      </ul>
-      <p class="text-center text-muted">© 2022 OCode Technologies </p>
-    </footer>
-
-</body>
-</html>
+{% endblock %}

@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 
     <style>
         .button_back{
@@ -19,16 +13,91 @@
                 text-align: center;
                 padding: 40px;
               }
+            
+            .text_align h1{
+            text-align: center;
+            }
+            .text_align p{
+            text-align: center;
+            }
     </style>
-</head>
-<body>
+    <script>
+        // Upper To Lower
+        function lower_Case(){
+         let text = document.getElementById("word").value;
+         document.getElementById("passed").value = text.toLowerCase();
+        }
+
+        // Lower To Upper
+        function upper_case()
+        {
+            let upr=document.getElementById("word").value;
+            document.getElementById("passed").value=upr.toUpperCase();
+        }
+
+        // Capital Each Word
+        function capital()
+        {
+            // let capitall=document.getElementById("word").value;
+            // alert(capitall)
+            // const passed =capitall.charAt(0).toUpperCase()+ capitall.slice(1)
+
+            // document.getElementById("passed").value = capitall[0].toUpperCase() + capitall.substring(1);
+            const text = document.getElementById("word").value;
+            const capitall= text.split(" ");
+           let new_text = ""
+            for (let i = 0; i < capitall.length; i++)
+             {
+                new_text = new_text + " " +capitall[i][0].toUpperCase() + capitall[i].substr(1);
+            }
+        
+            alert(new_text)
+            document.getElementById("passed").value = new_text
+        
+        }
+
+
+        // // Toggle Case Word
+        const text = document.getElementById("word").value;
+        const toggleCase = (text) => {
+        const newText = toggleCase
+            .toUpperCase()
+            .split(" ")
+            .map(function(word) {
+            return word.charAt(0).toLowerCase() + word.slice(1);
+            })
+            .join(" ");
+        
+        return newText;
+        };
+        // function toggleCase()
+        // const text = document.getElementById("word").value;
+        // let str = text.split(" ");
+        // toggleCase(str);
+        // document.write((str).join(""));
+        // {
+        // for (let i = 0; i < str.length; i++)
+        // {
+        //     if (str[i] >= 'A' && str[i] <= 'Z')
+        //         str[i] =  String.fromCharCode(str[i].charCodeAt(0) + 'a'.charCodeAt(0) - 'A'.charCodeAt(0));
+        //     else if (str[i] >= 'a' && str[i] <= 'z')
+        //         str[i] =  String.fromCharCode(str[i].charCodeAt(0) + 'A'.charCodeAt(0) - 'a'.charCodeAt(0));
+        // }
+        // }
+ 
+       
+     
+
+
+     </script>
+
     <div class="container">
         <div class="row">
             <div class="col-md-2">
 
             </div>
             <div class="col-md-8">
-                <form action='/ChangeCase/' id="word" name="word" class="input_url1" method="POST">
+                <form action='/ChangeCase/' name="word" class="input_url1" method="POST">
                     {% csrf_token %}
                 
                     <!-- <label for="" class="text_main">Enter Word </label> -->
@@ -45,14 +114,34 @@
     
     </div>
 
+    <!-- Heros Section -->
+
+    <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-2">
+
+          </div>
+          <div class="col-md-8 text_align">
+            <h1>CHANGE TEXT CASE</h1>
+            <p>Change Text Case is a handy web application that enables you to change the text case of any given text. Simply copy and paste the text into the text area below and click the required text case.</p>
+          </div>
+          <div class="col-md-2  ">
+          
+          </div>
+
+        </div>
+
+    </div>
+
+
     <!-- Button and Data-->
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-2">
                 <div class="list-group">
-                    <button type="button" class="btn btn-outline-primary">lower</button><br>
-                    <button type="button" class="btn btn-outline-primary">UPPER</button><br>
-                    <button type="button" class="btn btn-outline-primary">Capitalize</button>
+                    <button type="button" onclick="lower_Case()" class="btn btn-outline-primary">lower</button><br>
+                    <button type="button" onclick="upper_case()" class="btn btn-outline-primary">UPPER</button><br>
+                    <button type="button" onclick="capital()" class="btn btn-outline-primary">Capitalize</button>
                  
                   
                 </div>
@@ -64,7 +153,7 @@
             </div>
             <div class="col-md-2">
                 <div class="list-group">
-                    <button type="button" class="btn btn-outline-primary">tOGGLE cASE</button><br>
+                    <button type="button" onclick="toggleCase()" class="btn btn-outline-primary">tOGGLE cASE</button><br>
                     <button type="button" class="btn btn-outline-primary">aLtErNaTe cAsE</button><br>
                     <button type="button" class="btn btn-outline-primary">Sentense case</button>
                  
@@ -75,12 +164,7 @@
         </div>
     </div>
 
-</body>
+
 {% endblock %}
 
-<script>
-    var showValue = function(val){
-        document.getElementById('passed').value = parseInt(val);
-    }
-</script>
-</html>
+
