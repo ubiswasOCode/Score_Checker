@@ -27,7 +27,8 @@ urlpatterns = [
     path('',include('density.urls')),
     path('',include('Word_check.urls')),
     path('',include('qrCode.urls')),
-    path('',include('ChangeCase.urls'))
+    path('',include('ChangeCase.urls')),
+    path('',include('TexttoVoice.urls'))
 ]
 
 if settings.DEBUG:

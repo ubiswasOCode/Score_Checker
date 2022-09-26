@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .button_back{
+        background-color:aquamarine ;
+        height: 150px;
+        
+        }
+        textarea::placeholder {
+            font-size: 30px;
+            text-align: center;
+            padding: 40px;
+          }
+
+</style>
+
+<!-- Input Box -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+            <form action='/ChangeCase/' name="word" class="input_url1" method="POST">
+                {% csrf_token %}
+            
+                <!-- <label for="" class="text_main">Enter Word </label> -->
+                <textarea rows="9" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br>
+            
+                <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
+        
+            </form>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
