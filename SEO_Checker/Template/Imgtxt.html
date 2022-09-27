@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+        <!-- <!-- <link href="{% static 'css/form.css' %}" rel="stylesheet" type="text/css"> -->
+        <script src="{% static 'js/form.js' %}"></script> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" > 
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
+        <style>
+            .text h1
+            {
+                text-align: center;
+            }
+            .text p
+            {
+                text-align: center;
+            }
+            .form-control
+            {
+                width: 100%;
+                height: 300px;
+            }
+            input#image {
+                /* text-align: center; */
+                font-size: 15px;
+                padding: 135px;
+            }
+            button.button-primary {
+                float: left;
+                margin-left: 170px;
+            }
+            .output h2{
+                text-align: center;
+            }
+            .output p{
+                text-align: center;
+            }
+        </style>
+
+        {% csrf_token %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-8 text">
+                    <h1>IMAGE TO TEXT</h1>
+                    <p>We present an online OCR (Optical Character Recognition) service to extract text from image. Upload photo to our image to text converter, click on convert and get your text file instantly.</p>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-6 area">
+                    <form method="POST" enctype=multipart/form-data>
+                        {% csrf_token %}
+                        <label> Image Upload:</label>
+                        <input type="file" class="form-control" id="image" name="image" onchange="previewFile()" />
+                        <button class="button-primary" onclick="show()" id="btnID" type="submit" >Upload</button>
+                    </form>
+                </div>
+                <!-- <div class="col-md-6 area">
+                  
+                </div> -->
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-6 output mt-4">
+                    <!-- <p style="color: red;">{{message}}</p> -->
+                    <img src="" id="preview" alt="uploaded_img">
+                    <h2>
+                        Text Found on Your Image 
+                    </h2>
+                    
+                    <label><p>Ocred Text:</p></label>
+                   
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-6">
+                    <textarea rows="9" id="passed" name="word"style="width:100% ;height: 300px;"  disabled="disabled" contenteditable>{{text}}</textarea>
+                    <!-- <span class="textarea" role="textbox" style="width:700px ;" contenteditable>{{text}}</span>  -->
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+    
+<!-- 
+        <div class="form-container">
+            <p style="color: red;">{{message}}</p>
+            <h1>
+                Ocr an Image and Summarize Using Gensim
+            </h1>
+            
+            <label><h2>Ocred Text:</h2></label>
+            <span class="textarea" role="textbox" contenteditable>{{text}}</span> -->
+
+            <!-- <label><h2>Summarized Text:</h2></label>
+            <span class="textarea" role="textbox" contenteditable>{{summarized_text}}</span> -->
+
+        <!-- </div> -->
+        <script>
+            var fileTag = document.getElementById("image");
+            var preview = document.getElementById("preview");
+                
+            fileTag.addEventListener("change", function() {
+            changeImage(this);
+            });
+
+            function changeImage(input) {
+            var reader;
+
+            if (input.files && input.files[0]) {
+                reader = new FileReader();
+
+                reader.onload = function(e) {
+                preview.setAttribute('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+            }
+
+        </script>
+
+{% endblock %}

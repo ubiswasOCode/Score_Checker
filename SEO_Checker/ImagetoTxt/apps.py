@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TexttovoiceConfig(AppConfig):
+class ImagetotxtConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'TexttoVoice'
+    name = 'ImagetoTxt'

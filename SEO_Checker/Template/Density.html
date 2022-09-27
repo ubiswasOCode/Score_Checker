@@ -28,7 +28,7 @@
         height: 40px;
     width: 350px;
     border-radius: 8px;
-
+    padding: 10px;
     }
     input::placeholder {
     font-size: 20px;
@@ -48,7 +48,7 @@
         <form action='/density/' id="update" class="input_url" method="POST">
             {% csrf_token %}
         
-            <label for="">Enter Url </label>
+            <!-- <label for="">Enter Url </label> -->
                 <input type="text" name="url" id=url placeholder="enter url"><br><br>
         
                 <button type="submit" class="btn btn-primary">Submit</button>     

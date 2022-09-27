@@ -1,7 +1,7 @@
 from django.urls import path,include
-from TexttoVoice import views
+from ImagetoTxt import views
 urlpatterns = [
-    path('TexttoVoice/', views.TexttoVoice,name="TexttoVoice"),
+    path('ImgtoTxt/', views.ImgtoTxt,name="ImgtoTxt"),
     #  path('', views.Home,name="Home"),
     # path('Scra',views.Scraping,name='Scraping'),
 ]
