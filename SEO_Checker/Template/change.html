@@ -11,7 +11,7 @@
             textarea::placeholder {
                 font-size: 30px;
                 text-align: center;
-                padding: 40px;
+                padding: 20px;
               }
             
             .text_align h1{
@@ -51,7 +51,7 @@
                 new_text = new_text + " " +capitall[i][0].toUpperCase() + capitall[i].substr(1);
             }
         
-            alert(new_text)
+            // alert(new_text)
             document.getElementById("passed").value = new_text
         
         }
@@ -92,30 +92,7 @@
 
      </script>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-8">
-                <form action='/ChangeCase/' name="word" class="input_url1" method="POST">
-                    {% csrf_token %}
-                
-                    <!-- <label for="" class="text_main">Enter Word </label> -->
-                    <textarea rows="9" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br>
-                
-                    <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
-            
-                </form>
-            </div>
-            <div class="col-md-2">
-
-            </div>
-        </div>
-    
-    </div>
-
-    <!-- Heros Section -->
+      <!-- Heros Section -->
 
     <div class="container mt-4">
         <div class="row">
@@ -133,6 +110,32 @@
         </div>
 
     </div>
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-8">
+                <form action='/ChangeCase/' name="word" class="input_url1" method="POST">
+                    {% csrf_token %}
+                
+                    <!-- <label for="" class="text_main">Enter Word </label> -->
+                    <textarea rows="4" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br>
+                
+                    <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
+            
+                </form>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+        </div>
+    
+    </div>
+
+   
 
 
     <!-- Button and Data-->

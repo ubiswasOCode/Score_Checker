@@ -28,6 +28,12 @@
     chart.draw(data, options);
     }
     </script>
+    <script>
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    </script>
 <style>
   
       .foot_back
@@ -44,22 +50,29 @@
     }
     .input_url1
     {
-        text-align: center;
+        /* text-align: c; */
         margin-top: 50px;
         border-radius: 30%;
     }
     input#url
     {
         height: 40px;
-    width: 350px;
+    width: 460px;
     border-radius: 8px;
     padding: 10px;
+    position: absolute;
     }
     input::placeholder {
     font-size: 20px;
     margin-left: 10px;
     padding: 10px;
     }
+    .btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    float: right;
+    position: relative;
+  
+}
     label 
     {
         margin-right: 10px;
@@ -79,54 +92,106 @@
       right: 0px;
       margin-top: 350px;
     }
-    
+
+    /* .table.table thead th {
+    padding:0;
+    } */
+    table.table tbody td {
+    padding:0;
+}
+.listitm
+{
+  text-align: center;
+}
+/* .list-group a {
+        background-image: linear-gradient(
+          to right,
+          #54b3d6,
+          #54b3d6 50%,
+          #000 50%
+        );
+        background-size: 200% 100%;
+        background-position: -100%;
+        display: inline-block;
+        padding: 5px 0;
+        position: relative;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.3s ease-in-out;
+      }
+      
+     .list-group a:before{
+        content: '';
+        background: #54b3d6;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.3s ease-in-out;
+      }
+      
+     .list-group a:hover {
+       background-position: 0;
+      }
+      
+      a:hover::before{
+        width: 100%;
+        
+      } */
+
 </style>
 {% endblock %}
 <!--  -->
 {% block content %}
+
+ <!-- All Data -->
+<div class="container mt-4" >
+  <div class="row">
+    <div class="col-md-2 ">
+
+    </div>
+    <div class="col-md-8 content  " >
+        <h1>WEBSITE SEO SCORE CHECKER</h1>
+        <p>If you want to check the SEO score for your site or your competitor’s. Enter the domain name or URL into the given field and click “Check SEO Score”.You will get the results in no time!</p>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+  </div>
+</div>
+
+
+
 <!-- Input Form -->
-  <div class="container">
+  <div class="container "  >
     <div class="row">
-      <div class="col 2">
+      <div class="col-md-3">
 
       </div>
-      <div class="col 8">
-          <form action='/score_checker/' id="update" class="input_url1" method="GET">
-              
-              
-                  <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br>
-          
-                  <button type="submit" class="btn btn-primary">Submit</button>          
+      <div class="col-md-6">
+          <form action='/score_checker/' id="update" class="input_url1" method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+                  <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                  <!-- <button type="submit" class="btn btn-primary">Submit</button>           -->
           
           </form>
       </div>
-      <div class="col 2">
+      <div class="col-md-3">
 
       </div>
     </div>
   </div>
 
-     <!-- All Data -->
-    <div class="container mt-4" >
-      <div class="row">
-        <div class="col-md-2 ">
-
-        </div>
-        <div class="col-md-8 content ">
-            <h1>WEBSITE SEO SCORE CHECKER</h1>
-            <p>If you want to check the SEO score for your site or your competitor’s. Enter the domain name or URL into the given field and click “Check SEO Score”.You will get the results in no time!</p>
-        </div>
-        <div class="col-md-2">
-
-        </div>
-      </div>
-    </div>
-
+    
     <!-- Chart or Content -->
-    <div class="container-fluid mt-4" >
+    <div class="container mt-5"  >
         <div class="row">
           <div class="col-md-3">
-              <div class="list-group">
+              <div class="list-group listitm">
                 <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                   The current link item
                 </a> -->
@@ -144,23 +209,24 @@
       
               <tbody>
                   <tr>
-                      <th><label for="">Meta Title</label><br><br></th>
+                      <th><label for="">Meta Title</label></th>
                       
                           <td> {{context.meta_title_msg}}<br>{{context.title_tag}}</td>
                       </tr>
               
                       <tr>
-                      <th><label for="">Meta Keyword</label><br><br></th>
-                      <td>{{context.meta_keyword_msg}}<br>{{context.keyword}}</td>
+                      <th><label for="">Meta Keyword</label></th>
+                      <td>{{context.meta_keyword_msg}}<br>{{context.keyword}}
+                        </td>
                       </tr>
               
                       <tr>
-                      <th><label for="">Meta Description</label><br><br></th>
+                      <th><label for="">Meta Description</label></th>
                       <td> {{context.meta_desc_msg}}<br>{{context.desc}}</td>
                       </tr>
               
                       <tr>
-                      <th><label for="">Heading 1</label><br><br></th>
+                      <th><label for="">Heading 1</label></th>
                       <td>{{context.meta_h1_msg}}<br>{{context.heading_tags}}
                       <br>
                       {% for text in context.heading1_text %}
@@ -169,7 +235,7 @@
                       </tr>
     
                       <tr>
-                          <th><label for="">Heading 2</label><br><br></th>
+                          <th><label for="">Heading 2</label></th>
                           <td>{{context.meta_h2_msg}}<br>{{context.heading2_tags}}<br>
                               {% for text in context.heading2_text %}
                               {{text}} <br>
@@ -177,7 +243,7 @@
                       </tr>
     
                       <tr>
-                          <th><label for="">Heading 3</label><br><br></th>
+                          <th><label for="">Heading 3</label></th>
                           <td>{{context.meta_h3_msg}}<br>{{context.convert_split1}}<br>
                               {% for text in context.heading3_text %}
                               {{text}} <br>
@@ -185,28 +251,28 @@
                       </tr>
     
                       <tr>
-                          <th><label for="">Images</label><br><br></th>
+                          <th><label for="">Images</label></th>
                           <td>{{context.img_msg}}<br>{{context.images}}</td>
                       </tr>
     
     
                       <tr>
-                          <th><label for="">Style Tag</label><br><br></th>
+                          <th><label for="">Style Tag</label></th>
                           <td>{{context.style_msg}}<br>{{context.style_tags}}</td>
                       </tr>
     
                       <tr>
-                          <th><label for="">Anchar Tag</label><br><br></th>
+                          <th><label for="">Anchar Tag</label></th>
                           <td>{{context.anc_msg}}<br>{{context.anc}}</td>
                       </tr>
     
                       <tr>
-                          <th><label for="">Robot.txt</label><br><br></th>
+                          <th><label for="">Robot.txt</label></th>
                           <td>{{context.rob_mess}}{{context.rob}}</td>
                       </tr>
     
                       <tr>
-                          <th><label for="">Sitemap.Xml</label><br><br></th>
+                          <th><label for="">Sitemap.Xml</label></th>
                           <td>{{context.site_mess}}{{context.site}}</td>
                       </tr>
     
@@ -215,6 +281,9 @@
     
               </tbody>
             </table>
+            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip">
+              <use xlink:href="#check-circle-fill"/>
+            </svg>
           </div>
           
           <div id="piechart" class="col-md-3">
@@ -233,9 +302,9 @@
            
          
           </div>
-          <div class="row Percentage">
+          <!-- <div class="row Percentage">
             <h4>Total Percentage is={{value.per}}</h4>
-          </div>
+          </div> -->
         </div>
     </div>
 {% endblock %}

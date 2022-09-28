@@ -28,7 +28,8 @@ urlpatterns = [
     path('',include('Word_check.urls')),
     path('',include('qrCode.urls')),
     path('',include('ChangeCase.urls')),
-    path('',include('ImagetoTxt.urls'))
+    path('',include('ImagetoTxt.urls')),
+    path('',include('PdftoWord.urls')),
 ]
 
 if settings.DEBUG:

@@ -2,18 +2,38 @@
 {% load static %}
 {% block content %}
 <style>
+      .input_url1
+    {
+        /* text-align: c; */
+        margin-top: 50px;
+        border-radius: 30%;
+    }
+    input#url
+    {
+        height: 40px;
+    width: 420px;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    }
+    input::placeholder {
+    font-size: 20px;
+    margin-left: 10px;
+    padding: 10px;
+    }
+    .btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    float: right;
+    position: relative;
+  
+}
   .code h1{
     text-align: center;
   }
   .code p{
     text-align: center;
   }
-  input#url {
-    width: 100%;
-    height: 40px;
-    padding: 15px;
-    border-radius: 10px;
-}
+
 .qrcode img{
   margin-left: 200px;
 }
@@ -41,20 +61,23 @@
     <!-- Input Form -->
   <div class="container mt-4">
     <div class="row">
-      <div class="col 3">
+      <div class="col-md-3">
 
       </div>
-      <div class="col 6">
+      <div class="col-md-6">
           <form action='/QRCode/' id="update" class="input_url1" method="POST">
               
             {% csrf_token %}
-                  <input type="text" name="url" id=url placeholder="enter url and word" style="margin-right:10px ;"><br><br>
+                  <!-- <input type="text" name="url" id=url placeholder="enter url and word" style="margin-right:10px ;"><br><br>
           
-                  <button type="submit" class="btn btn-primary">Submit</button>          
-          
+                  <button type="submit" class="btn btn-primary">Submit</button>           -->
+                  <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url and Word">
+                  <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
+                  <button class="btn btn-outline-success" type="submit">Generate QR</button>
+                     
           </form>
       </div>
-      <div class="col 3">
+      <div class="col-md-3">
 
       </div>
     </div>

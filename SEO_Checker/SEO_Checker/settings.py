@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     # 'fontawesomefree',
     'density',
     'Word_check',
-    'ImagetoTxt'
+    'ImagetoTxt',
+    'PdftoWord'
+
 
 ]
 
