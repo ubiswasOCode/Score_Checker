@@ -1,14 +1,7 @@
-from operator import le
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
-# Create your views here.
 import metadata_parser
 import requests
-
 from bs4 import BeautifulSoup
-
-
 
 def Score_checker(request):
     error={}
@@ -23,65 +16,100 @@ def Score_checker(request):
 
             page=metadata_parser.MetadataParser(url)
             # print(page.metadata)
-
+            #   ------------ MEta Title ----------------------------
+            meta_title = {"alert":"", "alert_msg":"", "data": ""}
             title_tag=page.get_metadata('title')
-            print("Congratulations your webpage is using a title tag.")
-
             if title_tag is None:
+                meta_title["alert"] =  "danger"
+                meta_title["alert_msg"]  = "Titile is Missing" 
+
                 error['title']="titile is Missing"
                 context["meta_title_msg"] = "titile is Missing" 
             # print(error)
             elif len(title_tag)>=30  and len(title_tag)<=350:
+                meta_title["alert"] =  "warning"
+                meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
+                meta_title["data"] = title_tag
+
                 warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
                 context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
             else:
-                print(f"Congratulations your webpage is using a title tag.")
+                meta_title["alert"] =  "success"
+                meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+                meta_title["data"] = title_tag
+
                 context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
             # print(page.get_metadata('title'))
             # print(title_tag)
-            context["title_tag"] = title_tag
-            print()
+            context["meta_title"] = meta_title
 
 
+
+            #   ------------ MEta Desc. ----------------------------
+            meta_desc={"alert":"", "alert_msg":"", "data": ""}
             desc=page.get_metadata("description")
+
             if desc is None:
+                meta_desc["alert"] =  "danger"
+                meta_desc["alert_msg"]  = "description is Missing" 
+
                 error['description'] = "description is Missing"
                 context["meta_desc_msg"] = "description is Missing" 
             elif len(desc) >= 160 :
+                meta_desc["alert"] =  "warning"
+                meta_desc["alert_msg"]  = f"description should be Greater than 160 characters {len(desc)}  characters"
+                meta_desc["data"] = desc
+
+
                 # print(f"description should be Greater than 160 characters {len(desc)}  characters")
                 warning['description'] =f"description should be Greater than 160 characters {len(desc)}  characters"
                 context["meta_desc_msg"] = f"description should be Greater than 160 characters {len(desc)}  characters"
             else:
-                print( f"Congratulations your webpage is using a limited description tag.")
+                meta_desc["alert"] =  "success"
+                meta_desc["alert_msg"]  =f"Congratulations your webpage is using a limited description tag."
+                meta_desc["data"] = desc
+                
                 context["meta_desc_msg"] = f"Congratulations your webpage is using a limited description tag."
                 
-            print(page.get_metadata('description'))
-            context["desc"] = desc
-            print()
-            print()
+            
+            context["meta_desc"] = meta_desc
+          
 
 
+
+            # ###--------------------Meta Keywords-------------------------------
+            meta_key={"alert":"", "alert_msg":"", "data": ""}
             keyword=page.get_metadata("keywords")
             if keyword is None:
+                meta_key["alert"] =  "danger"
+                meta_key["alert_msg"]  = "keyword is Missing" 
+
                 error['keyword'] = "keyword is Missing"
                 context["meta_keyword_msg"]="keyword is Missing"
             elif len(keyword) >= 10:
+                meta_key["alert"] =  "warning"
+                meta_key["alert_msg"]  =f"Keyword should be Greater than 10 characters {len(desc)}  characters"
+                meta_key["data"] = keyword
+
                 warning['Keyword'] =f"Keyword should be Greater than 10 characters {len(desc)}  characters"
                 context["meta_keyword_msg"]=f"Keyword should be Greater than 10 characters {len(desc)}  characters"
             else:
-                print(f"Keyword is Less than 10 keywords")
-                context["meta_keyword_msg"]=f"Keyword is Less than 10 keywords"
-            print(page.get_metadata("keywords"))
-            context["keyword"] = keyword
-            print()
-            print()
-            
+                meta_key["alert"] =  "success"
+                meta_key["alert_msg"]  =f"Keyword is Less than 10 keywords"
+                meta_key["data"] = keyword
 
+                context["meta_keyword_msg"]=f"Keyword is Less than 10 keywords"
+          
+            context["meta_key"] = meta_key
+          
+
+            # ----------------------Heading H1----------------------------
             page_urls = requests.get(url)
             Soup = BeautifulSoup(page_urls.text, 'lxml')
             # creating a list of all common heading tags
             heading_tags = ["h1"]
             heading1_text = []
+            meta_h1={"alert":"", "alert_msg":"", "data": ""}
             h1_tags = Soup.find_all(heading_tags)
             for tags in Soup.find_all(heading_tags):
                 print(tags.name + ' -> ' + tags.text.strip())
@@ -90,20 +118,34 @@ def Score_checker(request):
                 heading1_text.append(tags.text.strip())
                 # print(li1)
             if len(h1_tags) is None:
+                meta_h1["alert"] =  "danger"
+                meta_h1["alert_msg"]  = f"h1 is Missing"
+
                 error['h1'] = "h1 is Missing"
                 context["meta_h1_msg"]=f"h1 is Missing"
             elif len(h1_tags) >=2:
-                warning['h1'] = "h1 is huge"
+                meta_h1["alert"] =  "warning"
+                meta_h1["alert_msg"]  =f"Your page contains headings two or more heading tag"
+                meta_h1["data"] = h1_tags
+
+
+                warning['h1'] =f"Your page contains headings two or more heading tag"
                 context["meta_h1_msg"]=f"Your page contains headings two or more heading tag"
+            
             else:
-                print(f"it h1 is Best")
+                meta_h1["alert"] =  "success"
+                meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h1["data"] = h1_tags
+
+               
                 context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
 
             # context["heading_tags"] = heading_tags
-                context["heading1_text"] = heading1_text
+            context["meta_h1"] = meta_h1
             
             # #
-            # ##H2 Tags
+
+            # ##---------------------H2 Tags--------------------------
             heading2_tags = ["h2"]
             heading2_text = []
             h2_tags = Soup.find_all(heading_tags)
@@ -252,10 +294,6 @@ def Score_checker(request):
             percent=(temp/case)*100
             per=round(percent)
             
-
-            new_output = list(context.values())
-            print(" all values in dictionary are:",new_output,"-----------------------new")
-            
             value={ 
                     "error":error,
                     "warning":warning,
@@ -263,8 +301,7 @@ def Score_checker(request):
                     "warn":warn,
                     "total_correct":total_correct,
                     "per":per}
-                    
-            print(value['warning'])
+
 
         
     return render(request,"SeoChecknew.html",{"context":context,"value":value})

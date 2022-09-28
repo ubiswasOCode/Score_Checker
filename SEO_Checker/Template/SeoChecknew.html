@@ -90,6 +90,7 @@
     {
       position: absolute;
       right: 0px;
+    
       margin-top: 350px;
     }
 
@@ -98,11 +99,15 @@
     } */
     table.table tbody td {
     padding:0;
-}
-.listitm
-{
-  text-align: center;
-}
+    }
+    .listitm
+    {
+      text-align: center;
+    }
+    .percent h4{
+      margin-top: 400px;
+      position: relative;
+    }
 /* .list-group a {
         background-image: linear-gradient(
           to right,
@@ -211,27 +216,62 @@
                   <tr>
                       <th><label for="">Meta Title</label></th>
                       
-                          <td> {{context.meta_title_msg}}<br>{{context.title_tag}}</td>
+                          <td> {{context.meta_title.data}}
+                          {% if context.meta_title.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.meta_title.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.meta_title.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}
+
+                        </td>
                       </tr>
               
                       <tr>
                       <th><label for="">Meta Keyword</label></th>
-                      <td>{{context.meta_keyword_msg}}<br>{{context.keyword}}
+                      <td>{{context.meta_key.data}}
+                        {% if context.meta_key.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.meta_key.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.meta_key.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}
                         </td>
                       </tr>
               
                       <tr>
                       <th><label for="">Meta Description</label></th>
-                      <td> {{context.meta_desc_msg}}<br>{{context.desc}}</td>
+
+                      <td> {{context.meta_desc.data}}
+                        {% if context.meta_desc.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.meta_desc.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.meta_desc.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}
+                      </td>
                       </tr>
               
                       <tr>
+
+                        
                       <th><label for="">Heading 1</label></th>
-                      <td>{{context.meta_h1_msg}}<br>{{context.heading_tags}}
-                      <br>
-                      {% for text in context.heading1_text %}
+
+                      <td>{{context.h1_tags.data}}
+                        {% if context.h1_tags.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.h1_tags.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.h1_tags.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}
+                          
+                      {% for text in context.h1_tags.data %}
                       {{text}} <br>
-                      {% endfor  %}</td>
+                      {% endfor  %}</td>  
                       </tr>
     
                       <tr>
@@ -281,12 +321,10 @@
     
               </tbody>
             </table>
-            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip">
-              <use xlink:href="#check-circle-fill"/>
-            </svg>
+            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
           </div>
-          
-          <div id="piechart" class="col-md-3">
+          <svg class="bi flex-shrink-0 me-2 warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div id="piechart" class="col-md-3 percent">
 
             <script>
             
@@ -299,12 +337,15 @@
               google.charts.setOnLoadCallback(drawChart);
 
             </script>
-           
+              <div class="row">
+                <h4>Total Percentage is={{value.per}}</h4>
+              </div>
+         
          
           </div>
-          <!-- <div class="row Percentage">
-            <h4>Total Percentage is={{value.per}}</h4>
-          </div> -->
+          
+           
+        
         </div>
     </div>
 {% endblock %}
