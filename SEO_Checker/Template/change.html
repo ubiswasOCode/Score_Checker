@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% block title %} Change Case Tool | {% endblock %}
 
-{% block content %}
-
+{% block style %} 
     <style>
+        
         .button_back{
             background-color:aquamarine ;
             height: 150px;
@@ -21,6 +22,10 @@
             text-align: center;
             }
     </style>
+
+{% endblock %}
+
+{% block script %}
     <script>
         // Upper To Lower
         function lower_Case(){
@@ -86,12 +91,13 @@
         // }
         // }
  
-       
-     
-
+    
 
      </script>
+{% endblock %}
 
+
+{% block content %}
       <!-- Heros Section -->
 
     <div class="container mt-4">

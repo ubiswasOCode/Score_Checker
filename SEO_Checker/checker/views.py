@@ -117,16 +117,19 @@ def Score_checker(request):
                 li1=li.split()
                 heading1_text.append(tags.text.strip())
                 # print(li1)
+            # listToStr = ' '.join(map(str, heading1_text))
+            # print(listToStr,"----------------------------------------Str")
             if len(h1_tags) is None:
                 meta_h1["alert"] =  "danger"
                 meta_h1["alert_msg"]  = f"h1 is Missing"
 
                 error['h1'] = "h1 is Missing"
                 context["meta_h1_msg"]=f"h1 is Missing"
+
             elif len(h1_tags) >=2:
                 meta_h1["alert"] =  "warning"
                 meta_h1["alert_msg"]  =f"Your page contains headings two or more heading tag"
-                meta_h1["data"] = h1_tags
+                meta_h1["data"] = heading1_text
 
 
                 warning['h1'] =f"Your page contains headings two or more heading tag"
@@ -135,12 +138,11 @@ def Score_checker(request):
             else:
                 meta_h1["alert"] =  "success"
                 meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h1["data"] = h1_tags
+                meta_h1["data"] = heading1_text
 
                
                 context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
 
-            # context["heading_tags"] = heading_tags
             context["meta_h1"] = meta_h1
             
             # #
@@ -156,6 +158,7 @@ def Score_checker(request):
                 convert_lst = (tags2.name)
                 convert_split = convert_lst.split()
                 heading2_text.append(tags2.text.strip())
+            # listToStrh2 = ' '.join(map(str, heading2_text))
             if len(h2_tags) is None:
                 meta_h2["alert"] =  "danger"
                 meta_h2["alert_msg"]  = f"h2 is Missing"
@@ -165,21 +168,23 @@ def Score_checker(request):
             elif len(h2_tags) >=2:
                 meta_h2["alert"] =  "warning"
                 meta_h2["alert_msg"]  =f"Your page contains headings two or more heading tag"
-                meta_h2["data"] = h2_tags
+                meta_h2["data"] = heading2_text
                 
                 warning['h2'] = f"Your page contains headings two or more heading tag"
                 context["meta_h2_msg"]=f"Your page contains headings two or more heading tag"
             else:
                 meta_h2["alert"] =  "success"
-                meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h2["data"] = h2_tags
+                meta_h2["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h2["data"] = heading2_text
                 
                 context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
             # context["heading2_tags"] = heading2_tags
+
             context["meta_h2"] = meta_h2
                 
 
-            ##H3 Tags
+
+            ##--------------------H3 Tags----------------
             heading3_tags = ["h3"]
             heading3_text = []
             h3_tags = Soup.find_all(heading3_tags)
@@ -196,17 +201,17 @@ def Score_checker(request):
             elif len(h3_tags) >= 3:
                 meta_h3["alert"] =  "warning"
                 meta_h3["alert_msg"]  =f"Your page contains headings two or more heading tag"
-                meta_h3["data"] = h3_tags
+                meta_h3["data"] = heading3_text
                 
                 warning['h3'] = f"Your page contains headings two or more heading tag"
                 context["meta_h3_msg"]=f"Your page contains headings two or more heading tag"
             else:
                 meta_h3["alert"] =  "success"
                 meta_h3["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h3["data"] = h3_tags
+                meta_h3["data"] = heading3_text
                 
                 context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
-                context["heading3_text"] = heading3_text
+                # context["heading3_text"] = heading3_text
             context["meta_h3"] = meta_h3
                     
             # #
@@ -224,6 +229,7 @@ def Score_checker(request):
                         
                         error['img'] = "img is Missing"
                         context["img_msg"]=f"img is Missing"
+
                     elif len(images) >= 200 :
                         imag["alert"] =  "warning"
                         imag["alert_msg"]  =f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
@@ -233,7 +239,7 @@ def Score_checker(request):
                         context["img_msg"]=f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
                     else:
                         imag["alert"] =  "success"
-                        imag["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                        imag["alert_msg"]  =f"your webpage is used limited image "
                         imag["data"] = images
                       
                         context["img_msg"]=f"your webpage is used limited image "
@@ -297,47 +303,66 @@ def Score_checker(request):
                     else:
                         meta_anc["alert"] =  "success"
                         meta_anc["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                        meta_anc["data"] = style_tags
+                        meta_anc["data"] = anc
                        
-                    context["anc_msg"]=f"Congratulations! Your page contains anchor "
+                        context["anc_msg"]=f"your webpage is used limited anchor tag"
+
+                    context["meta_anc"]=meta_anc
             
+
+
             #Check Robot.Txt File Is availabale or not          
-            # print(url)
             robots = requests.get(url+"/robots.txt")
+            # print(robots,"--------------file")
             print(robots,"--------------file")
-        
+            meta_robot={"alert":"","data": ""}
             if robots is None:  
-                print(f"Robbot File is Missing")
+                meta_robot["alert"] =  "danger"
+                meta_robot["alert_msg"]  = f"Robbot File is Missing"
+
                 error['rob_mess'] =f"Robbot File is Missing"
             else:
-                print(f"Robot.txt is Available")
-                context["rob"]=f"Robot.txt is Available"
+                # print(f"Robot.txt is Available")
+                meta_robot["alert"] =  "success"
+                meta_robot["data"] = robots
 
+                context['rob_mess'] =f"Congratulations! Your web page contains Robbot.txt File"
+
+            context["meta_robot"]=meta_robot
 
             
             #Check sitemap.xml File Is availabale or not          
             # print(url)
             site_map = requests.get(url+"/sitemap.xml")
-            print(robots,"--------------file")
-        
+            meta_site={"alert":"","data": ""}
             if site_map is None:
-                print(f"Sitemap.xml File is Missing")
+                # print(f"Sitemap.xml File is Missing")
+                meta_site["alert"] =  "danger"
+                meta_site["alert_msg"]  = f"Sitemap.xml File is Missing"
+
                 error['site_mess'] =f"Sitemap.xml File is Missing"
             else:
-                print(f"Sitemap.xml is Available")
-                context["site"]=f"Sitemap.xml is Available"
-            print(site_map,"_____-abi")
+                # print(f"Sitemap.xml is Available")
+                meta_site["alert"] =  "success"
+                meta_site["data"] = robots
+
+                context["site_mess"]=f"Sitemap.xml is Available"
+            
+            context['meta_site']=meta_site
+
+
+            # print(site_map,"_____-abi")
             
             ERR=1
             WARN=0.5
 
             err=len(error)
             warn=len(warning)
-            print(warning)
-            print(error)
+            # print(warning)
+            # print(error)
             
-            print(err)
-            print(warn)
+            # print(err)
+            # print(warn)
 
             case=11
             temp=case

@@ -1,8 +1,9 @@
 
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
+{% block title %} Word Counter Tool | {% endblock %}
 
+{% block style %} 
 <style>
 
       .foot_back
@@ -100,9 +101,11 @@
 }
      
     </style>
-
+{% endblock %}
  
 
+
+{% block content %}
      <!-- Herosssss -->
      <div class="px-3 py-3 mt-3 text-center">
       <h1 class="display-5 fw-bold">Word Counter</h1>

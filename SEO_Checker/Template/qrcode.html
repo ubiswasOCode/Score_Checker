@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
+
+{% block title %} QR Code Generator | {% endblock %}
+
+{% block style %}
 <style>
       .input_url1
     {
@@ -11,7 +14,7 @@
     input#url
     {
         height: 40px;
-    width: 420px;
+    width: 77%;
     border-radius: 8px;
     padding: 10px;
     position: absolute;
@@ -37,9 +40,18 @@
 .qrcode img{
   margin-left: 200px;
 }
-</style>
+@media (max-width: 600px) {
+      input#url
+    {
+        height: 40px;
+    width: 68% !important;
+      }
 
-  
+    }
+</style>
+{% endblock %}
+
+{% block content %}
   <!--  -->
   <div class="container mt-4">
     <div class="row">

@@ -1,44 +1,52 @@
 {% extends 'base.html' %}
-{% block content %}
+
 {% load static %}
 
-        <!-- <!-- <link href="{% static 'css/form.css' %}" rel="stylesheet" type="text/css"> -->
-        <script src="{% static 'js/form.js' %}"></script> -->
+{% block title %} Image to text tool | {% endblock %}
+
+
+
+        <link href="{% static 'css/form.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'js/form.js' %}"></script>  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" > 
         <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
-        <style>
-            .text h1
-            {
-                text-align: center;
-            }
-            .text p
-            {
-                text-align: center;
-            }
-            .form-control
-            {
-                width: 100%;
-                height: 300px;
-            }
-            input#image {
-                /* text-align: center; */
-                font-size: 15px;
-                padding: 135px;
-            }
-            button.button-primary {
-                float: left;
-                margin-left: 170px;
-            }
-            .output h2{
-                text-align: center;
-            }
-            .output p{
-                text-align: center;
-            }
-        </style>
 
+<style>
+    .text h1
+    {
+        text-align: center;
+    }
+    .text p
+    {
+        text-align: center;
+    }
+    .form-control
+    {
+        width: 100%;
+        height: 300px;
+    }
+    input#image {
+        /* text-align: center; */
+        font-size: 15px;
+        padding: 135px;
+    }
+    button.button-primary {
+        float: left;
+        margin-left: 170px;
+    }
+    .output h2{
+        text-align: center;
+    }
+    .output p{
+        text-align: center;
+    }
+</style>
+
+
+
+{% block content %}
         {% csrf_token %}
 
         <div class="container">
@@ -113,21 +121,11 @@
                 </div>
             </div>
         </div>
+{% endblock %}
     
-<!-- 
-        <div class="form-container">
-            <p style="color: red;">{{message}}</p>
-            <h1>
-                Ocr an Image and Summarize Using Gensim
-            </h1>
-            
-            <label><h2>Ocred Text:</h2></label>
-            <span class="textarea" role="textbox" contenteditable>{{text}}</span> -->
 
-            <!-- <label><h2>Summarized Text:</h2></label>
-            <span class="textarea" role="textbox" contenteditable>{{summarized_text}}</span> -->
 
-        <!-- </div> -->
+
         <script>
             var fileTag = document.getElementById("image");
             var preview = document.getElementById("preview");
@@ -152,4 +150,3 @@
 
         </script>
 
-{% endblock %}

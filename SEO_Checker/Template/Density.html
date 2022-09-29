@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
-{% block content %}
 
+
+{% block title %} Density Checker | {% endblock %}
+
+{% block style %}
 <style>
 .input_url
 {
@@ -19,7 +22,7 @@
     input#url
     {
         height: 40px;
-    width: 460px;
+    width: 84%;
     border-radius: 8px;
     padding: 10px;
     position: absolute;
@@ -35,8 +38,18 @@
     position: relative;
   
 }
-</style>
+@media (max-width: 600px) {
+      input#url
+    {
+        height: 40px;
+    width: 72% !important;
+      }
 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <!-- Hero or Desc -->
 <div class="container mt-4">
   <div class="row">
@@ -181,9 +194,9 @@
 
       </div>
       
-    
+{% endblock %}  
    
-    
+{% block script %}
     <script>
       function showTable(table_id){
         let table = document.getElementById(table_id)
@@ -204,4 +217,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
 
-{% endblock %}
+    {% endblock %}

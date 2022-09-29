@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'SEO_Checker.middleware.ChangeUrlMiddleware',
 ]
 
 ROOT_URLCONF = 'SEO_Checker.urls'
