@@ -149,6 +149,7 @@ def Score_checker(request):
             heading2_tags = ["h2"]
             heading2_text = []
             h2_tags = Soup.find_all(heading_tags)
+            meta_h2={"alert":"", "alert_msg":"", "data": ""}
             for tags2 in Soup.find_all(heading2_tags):
                 print(tags2.name + ' -> ' + tags2.text.strip())
                 # print(tags,"---------------tags")
@@ -156,87 +157,149 @@ def Score_checker(request):
                 convert_split = convert_lst.split()
                 heading2_text.append(tags2.text.strip())
             if len(h2_tags) is None:
+                meta_h2["alert"] =  "danger"
+                meta_h2["alert_msg"]  = f"h2 is Missing"
+                
                 error['h2'] = "h2 is Missing"
                 context["meta_h2_msg"]=f"h2 is Missing"
             elif len(h2_tags) >=2:
+                meta_h2["alert"] =  "warning"
+                meta_h2["alert_msg"]  =f"Your page contains headings two or more heading tag"
+                meta_h2["data"] = h2_tags
+                
                 warning['h2'] = f"Your page contains headings two or more heading tag"
                 context["meta_h2_msg"]=f"Your page contains headings two or more heading tag"
             else:
-                print(f"Congratulations! Your page contains headings. Their contents are listed below:")
+                meta_h2["alert"] =  "success"
+                meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h2["data"] = h2_tags
+                
                 context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
             # context["heading2_tags"] = heading2_tags
-                context["heading2_text"] = heading2_text
+            context["meta_h2"] = meta_h2
                 
 
             ##H3 Tags
             heading3_tags = ["h3"]
             heading3_text = []
             h3_tags = Soup.find_all(heading3_tags)
+            meta_h3={"alert":"", "alert_msg":"", "data": ""}
             for tags3 in h3_tags:
                 heading3_text.append(tags3.text.strip())
+                
             if len(h3_tags) is None:
+                meta_h3["alert"] =  "danger"
+                meta_h3["alert_msg"]  = f"h3 is Missing"
+                
                 error['h3'] = "h3 is Missing"
                 context["meta_h3_msg"]=f"h3 is Missing"
             elif len(h3_tags) >= 3:
+                meta_h3["alert"] =  "warning"
+                meta_h3["alert_msg"]  =f"Your page contains headings two or more heading tag"
+                meta_h3["data"] = h3_tags
+                
                 warning['h3'] = f"Your page contains headings two or more heading tag"
                 context["meta_h3_msg"]=f"Your page contains headings two or more heading tag"
             else:
-                print(f"Congratulations! Your page contains headings. Their contents are listed below:")
+                meta_h3["alert"] =  "success"
+                meta_h3["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h3["data"] = h3_tags
+                
                 context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
                 context["heading3_text"] = heading3_text
-            
+            context["meta_h3"] = meta_h3
                     
             # #
             # # ##For Images
             #
             images = Soup.findAll('img')
+            imag={"alert":"", "alert_msg":"", "data": ""}
             for image in images:
                 image = []
                 for img in Soup.findAll('img'):
                     image.append(img.get('src'))
                     if len(images) is None:
+                        imag["alert"] =  "danger"
+                        imag["alert_msg"]  = f"img is Missing"
+                        
                         error['img'] = "img is Missing"
                         context["img_msg"]=f"img is Missing"
                     elif len(images) >= 200 :
+                        imag["alert"] =  "warning"
+                        imag["alert_msg"]  =f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
+                        imag["data"] = images
+                        
                         warning['img'] = f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
                         context["img_msg"]=f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
                     else:
-                        print(f"your webpage is used limited image ")
+                        imag["alert"] =  "success"
+                        imag["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                        imag["data"] = images
+                      
                         context["img_msg"]=f"your webpage is used limited image "
+                    
+                    context["imag"] = imag
+                    
             
             # #
             # #
             # ##Style Tags
             style_tags = ["style"]
+            meta_style={"alert":"", "alert_msg":"", "data": ""}
             for tags in Soup.find_all(style_tags):
                 taggg=tags.name + ' -> ' + tags.text.strip()
 
                 if len(taggg) is None:
+                    meta_style["alert"] =  "danger"
+                    meta_style["alert_msg"]  = f"style is Missing"
+                    
                     error['style'] = "style is Missing"
                     context["style_msg"]=f"style is Missing"
                 elif len(taggg) >= 100:
+                    meta_style["alert"] =  "warning"
+                    meta_style["alert_msg"]  =f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
+                    meta_style["data"] = style_tags
+                     
                     warning['style'] = f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
                     context["style_msg"]=f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
                 else:
-                    print(f"your webpage is used limited style tag")
+                    meta_style["alert"] =  "success"
+                    meta_style["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                    meta_style["data"] = style_tags
+                    
+                    # print(f"your webpage is used limited style tag")
                     context["style_msg"]=f"your webpage is used limited style tag"
+                 
+                context["meta_style"] = meta_style   
+                
             
-            
-            # # ##Underscore
+            # # ##--------------Underscore----------------------
             anc=[]
+            meta_anc={"alert":"", "alert_msg":"", "data": ""}
             for link in Soup.find_all('a'):
                 under=link.get('href')
                 if "_" in under:
                     anc.append(under)
                     if len(anc) is None:
+                        meta_anc["alert"] =  "danger"
+                        meta_anc["alert_msg"]  = f"anchor tag is Missing"
+                        
                         error['a'] = "anchor tag is Missing"
                         context["anc_msg"]=f"anchor tag is Missing"
                     elif len(anc) >= 100:
+                        meta_anc["alert"] =  "warning"
+                        meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                        meta_anc["data"] = anc
+                        
                         warning['a'] = f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
                         context["anc_msg"]=f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                    
                     else:
-                        print(f"Congratulations! Your page contains anchor ")
-                        context["anc_msg"]=f"Congratulations! Your page contains anchor "
+                        meta_anc["alert"] =  "success"
+                        meta_anc["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                        meta_anc["data"] = style_tags
+                       
+                    context["anc_msg"]=f"Congratulations! Your page contains anchor "
             
             #Check Robot.Txt File Is availabale or not          
             # print(url)
