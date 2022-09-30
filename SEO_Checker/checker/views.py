@@ -1,7 +1,11 @@
 from django.shortcuts import render
 import metadata_parser
 import requests
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 def Score_checker(request):
     error={}
@@ -390,13 +394,135 @@ def Score_checker(request):
                     "total_correct":total_correct,
                     "per":per}
 
+    # driver=webdriver.Chrome('/home/ocode-22/chromedriver')
+    # driver.get('https://www.javatpoint.com/')
+
+    # load_time = driver.execute_script(
+    #         """
+    #         var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
+    #         return loadTime;
+    #         """
+    #         )
+
+    # print(load_time,"---------------------------Time")
+    
+    
+    ######------------------------------------Page Opening Time--------------------
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+
+        driver.get(url)
+        load_time = driver.execute_script(
+        """
+        var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
+        return loadTime;
+        """
+        )
+
+        print(load_time,"---------------------------Time")
+
+        driver.close()
+
+
+
+        ####-------------------------IFramne Checker--------------------
+        iframe_tag=page.get_metadata('iframe')
+        if iframe_tag is None:
+            # meta_title["alert"] =  "danger"
+            # meta_title["alert_msg"]  = "Titile is Missing" 
+
+            # error['title']="titile is Missing"
+            # context["meta_title_msg"] = "titile is Missing" 
+            print("Iframne None--------------------------")
+        # # print(error)
+        # elif len(title_tag)>=30  and len(title_tag)<=350:
+        #     meta_title["alert"] =  "warning"
+        #     meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
+        #     meta_title["data"] = title_tag
+
+        #     warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
+        #     context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
+        else:
+            # meta_title["alert"] =  "success"
+            # meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+            # meta_title["data"] = title_tag
+
+            # context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+            print("IFramne Yes-----------------")
+
+
+          ####-------------------------IDoctyp Checker--------------------
+        page=metadata_parser.MetadataParser(url)
+        ("" )
+        if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
+            # meta_title["alert"] =  "danger"
+            # meta_title["alert_msg"]  = "Titile is Missing" 
+
+            # error['title']="titile is Missing"
+            # context["meta_title_msg"] = "titile is Missing" 
+            print("Doctype Yes--------------------------")
+        # # print(error)
+        # elif len(title_tag)>=30  and len(title_tag)<=350:
+        #     meta_title["alert"] =  "warning"
+        #     meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
+        #     meta_title["data"] = title_tag
+
+        #     warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
+        #     context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
+        else:
+            # meta_title["alert"] =  "success"
+            # meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+            # meta_title["data"] = title_tag
+
+            # context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+            print("Doctype none-----------------")
+
+
+        ###---------------------Check Donmain Name Samne or Not -----------------
+        o = urlparse(url)
+
+        domain = o.hostname
+
+        temp = domain.rsplit('.')
+
+        if(len(temp) == 3):
+            domain = temp[1] + '.' + temp[2]
+            print("Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL.")
+
+        else:
+            print("not Same url or Domain Name")
 
         
+        #####-----------------Check The Website used Http or Https---------------
+        if "https:" in url:
+            print("yes https==============")
+        elif "http:" in url:
+            print("httpppppppppppp--------------------------")
+        else:
+            print("No Domian--------------")
+
+        
+        #####--------------------Secure or Not------------------####
+        if "https:" in url:
+            print("Secure Protocol is used")
+        else:
+            print("Not Used Sceure--------------------------")
+      
+
+      ###-------------------Check Safe Browsing or not-------------------------
+        if "https:" in url:
+            print("Safe Browsing--------------------")
+        else:
+            print("Not Safe Browsing--------------------------")
+      
+
+        
+
     return render(request,"SeoChecknew.html",{"context":context,"value":value})
 
 def Home(request):
     
     return render(request, "Boot_head_foot.html")
+
 
 
 

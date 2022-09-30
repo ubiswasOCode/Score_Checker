@@ -38,6 +38,14 @@
     position: relative;
   
 }
+
+    .list-group a:hover {background-color: #767F87}
+
+    .list-group a:active {
+      background-color: #767F87;
+      box-shadow: 0 5px #767F87;
+      /* transform: translateY(4px); */
+    }
 @media (max-width: 600px) {
       input#url
     {
@@ -97,18 +105,14 @@
           </div>
         </div>
       </div>
-       
-     
-
-
-   
+      
 
         <div class="container mt-5">
           <div class="row">
             <div class="col-md-3">
               <div class="list-group">
                   <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    The current link item
+                    The current link item 
                   </a> -->
                 <a href="#" onclick="showTable('one_word')"  class="list-group-item list-group-item-action"aria-current="true">One Word</a>
                 <a href="#" onclick="showTable('TWO_word')" class="list-group-item list-group-item-action">Two Word</a>

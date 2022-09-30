@@ -66,6 +66,7 @@
                         {% csrf_token %}
                         <label> Image Upload:</label>
                         <input type="file" class="form-control" id="image" name="image" onchange="previewFile()" />
+                        <img src="" id="preview" alt="uploaded_img">
                         <button class="button-primary" onclick="show()" id="btnID" type="submit" >Upload</button>
                     </form>
                 </div>
@@ -85,7 +86,7 @@
                 </div>
                 <div class="col-md-6 output mt-4">
                     <!-- <p style="color: red;">{{message}}</p> -->
-                    <img src="" id="preview" alt="uploaded_img">
+                    
                     <h2>
                         Text Found on Your Image 
                     </h2>
