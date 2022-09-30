@@ -478,18 +478,18 @@ def Score_checker(request):
 
 
         ###---------------------Check Donmain Name Samne or Not -----------------
-        o = urlparse(url)
+        # o = urlparse(url)
 
-        domain = o.hostname
+        # domain = o.hostname
 
-        temp = domain.rsplit('.')
+        # temp = domain.rsplit('.')
 
-        if(len(temp) == 3):
-            domain = temp[1] + '.' + temp[2]
-            print("Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL.")
+        # if(len(temp) == 3):
+        #     domain = temp[1] + '.' + temp[2]
+        #     print("Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL.")
 
-        else:
-            print("not Same url or Domain Name")
+        # else:
+        #     print("not Same url or Domain Name")
 
         
         #####-----------------Check The Website used Http or Https---------------
