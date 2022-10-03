@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/home/ocode-22/Django/SEO_Checker/venv"
+$VIRTUAL_ENV = r"/home/ocode-22/Documents/GitHub/Score_Checker/SEO_Checker/venv"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

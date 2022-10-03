@@ -46,7 +46,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV='/home/ocode-22/Django/SEO_Checker/venv'
+VIRTUAL_ENV='/home/ocode-22/Documents/GitHub/Score_Checker/SEO_Checker/venv'
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

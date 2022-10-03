@@ -1,7 +1,8 @@
 from django.shortcuts import render
 # Create your views here
 import pytesseract
-from gensim.summarization.summarizer import summarize
+# from gensim.summarization.summarizer import summarize
+# from summarizer import Summarizer
 from .forms import ImageUpload
 import os
 from PIL import Image
@@ -29,7 +30,7 @@ def ImgtoTxt(request):
               
 
                 # Summary (0.1% of the original content).
-                summarized_text = summarize(text, ratio=0.1)
+                # summarized_text = Summarizer(text, ratio=0.1)
                 os.remove(pathz)
             # except:
             #     message = "check your filename and ensure it doesn't have any space or check if it has any text"

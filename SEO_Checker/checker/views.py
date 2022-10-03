@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import metadata_parser
 import requests
-from urllib.parse import urlparse
+# from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager

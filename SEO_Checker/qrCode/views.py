@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import pyqrcode
-import png
-from pyqrcode import QRCode
+# import png
+# from pyqrcode import QRCode
 # Create your views here.
 def QRCode(request):
     context=dict()
@@ -21,4 +21,4 @@ def QRCode(request):
                 "pngImg":pngImg
             }
         
-    return render(request, "qrcode.html",context)
+    return render(request, "base.html",context)

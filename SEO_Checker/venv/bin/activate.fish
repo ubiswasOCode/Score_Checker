@@ -57,7 +57,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV '/home/ocode-22/Django/SEO_Checker/venv'
+set -gx VIRTUAL_ENV '/home/ocode-22/Documents/GitHub/Score_Checker/SEO_Checker/venv'
 
 # https://github.com/fish-shell/fish-shell/issues/436 altered PATH handling
 if test (echo $FISH_VERSION | head -c 1) -lt 3
