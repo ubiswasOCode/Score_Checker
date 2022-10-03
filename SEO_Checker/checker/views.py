@@ -408,19 +408,19 @@ def Score_checker(request):
     
     
     ######------------------------------------Page Opening Time--------------------
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        # driver = webdriver.Chrome(ChromeDriverManager().install())
 
-        driver.get(url)
-        load_time = driver.execute_script(
-        """
-        var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
-        return loadTime;
-        """
-        )
+        # driver.get(url)
+        # load_time = driver.execute_script(
+        # """
+        # var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
+        # return loadTime;
+        # """
+        # )
 
-        print(load_time,"---------------------------Time")
+        # print(load_time,"---------------------------Time")
 
-        driver.close()
+        # driver.close()
 
 
 

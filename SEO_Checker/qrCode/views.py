@@ -21,4 +21,4 @@ def QRCode(request):
                 "pngImg":pngImg
             }
         
-    return render(request, "base.html",context)
+    return render(request, "qrcode.html",context)
