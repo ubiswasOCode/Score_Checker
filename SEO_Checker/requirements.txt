@@ -36,6 +36,7 @@ preshed==3.0.7
 pydantic==1.9.2
 pyparsing==3.0.9
 PyQRCode==1.2.1
+pypng==0.20220715.0
 pyquery==1.4.3
 PySocks==1.7.1
 pytesseract==0.3.10
