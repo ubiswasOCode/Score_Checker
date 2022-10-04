@@ -41,10 +41,27 @@ def Word_Count(request):
                 context["not_rep"]=f"There are not repeated element "
         
         #Calculate Readtime
-        read_time=readtime.of_text(word)
-        reading_time=read_time.seconds
-        print(reading_time,"-------------seconds")
-        context['Reading_Time']=f" {(reading_time)} "
+        # read_time=readtime.of_text(word)
+        # reading_time=read_time.seconds
+        # print(reading_time,"-------------seconds")
+        # context['Reading_Time']=f" {(reading_time)} "
+        
+        if len(word)>=100 and len(word)<=200:
+            context['Reading_Time']=f"1 Min"
+        elif len(word)>=200 and len(word)<=250:
+              context['Reading_Time']=f"1 Min 3 Sec"
+        elif len(word)>=250 and len(word)<=500:
+             context['Reading_Time']=f"2 Min 6 Sec"
+        
+        #Calculate SpeakTime
+        if len(main_word)>=0 and len(main_word)<=80:
+            context['SpeakTime']=f"1 Min"
+        elif len(main_word)>=80 and len(main_word)<=160:
+              context['SpeakTime']=f"2 Min"
+        elif len(main_word)>=160 and len(main_word)<=240:
+             context['SpeakTime']=f"3 Min"
+        elif len(main_word)>=240 and len(word)<=320:
+             context['SpeakTime']=f"4 Min"
 
         #Counting Heading or Not
     

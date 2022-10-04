@@ -393,6 +393,7 @@ def Score_checker(request):
                     "warn":warn,
                     "total_correct":total_correct,
                     "per":per}
+                    
 
     # driver=webdriver.Chrome('/home/ocode-22/chromedriver')
     # driver.get('https://www.javatpoint.com/')

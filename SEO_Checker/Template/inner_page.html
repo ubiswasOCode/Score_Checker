@@ -47,43 +47,10 @@
         text-align: center;
         padding: 10px;
       }
-
-      /* .list-group a {
-        background-image: linear-gradient(
-          to right,
-          #54b3d6,
-          #54b3d6 50%,
-          #000 50%
-        );
-        background-size: 200% 100%;
-        background-position: -100%;
-        display: inline-block;
-        padding: 5px 0;
-        position: relative;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transition: all 0.3s ease-in-out;
-      }
-      
-     .list-group a:before{
-        content: '';
-        background: #54b3d6;
-        display: block;
-        position: absolute;
-        bottom: -3px;
-        left: 0;
-        width: 0;
-        height: 3px;
-        transition: all 0.3s ease-in-out;
-      }
-      
-     .list-group a:hover {
-       background-position: 0;
-      }
-      
-      a:hover::before{
-        width: 100%;
-      } */
+      div#v-pills-tab a {
+    text-decoration: none;
+    color: black;
+}
       .read_btn
       {
         font-size: 20px;
@@ -99,7 +66,18 @@
     cursor: pointer;
     font-size: 15px;
 }
-     
+     .enterdesc
+     {
+      background-color: greenyellow;
+     }
+    button.nav-link.id\= {
+    width: 100%;
+    color: black;
+}
+button#v-pills-profile-tab {
+    WIDTH: 100%;
+    color: black;
+}
     </style>
 {% endblock %}
  
@@ -119,7 +97,7 @@
     <!-- Grid -->
   <div class="container text-center">
       <div class="row">
-        <div class="col">
+        <div class="col-md-1">
         </div>
         <div class="col-10">
           <div class="container">
@@ -134,40 +112,54 @@
             </form>
           </div>
         </div>
-        <div class="col">
+        <div class="col-md-1">
         </div>
     </div>
     
+
+<!-- Word Description -->
+<div class="container">
+<div class="row mt-5 ">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8 enterdesc">
+    <h3>You entered the total {{Total_word}} word and total {{word_length}} character </h3>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+  </div>
+</div>
+
+
 <!-- Heading -->
-    <div class="row mt-5">
+    <div class="row mt-4">
       <h5>BASIC WORDS COUNT STATISTICS</h5>
     </div>
 
-      <div class="row mt-4 content">
-        <div class="col-3">
-          <div class="list-group">
+      <div class="row mt-3 content">
+        <div class="col-md-3">
+        
             <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
               The current link item
             </a> -->
-          <a href="#STATISTICS "  class="list-group-item list-group-item-action  btn btn-outline-primary word_btn">WORDS STATISTICS</a>
+          <!-- <a href="#STATISTICS "  class="list-group-item list-group-item-action  btn btn-outline-primary word_btn">WORDS STATISTICS</a>
           <a href="#READING"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">READING TIME</a>
-         
+          -->
+
+          <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a href="#STATISTICS"><button class="nav-link   id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">WORDS STATISTICS</button></a>
+            <a href="#READING"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">READING TIME</button></a> 
+          </div>
+      
+
           
         </div>
           
-        </div>
-        <div class="col-6 STATISTICS " id="STATISTICS">
+   
+        <div class="col-md-6 STATISTICS " id="STATISTICS">
           
         
-                <!-- <hr>
-                <p>Total Words &nbsp &nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{Total_word}}</p>
-                <hr>
-                <p>Total Characters (With Space) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp {{word_length}}</p>
-                <hr>
-                <p>Total Characters (Without Space) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp {{withoutt_spc}}</p>
-                <hr>
-                <br> -->
-
                 <table class="table border">
 
       
@@ -206,9 +198,9 @@
                             <td> {{Reading_Time}}</td>
                         </tr>
 
-                        <th><label for="">Estimated Speaking Time (With Space)) </label></th>
+                        <th><label for="">Estimated Speaking Time </label></th>
                         
-                        <td>{{word_length}}</td>
+                        <td>{{SpeakTime}}</td>
                         </tr> 
 <!--                         
                         <th><label for="">Total Characters (Without Space)</label></th>
@@ -229,7 +221,7 @@
 
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="alert alert-success" role="alert">
             {{word_length}} &nbsp Characters
           </div>
