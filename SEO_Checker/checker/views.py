@@ -114,23 +114,23 @@ def Score_checker(request):
             heading_tags = ["h1"]
             heading1_text = []
             meta_h1={"alert":"", "alert_msg":"", "data": ""}
-            h1_tags = Soup.find_all(heading_tags)
+            # h1_tags = Soup.find_all(heading_tags)
             for tags in Soup.find_all(heading_tags):
                 print(tags.name + ' -> ' + tags.text.strip())
                 li=(tags.name)
                 li1=li.split()
                 heading1_text.append(tags.text.strip())
-                # print(li1)
-            # listToStr = ' '.join(map(str, heading1_text))
-            # print(listToStr,"----------------------------------------Str")
-            if len(h1_tags) is None:
-                meta_h1["alert"] =  "danger"
-                meta_h1["alert_msg"]  = f"h1 is Missing"
+              
+            if len(heading1_text) ==1:
+                meta_h1["alert"] =  "success"
+                meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h1["data"] = heading1_text
 
-                error['h1'] = "h1 is Missing"
-                context["meta_h1_msg"]=f"h1 is Missing"
+               
+                context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
+               
 
-            elif len(h1_tags) >=2:
+            elif len(heading1_text) >=2:
                 meta_h1["alert"] =  "warning"
                 meta_h1["alert_msg"]  =f"Your page contains headings two or more heading tag"
                 meta_h1["data"] = heading1_text
@@ -140,13 +140,16 @@ def Score_checker(request):
                 context["meta_h1_msg"]=f"Your page contains headings two or more heading tag"
             
             else:
-                meta_h1["alert"] =  "success"
-                meta_h1["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h1["data"] = heading1_text
+                meta_h1["alert"] =  "danger"
+                meta_h1["alert_msg"]  = f"h1 is Missing"
+                meta_h1["data"] = f"h1 is Missing"
 
-               
-                context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
+                error['h1'] = "h1 is Missing"
+                context["meta_h1_msg"]=f"h1 is Missing"
 
+                
+            print(len(heading1_text),"---------------h111111")
+            
             context["meta_h1"] = meta_h1
             
             # #

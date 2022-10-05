@@ -19,13 +19,6 @@ def Density_Check(request):
         
     return render(request, 'Density.html', context )
 
-# def Density_cal():
-#     total_words=len(one)
-    
-#     msg=[]
-    
-#     msg.append('\n' + str(round(exist_keys,3)) + '%' + ' keyword density')
-#     msg.append('\nThe keyword appears ' + str(density) + ' times in the page.')
 
         
 
@@ -163,16 +156,6 @@ def Density(url):
         data[kwrd] = {"freq": len(results), "density": density}
         # data[kwrd] = len(results)
         # print(results,"-----------------------results")
-    
-        
-        # data[kwrd] = len(results)
-        
-    # for key,val in data.items():
-    #     # print(key,"and",val)
-    #     # print(val)
-    #     print("Density=",(int(val)/int(Total_word1))*100,key)
-    #     density1=round((int(val)/int(Total_word1))*100,2)
-    # print(density1,"---------------One Word Density")
         
     
     
@@ -187,13 +170,6 @@ def Density(url):
         density1=round((int(len(results1))/int(Total_word2))*100,2)
         data1[Kword1] = {"freq1": len(results), "density1": density1}
     
-    # Total_word2=len(two)
-    # for key1,val1 in data1.items():
-        # print(key,"and",val)
-        # print(val)
-        # print("Density Two WOrd=",(int(val1)/int(Total_word2))*100,key1)
-        # density2=round((int(val1)/int(Total_word2))*100,2)
-    # print(density2,"---------------Two Word Density")
     
     
     # #Three Word Frequency and Density calculate
@@ -213,15 +189,7 @@ def Density(url):
         data2[Kword2] = len(results2)
         density2=round((int(len(results1))/int(Three_Word1))*100,2)
         data2[Kword2] = {"freq2": len(results), "density2": density2}
-        
-        # print(results2,"------------------ Three Word")
-    # Three_Word1=len(Three_word)
-    # for key2,val2 in data2.items():
-    #     # print(key,"and",val)
-    #     # print(val)
-    #     print("Density Three WOrd=",(int(val2)/int(Three_Word1))*100,key2)
-    #     density3=round((int(val2)/int(Three_Word1))*100,2)
-        
+
         
     #Four Word Frequency and Density calculate
     Four_word=list(set(four))
@@ -239,7 +207,50 @@ def Density(url):
         density4=round((int(val3)/int(Four_word1))*100,2)
     
 
+
+
     return  {"data":data, "data1": data1, "data2":data2, "data3":data3}
+
+
+# def WordDensity(wrdsrch):
+# li=input("enter list")
+
+# convert=list(li.split(' '))
+
+# frequency={}
+
+##One OWrd
+# for item in convert:
+#    if item in frequency:
+#       frequency[item] += 1
+#    else:
+#       frequency[item] = 1
+#
+# #         # printing the frequency
+# print(frequency)
+
+#
+# two_word=list(map(' '.join, zip(convert[:-1], convert[1:])))
+# print(two_word)
+# for item in two_word:
+#    if item in frequency:
+#       frequency[item] += 1
+#    else:
+#       frequency[item] = 1
+# print(frequency)
+
+
+# print(convert)
+# three_word=list(map(' '.join, zip(convert[:-2], convert[2:])))
+# print(three_word)
+
+
+# three=[]
+# for i in range(len(convert) - 2):
+#     three.append(convert[i] + ' ' + convert[i+2])
+# print(three)
+
+
 
 
 

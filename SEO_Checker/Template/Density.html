@@ -22,10 +22,10 @@
     input#url
     {
         height: 40px;
-    width: 84%;
+    
     border-radius: 8px;
     padding: 10px;
-    position: absolute;
+  
     }
     input::placeholder {
     font-size: 20px;
@@ -34,13 +34,23 @@
     }
     .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
-    float: right;
-    position: relative;
+   
+
   
 }
 .nav-link
     {
       color: black;
+    }
+    .srchbtn
+    {
+      margin-top: 6px;
+      margin: 5px 5px;
+    }
+    .wrdsrch
+    {
+      margin-top: 6px;
+      margin: 5px 5px;
     }
 
     /* .list-group a:hover {background-color: #767F87}
@@ -59,6 +69,12 @@
       }
 
     }
+    .hide{
+  display:none;
+}
+.show{
+  display:block;
+}
 </style>
 {% endblock %}
 
@@ -95,15 +111,17 @@
           
               <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
               <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
-              <button class="btn btn-outline-success" type="submit">Search</button>
-              <!-- <button type="submit" class="btn btn-primary">Submit</button>           -->
-      
-              <!-- <label for="">Enter Url </label> -->
-                  <!-- <input type="text" name="url" id=url placeholder="enter url"><br><br>
-          
-                  <button type="submit" class="btn btn-primary">Submit</button>      -->
-              
+             
+              <!-- <input class="hide" type="text" id="textInput"  /> -->
+              <textarea rows="3" class="hide" id="textInput" id="url"  style="width:100%"></textarea><br>
+              <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
+              <input  type="button" class="btn btn-outline-success srchbtn" onclick="onButtonClick(); showField('opendialog'); " name="answer" value="Enter Manually"></button>
+              <button class="btn btn-outline-success" id="wrdsrch" type="submit">Check</button>
+             
+           
           </form>
+          
+
           </div>
           <div class="col-md-3">
 
@@ -118,7 +136,7 @@
             
               
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <button class="nav-link active"onclick="showTable('one_word')"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">One Word</button>
+                  <button class="nav-link active" onclick="showTable('one_word')"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">One Word</button>
                   <button class="nav-link" id="v-pills-profile-tab" onclick="showTable('TWO_word')" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Two Word</button>
                   <button class="nav-link" id="v-pills-messages-tab"onclick="showTable('Three_word')"   data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Three Word</button>
                   <!-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button> -->
@@ -244,5 +262,23 @@
         });
         })
     </script>
+
+    <script>
+          function onButtonClick(){
+      document.getElementById('textInput').className="show";
+    }
+    </script>
+
+<script>
+
+  function showField(){
+
+      document.getElementById("url").classList.add("hide")
+      document.getElementById("urlsrch").classList.add("hide")
+      document.getElementById("wrdsrch").classList.add("show")
+      
+  
+  }
+</script> 
 
     {% endblock %}
