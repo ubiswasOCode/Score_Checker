@@ -229,10 +229,9 @@ table.table tbody td {
           <div class="col-md-3">
     
                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active"onclick="showTable('one_word')"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Common SEO Issue</button>
-                    <button class="nav-link" id="v-pills-profile-tab" onclick="showTable('TWO_word')" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Speed Optimizations</button>
-                    <button class="nav-link" id="v-pills-messages-tab"onclick="showTable('Three_word')"   data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Server and Security</button>
-                    <!-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button> -->
+                    <button class="nav-link active"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Common SEO Issue</button>
+                    <button class="nav-link" id="v-pills-profile-tab"  data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Speed Optimizations</button>
+                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Server and Security</button>
                   </div>
 
              
@@ -241,213 +240,251 @@ table.table tbody td {
 
           
           <div class="col-md-7">
-            <table class="table border">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <table class="table">
 
       
-              <tbody>
-                  <tr>
-                      <th><label for="">Meta Title</label></th>
-                      
-                          <td> {{context.meta_title.data}}
-                    
-
-                        </td>
-                        <td>      {% if context.meta_title.alert == "warning" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% elif context.meta_title.alert == "success" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                          {% elif context.meta_title.alert == "danger"  %}
-                          <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% endif %}</td>
-                      </tr>
-              
-                      <tr>
-                      <th><label for="">Meta Keyword</label></th>
-                      <td>{{context.meta_key.data}}
-                       
-                        </td>
-
-                        <td>      
-                          {% if context.meta_key.alert == "warning" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% elif context.meta_key.alert == "success" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                          {% elif context.meta_key.alert == "danger"  %}
-                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% endif %}
-                        </td>
-                      </tr>
-              
-                      <tr>
-                      <th><label for="">Meta Description</label></th>
-
-                      <td> {{context.meta_desc.data}}
+                <tbody>
+                    <tr>
+                        <th><label for="">Meta Title</label></th>
                         
-                      </td>
+                            <td> {{context.meta_title.data}}
+                      
+  
+                          </td>
+                          <td>      {% if context.meta_title.alert == "warning" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% elif context.meta_title.alert == "success" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            {% elif context.meta_title.alert == "danger"  %}
+                            <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% endif %}</td>
+                        </tr>
+                
+                        <tr>
+                        <th><label for="">Meta Keyword</label></th>
+                        <td>{{context.meta_key.data}}
+                         
+                          </td>
+  
+                          <td>      
+                            {% if context.meta_key.alert == "warning" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% elif context.meta_key.alert == "success" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            {% elif context.meta_key.alert == "danger"  %}
+                            <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% endif %}
+                          </td>
+                        </tr>
+                
+                        <tr>
+                        <th><label for="">Meta Description</label></th>
+  
+                        <td> {{context.meta_desc.data}}
+                          
+                        </td>
+                          <td>
+                            {% if context.meta_desc.alert == "warning" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% elif context.meta_desc.alert == "success" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            {% elif context.meta_desc.alert == "danger"  %}
+                            <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% endif %}
+                          </td>
+                        </tr>
+                
+                        <tr>
+  
+                          
+                        <th><label for="">Heading 1</label></th>
+  
+                        <td>  {% for text in context.meta_h1.data %}
+                          {{text}} 
+                          
+                          {% endfor  %}</td>
                         <td>
-                          {% if context.meta_desc.alert == "warning" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% elif context.meta_desc.alert == "success" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                          {% elif context.meta_desc.alert == "danger"  %}
-                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% endif %}
-                        </td>
-                      </tr>
-              
-                      <tr>
-
-                        
-                      <th><label for="">Heading 1</label></th>
-
-                      <td>  {% for text in context.meta_h1.data %}
-                        {{text}} 
-                        
-                        {% endfor  %}</td>
-                      <td>
-                        <!-- {{context.meta_h1.data}} -->
-                        {% if context.meta_h1.alert == "warning" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% elif context.meta_h1.alert == "success" %}
-                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                          {% elif context.meta_h1.alert == "danger"  %}
-                          <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                          {% endif %}
-                      </td>  
-                      </tr>
-    
-                      <tr>
-                          <th><label for="">Heading 2</label></th>
-
-                          <td>{% for text in context.meta_h2.data %}
-                            {{text}} <br>
-                            {% endfor  %}</td>
-
-                          <td>
-                                <!-- {{context.meta_h2.data}} -->
-                                {% if context.meta_h2.alert == "warning" %}
-                              <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                              {% elif context.meta_h2.alert == "success" %}
-                              <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                              {% elif context.meta_h2.alert == "danger"  %}
-                              <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                              {% endif %}
-
-                            </td>
-                      </tr>
-    
-
-
-                      <tr>
-                          <th><label for="">Heading 3</label></th>
-                          
-                          <td> {% for text in context.meta_h3.data %}
-                            {{text}} <br>
-                            {% endfor  %}</td>
-                          <td>
-                            <!-- {{context.meta_h3_msg} -->
-                            {% if context.meta_h3.alert == "warning" %}
+                          <!-- {{context.meta_h1.data}} -->
+                          {% if context.meta_h1.alert == "warning" %}
                             <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% elif context.meta_h3.alert == "success" %}
+                            {% elif context.meta_h1.alert == "success" %}
                             <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            {% elif context.meta_h3.alert == "danger"  %}
+                            {% elif context.meta_h1.alert == "danger"  %}
                             <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             {% endif %}
-                          
-                          </td>
-                      </tr>
-    
-
-
-                      <tr>
-                          <th><label for="">Images</label></th>
-                          <td>
-                            <!-- {{context.meta_desc.data}} -->
-                                {{context.img_msg}}</td>
+                        </td>  
+                        </tr>
+      
+                        <tr>
+                            <th><label for="">Heading 2</label></th>
+  
+                            <td>{% for text in context.meta_h2.data %}
+                              {{text}} <br>
+                              {% endfor  %}</td>
+  
                             <td>
-                                {% if context.imag.alert == "warning" %}
+                                  <!-- {{context.meta_h2.data}} -->
+                                  {% if context.meta_h2.alert == "warning" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% elif context.meta_h2.alert == "success" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                {% elif context.meta_h2.alert == "danger"  %}
+                                <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% endif %}
+  
+                              </td>
+                        </tr>
+      
+  
+  
+                        <tr>
+                            <th><label for="">Heading 3</label></th>
+                            
+                            <td> {% for text in context.meta_h3.data %}
+                              {{text}} <br>
+                              {% endfor  %}</td>
+                            <td>
+                              <!-- {{context.meta_h3_msg} -->
+                              {% if context.meta_h3.alert == "warning" %}
                               <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                              {% elif context.imag.alert == "success" %}
+                              {% elif context.meta_h3.alert == "success" %}
                               <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                              {% elif context.imag.alert == "danger"  %}
+                              {% elif context.meta_h3.alert == "danger"  %}
                               <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                               {% endif %}
-                          </td>
-
-                      </tr>
-    
-    
-
-
-                      <tr>
-                          <th><label for="">Style Tag</label></th>
-                          <td>{{context.style_msg}}</td>
-                          <td>
-                            {% if context.meta_style.alert == "warning" %}
+                            
+                            </td>
+                        </tr>
+      
+  
+  
+                        <tr>
+                            <th><label for="">Images</label></th>
+                            <td>
+                              <!-- {{context.meta_desc.data}} -->
+                                  {{context.img_msg}}</td>
+                              <td>
+                                  {% if context.imag.alert == "warning" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% elif context.imag.alert == "success" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                {% elif context.imag.alert == "danger"  %}
+                                <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% endif %}
+                            </td>
+  
+                        </tr>
+      
+      
+  
+  
+                        <tr>
+                            <th><label for="">Style Tag</label></th>
+                            <td>{{context.style_msg}}</td>
+                            <td>
+                              {% if context.meta_style.alert == "warning" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% elif context.meta_style.alert == "success" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                {% elif context.meta_style.alert == "danger"  %}
+                                <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% endif %}
+  
+                            </td>
+                        </tr>
+      
+  
+  
+                        <tr>
+                            <th><label for="">Anchar Tag</label></th>
+                            <td>{{context.anc_msg}} </td>
+                            <td>
+                              {% if context.meta_anc.alert == "warning" %}
                               <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                              {% elif context.meta_style.alert == "success" %}
+                              {% elif context.meta_anc.alert == "success" %}
                               <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                              {% elif context.meta_style.alert == "danger"  %}
+                              {% elif context.meta_anc.alert == "danger"  %}
                               <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                               {% endif %}
+  
+                            </td>
+                        </tr>
+      
+  
+  
+                        <tr>
+                            <th><label for="">Robot.txt</label></th>
+                            <td>{{context.rob_mess}}</td>
+                            <td>
+                              {% if context.meta_robot.alert == "success" %}
+                              <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                              {% elif context.meta_robot.alert == "danger"  %}
+                              <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              {% endif %}
+  
+                            </td>
+                        </tr>
+      
+  
+                        
+                        <tr>
+                            <th><label for="">Sitemap.Xml</label></th>
+                            <td>{{context.site_mess}}</td>
+                            <td>
+                              {% if context.meta_site.alert == "success" %}
+                              <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                              {% elif context.meta_site.alert == "danger"  %}
+                              <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              {% endif %}
+  
+                            </td>
+                        </tr>
+      
+      
+      
+      
+                </tbody>
+              </table>
+            </div>
 
-                          </td>
-                      </tr>
-    
 
-
+              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  <table class="table">
+                    <tbody>
                       <tr>
-                          <th><label for="">Anchar Tag</label></th>
-                          <td>{{context.anc_msg}} </td>
-                          <td>
-                            {% if context.meta_anc.alert == "warning" %}
-                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% elif context.meta_anc.alert == "success" %}
-                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            {% elif context.meta_anc.alert == "danger"  %}
-                            <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% endif %}
-
-                          </td>
-                      </tr>
+                          <th><label for="">Meta Title</label></th>
+                          
+                              <td> {{context.meta_title.data}}
+                        
     
+                            </td>
+                            <td>      {% if context.meta_title.alert == "warning" %}
+                              <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              {% elif context.meta_title.alert == "success" %}
+                              <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                              {% elif context.meta_title.alert == "danger"  %}
+                              <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              {% endif %}</td>
+                          </tr>
+                      </tbody>
 
+                  </table>
+              </div>
 
-                      <tr>
-                          <th><label for="">Robot.txt</label></th>
-                          <td>{{context.rob_mess}}</td>
-                          <td>
-                            {% if context.meta_robot.alert == "success" %}
-                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            {% elif context.meta_robot.alert == "danger"  %}
-                            <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% endif %}
+              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+              <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+            </div>
 
-                          </td>
-                      </tr>
-    
-
-                      
-                      <tr>
-                          <th><label for="">Sitemap.Xml</label></th>
-                          <td>{{context.site_mess}}</td>
-                          <td>
-                            {% if context.meta_site.alert == "success" %}
-                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            {% elif context.meta_site.alert == "danger"  %}
-                            <svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% endif %}
-
-                          </td>
-                      </tr>
-    
-    
-    
-    
-              </tbody>
-            </table>
+            
+           
             <!-- <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg> -->
+          
           </div>
+
+        
+     
           <!-- <svg class="bi flex-shrink-0 me-2 warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg> -->
           <div id="piechart" class="col-md-2 percent">
 
@@ -534,6 +571,7 @@ table.table tbody td {
         });
         })
     </script> -->
-    
+<!--s://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> -->
+
 
   {% endblock %}

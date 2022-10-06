@@ -148,7 +148,7 @@ def Score_checker(request):
                 context["meta_h1_msg"]=f"h1 is Missing"
 
                 
-            print(len(heading1_text),"---------------h111111")
+            # print(len(heading1_text),"---------------h111111")
             
             context["meta_h1"] = meta_h1
             
@@ -166,13 +166,14 @@ def Score_checker(request):
                 convert_split = convert_lst.split()
                 heading2_text.append(tags2.text.strip())
             # listToStrh2 = ' '.join(map(str, heading2_text))
-            if len(h2_tags) is None:
-                meta_h2["alert"] =  "danger"
-                meta_h2["alert_msg"]  = f"h2 is Missing"
+            if len(heading2_text) ==2:
+                meta_h2["alert"] =  "success"
+                meta_h2["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h2["data"] = heading2_text
                 
-                error['h2'] = "h2 is Missing"
-                context["meta_h2_msg"]=f"h2 is Missing"
-            elif len(h2_tags) >=2:
+                context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
+              
+            elif len(heading2_text) >=3:
                 meta_h2["alert"] =  "warning"
                 meta_h2["alert_msg"]  =f"Your page contains headings two or more heading tag"
                 meta_h2["data"] = heading2_text
@@ -180,11 +181,12 @@ def Score_checker(request):
                 warning['h2'] = f"Your page contains headings two or more heading tag"
                 context["meta_h2_msg"]=f"Your page contains headings two or more heading tag"
             else:
-                meta_h2["alert"] =  "success"
-                meta_h2["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h2["data"] = heading2_text
+                  
+                meta_h2["alert"] =  "danger"
+                meta_h2["alert_msg"]  = f"h2 is Missing"
                 
-                context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
+                error['h2'] = "h2 is Missing"
+                context["meta_h2_msg"]=f"h2 is Missing"
             # context["heading2_tags"] = heading2_tags
 
             context["meta_h2"] = meta_h2
@@ -199,12 +201,14 @@ def Score_checker(request):
             for tags3 in h3_tags:
                 heading3_text.append(tags3.text.strip())
                 
-            if len(h3_tags) is None:
-                meta_h3["alert"] =  "danger"
-                meta_h3["alert_msg"]  = f"h3 is Missing"
+            if len(h3_tags) ==3:
+                meta_h3["alert"] =  "success"
+                meta_h3["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_h3["data"] = heading3_text
                 
-                error['h3'] = "h3 is Missing"
-                context["meta_h3_msg"]=f"h3 is Missing"
+                context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
+                # context["heading3_text"] = heading3_text
+               
             elif len(h3_tags) >= 3:
                 meta_h3["alert"] =  "warning"
                 meta_h3["alert_msg"]  =f"Your page contains headings two or more heading tag"
@@ -213,46 +217,56 @@ def Score_checker(request):
                 warning['h3'] = f"Your page contains headings two or more heading tag"
                 context["meta_h3_msg"]=f"Your page contains headings two or more heading tag"
             else:
-                meta_h3["alert"] =  "success"
-                meta_h3["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                meta_h3["data"] = heading3_text
+                meta_h3["alert"] =  "danger"
+                meta_h3["alert_msg"]  = f"h3 is Missing"
                 
-                context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
-                # context["heading3_text"] = heading3_text
+                error['h3'] = "h3 is Missing"
+                context["meta_h3_msg"]=f"h3 is Missing"
+
             context["meta_h3"] = meta_h3
                     
             # #
             # # ##For Images
             #
-            images = Soup.findAll('img')
+            # images = Soup.findAll('img')
             imag={"alert":"", "alert_msg":"", "data": ""}
-            for image in images:
-                image = []
-                for img in Soup.findAll('img'):
-                    image.append(img.get('src'))
-                    if len(images) is None:
-                        imag["alert"] =  "danger"
-                        imag["alert_msg"]  = f"img is Missing"
-                        
-                        error['img'] = "img is Missing"
-                        context["img_msg"]=f"img is Missing"
+            # for image in images:
+            image = []
+            all_img = Soup.findAll('img')
+            if len(all_img) == 0:
+                imag["alert"] =  "danger"
+                imag["alert_msg"]  = f"img is Missing"
+                
+                error['img'] = "img is Missing"
+                context["img_msg"]=f"img is Missing"
+            
 
-                    elif len(images) >= 200 :
-                        imag["alert"] =  "warning"
-                        imag["alert_msg"]  =f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
-                        imag["data"] = images
+                # for img in Soup.findAll('img'):
+
+                #     image.append(img.get('src'))
+                #     if len(image) ==0:
+                #         imag["alert"] =  "danger"
+                #         imag["alert_msg"]  = f"img is Missing"
                         
-                        warning['img'] = f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
-                        context["img_msg"]=f"Your webpage has 200 'img' tags and all of them has the required {len(images)} attribute."
-                    else:
-                        imag["alert"] =  "success"
-                        imag["alert_msg"]  =f"your webpage is used limited image "
-                        imag["data"] = images
-                      
-                        context["img_msg"]=f"your webpage is used limited image "
-                    
-                    context["imag"] = imag
-                    
+                #         error['img'] = "img is Missing"
+                #         context["img_msg"]=f"img is Missing"
+                        
+            elif len(all_img) >= 200 :
+                imag["alert"] =  "warning"
+                imag["alert_msg"]  =f"Your webpage has 200 'img' tags and all of them has the required {len(all_img)} attribute."
+                imag["data"] = all_img
+                
+                warning['img'] = f"Your webpage has 200 'img' tags and all of them has the required {len(image)} attribute."
+                context["img_msg"]=f"Your webpage has 200 'img' tags and all of them has the required {len(image)} attribute."
+            else:
+                imag["alert"] =  "success"
+                imag["alert_msg"]  =f"your webpage is used limited image "
+                imag["data"] = all_img
+                
+                context["img_msg"]=f"your webpage is used limited image "
+            print(all_img,"----------------------------imagess")
+            context["imag"] = imag
+            
             
             # #
             # #
@@ -273,8 +287,8 @@ def Score_checker(request):
                     meta_style["alert_msg"]  =f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
                     meta_style["data"] = style_tags
                      
-                    warning['style'] = f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
-                    context["style_msg"]=f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
+                    warning['style'] = f"Style Tag should be Greater than 100 use {len(taggg)} "
+                    context["style_msg"]=f"Style Tag should be Greater than 100 use {len(taggg)} "
                 else:
                     meta_style["alert"] =  "success"
                     meta_style["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
@@ -289,33 +303,39 @@ def Score_checker(request):
             # # ##--------------Underscore----------------------
             anc=[]
             meta_anc={"alert":"", "alert_msg":"", "data": ""}
-            for link in Soup.find_all('a'):
-                under=link.get('href')
-                if "_" in under:
-                    anc.append(under)
-                    if len(anc) is None:
-                        meta_anc["alert"] =  "danger"
-                        meta_anc["alert_msg"]  = f"anchor tag is Missing"
-                        
-                        error['a'] = "anchor tag is Missing"
-                        context["anc_msg"]=f"anchor tag is Missing"
-                    elif len(anc) >= 100:
-                        meta_anc["alert"] =  "warning"
-                        meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
-                        meta_anc["data"] = anc
-                        
-                        warning['a'] = f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
-                        context["anc_msg"]=f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+            all_anc = Soup.findAll('a')
+            if len(all_anc) == 0:
+                imag["alert"] =  "danger"
+                imag["alert_msg"]  = f"img is Missing"
+            # for link in Soup.find_all('a'):
+            #     under=link.get('href')
+                
+            #     anc.append(under)
+            #     # print(anc,"--------------------Anchor")
+            #     if len(anc)==0:
+            #         meta_anc["alert"] =  "danger"
+            #         meta_anc["alert_msg"]  = f"anchor tag is Missing"
                     
-                    else:
-                        meta_anc["alert"] =  "success"
-                        meta_anc["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
-                        meta_anc["data"] = anc
-                       
-                        context["anc_msg"]=f"your webpage is used limited anchor tag"
-
-                    context["meta_anc"]=meta_anc
+                error['a'] = "anchor tag is Missing"
+                context["anc_msg"]=f"anchor tag is Missing"
+            elif len(all_anc) >= 100:
+                meta_anc["alert"] =  "warning"
+                meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                meta_anc["data"] = all_anc
+                
+                warning['a'] = f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                context["anc_msg"]=f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
             
+            else:
+                meta_anc["alert"] =  "success"
+                meta_anc["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_anc["data"] = all_anc
+                
+                context["anc_msg"]=f"your webpage is used limited anchor tag"
+
+            # print(anc,"---------Anchoorrrrrrr")
+            context["meta_anc"]=meta_anc
+        
 
 
             #Check Robot.Txt File Is availabale or not          
@@ -429,57 +449,48 @@ def Score_checker(request):
 
 
         ####-------------------------IFramne Checker--------------------
+        meta_iframe={"alert":"","data": ""}
         iframe_tag=page.get_metadata('iframe')
         if iframe_tag is None:
-            # meta_title["alert"] =  "danger"
-            # meta_title["alert_msg"]  = "Titile is Missing" 
+            meta_title["alert"] =  "danger"
+            meta_title["alert_msg"]  = "Titile is Missing" 
 
-            # error['title']="titile is Missing"
-            # context["meta_title_msg"] = "titile is Missing" 
+            error['title']="titile is Missing"
+            context["meta_title_msg"] = "titile is Missing"
+
             print("Iframne None--------------------------")
-        # # print(error)
-        # elif len(title_tag)>=30  and len(title_tag)<=350:
-        #     meta_title["alert"] =  "warning"
-        #     meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
-        #     meta_title["data"] = title_tag
-
-        #     warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
-        #     context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
         else:
-            # meta_title["alert"] =  "success"
-            # meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
-            # meta_title["data"] = title_tag
+            meta_title["alert"] =  "success"
+            meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+            meta_title["data"] = title_tag
 
-            # context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+            context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
             print("IFramne Yes-----------------")
 
+        context['meta_iframe']=meta_iframe
 
-          ####-------------------------IDoctyp Checker--------------------
+
+
+        ####-------------------------IDoctyp Checker--------------------
+        meta_page={"alert":"","data": ""}
         page=metadata_parser.MetadataParser(url)
-        ("" )
         if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
-            # meta_title["alert"] =  "danger"
-            # meta_title["alert_msg"]  = "Titile is Missing" 
+            meta_title["alert"] =  "danger"
+            meta_title["alert_msg"]  = "Titile is Missing" 
 
-            # error['title']="titile is Missing"
-            # context["meta_title_msg"] = "titile is Missing" 
+            error['title']="titile is Missing"
+            context["meta_title_msg"] = "titile is Missing" 
             print("Doctype Yes--------------------------")
-        # # print(error)
-        # elif len(title_tag)>=30  and len(title_tag)<=350:
-        #     meta_title["alert"] =  "warning"
-        #     meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
-        #     meta_title["data"] = title_tag
-
-        #     warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
-        #     context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
+       
         else:
-            # meta_title["alert"] =  "success"
-            # meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
-            # meta_title["data"] = title_tag
+            meta_title["alert"] =  "success"
+            meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+            meta_title["data"] = title_tag
 
-            # context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+            context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
             print("Doctype none-----------------")
 
+        context['meta_page']=meta_page
 
         ###---------------------Check Donmain Name Samne or Not -----------------
         # o = urlparse(url)
