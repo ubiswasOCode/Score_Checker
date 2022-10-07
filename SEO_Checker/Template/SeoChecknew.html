@@ -47,6 +47,15 @@
 
 {% block style %}
 <style>
+  .loader {
+  background: black url("{% static 'img/loader.gif' %}") no-repeat center center;
+    height: 100vh;
+    background-color: transparent;
+    width: 100%;
+    position: fixed;
+    z-index: 100%;
+  }
+
 table.table tbody td {
 
     padding-top: 10px !important;
@@ -129,21 +138,36 @@ table.table tbody td {
 /* svg{
   background-color: transparent !important;
 } */
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
       input#url
     {
         height: 40px;
     width: 72% !important;
       }
 
-    }
+    } */
+    @media screen and (min-device-width: 320px) and (max-device-width: 768px) { 
 
-    @media (min-width: 1025px) and (max-width: 1280px) {
-    .input_url
-    {
-      height: 40px;
-      width: 84%;
-    }
+      input#url {
+    height: 40px;
+    width: 73%;
+    border-radius: 8px;
+    padding: 10px;
+}
+  
+}
+
+   
+
+    @media screen and  (min-device-width: 769px) and (max-device-width: 1280px) {
+      input#url {
+    height: 40px;
+    width: 80%;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+
     }
     .nav-link
     {
@@ -179,6 +203,8 @@ table.table tbody td {
 {% block content %}
 
  <!-- All Data -->
+ <!-- <div class="loader"></div> -->
+
  <div class="container boddy">
 <div class="container my-4" >
   <div class="row">
@@ -207,7 +233,8 @@ table.table tbody td {
        
           <form action='/score_checker/' id="update" class="input_url1" method="POST">
             {% csrf_token %}
-            <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+            <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url">
+
                 
                   <button class="btn btn-outline-success searchbtn" type="submit">Search</button>
                  
@@ -286,7 +313,7 @@ table.table tbody td {
                           
                         </td>
                           <td>
-                            {% if context.meta_desc.alert == "warning" %}
+                            {% if context.meta_desc_msg.alert == "warning" %}
                             <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             {% elif context.meta_desc.alert == "success" %}
                             <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -454,27 +481,117 @@ table.table tbody td {
                   <table class="table">
                     <tbody>
                       <tr>
-                          <th><label for="">Meta Title</label></th>
+                          <th><label for="">Iframe Tag</label></th>
                           
-                              <td> {{context.meta_title.data}}
+                              <td> {{context.meta_iframe.alert_msg}}
                         
     
                             </td>
-                            <td>      {% if context.meta_title.alert == "warning" %}
+                            <td>      {% if context.meta_iframe.alert == "warning" %}
                               <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                              {% elif context.meta_title.alert == "success" %}
+                              {% elif context.meta_iframe.alert == "success" %}
                               <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                              {% elif context.meta_title.alert == "danger"  %}
+                              {% elif context.meta_iframe.alert == "danger"  %}
                               <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                               {% endif %}</td>
                           </tr>
+
+                          <tr>
+                            <th><label for="">Doctype </label></th>
+                            
+                                <td> {{context.meta_doc.alert_msg}}
+                          
+      
+                              </td>
+                              <td>      {% if context.meta_doc.alert == "warning" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% elif context.meta_doc.alert == "success" %}
+                                <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                {% elif context.meta_doc.alert == "danger"  %}
+                                <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {% endif %}</td>
+                            </tr>
+
+                            <tr>
+                              <th><label for="">Loading Speed </label></th>
+                              
+                               <td id="loading_time"The web page load time .</td>
+                            
+        
+                                </td>
+                                <td>      {% if context.meta_doc.alert == "warning" %}
+                                  <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                  {% elif context.meta_doc.alert == "success" %}
+                                  <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                  {% elif context.meta_doc.alert == "danger"  %}
+                                  <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                  {% endif %}</td>
+                              </tr>
+                              
+                             
+                                
+
+
                       </tbody>
 
                   </table>
               </div>
 
-              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-              <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th><label for="">HTTPS Test </label></th>
+                      
+                          <td>  {{context.meta_host.alert_msg}}
+                    
+
+                        </td>
+                        <td>      {% if context.meta_host.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.meta_host.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.meta_host.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}</td>
+                      </tr>
+
+                      <tr>
+                      <th><label for="">Safe Browsing Test</label></th>
+                      
+                          <td>  {{context.meta_secure.alert_msg}}
+                    
+
+                        </td>
+                        <td>      {% if context.meta_secure.alert == "warning" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% elif context.meta_secure.alert == "success" %}
+                          <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          {% elif context.meta_secure.alert == "danger"  %}
+                          <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          {% endif %}</td>
+                      </tr>
+
+                      <tr>
+                        <th><label for="">Directory Browsing Test</label></th>
+                        
+                            <td>  {{context.meta_dir.alert_msg}}
+                      
+  
+                          </td>
+                          <td>      {% if context.meta_dir.alert == "warning" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% elif context.meta_dir.alert == "success" %}
+                            <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            {% elif context.meta_dir.alert == "danger"  %}
+                            <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% endif %}</td>
+                        </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
             </div>
 
             
@@ -528,8 +645,32 @@ table.table tbody td {
 
    
   </div>
+<script>
+//   var loadTime = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart;
+// console.log(loadTime);
+// console.log(window.startTime = (new Date).getTime());
+// Check Load Time
+var perf = () => {
+  var duration = performance.getEntriesByType("navigation")[0].duration;
+  if (!duration) setTimeout(perf, 0);
+  else console.log({ duration });
+  time=duration/86400
+  console.log(time)
+  document.getElementById('loading_time').innerHTML = time.toFixed(5);
+}
+
+window.addEventListener('DOMContentLoaded', perf);
+
+</script>
 
 
+<script>
+  console.log(window.location.hostname);
+</script>
+
+<script>
+  console.log(url)
+</script>
   
 <!-- Check Flash -->
 

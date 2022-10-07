@@ -1,3 +1,4 @@
+from curses import meta
 from django.shortcuts import render
 import metadata_parser
 import requests
@@ -13,6 +14,7 @@ def Score_checker(request):
     warning={}
     value={}
     context = dict()
+    url = ''
     if request.method == "POST":
         url = request.POST.get('url')
     
@@ -75,7 +77,7 @@ def Score_checker(request):
                 
                 context["meta_desc_msg"] = f"Congratulations your webpage is using a limited description tag."
                 
-            
+            print(meta_desc,"")
             context["meta_desc"] = meta_desc
           
 
@@ -307,14 +309,6 @@ def Score_checker(request):
             if len(all_anc) == 0:
                 imag["alert"] =  "danger"
                 imag["alert_msg"]  = f"img is Missing"
-            # for link in Soup.find_all('a'):
-            #     under=link.get('href')
-                
-            #     anc.append(under)
-            #     # print(anc,"--------------------Anchor")
-            #     if len(anc)==0:
-            #         meta_anc["alert"] =  "danger"
-            #         meta_anc["alert_msg"]  = f"anchor tag is Missing"
                     
                 error['a'] = "anchor tag is Missing"
                 context["anc_msg"]=f"anchor tag is Missing"
@@ -418,18 +412,7 @@ def Score_checker(request):
                     "per":per}
                     
 
-    # driver=webdriver.Chrome('/home/ocode-22/chromedriver')
-    # driver.get('https://www.javatpoint.com/')
-
-    # load_time = driver.execute_script(
-    #         """
-    #         var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
-    #         return loadTime;
-    #         """
-    #         )
-
-    # print(load_time,"---------------------------Time")
-    
+        
     
     ######------------------------------------Page Opening Time--------------------
         # driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -448,49 +431,69 @@ def Score_checker(request):
 
 
 
+        ##Calculate Time 
+        # driver=webdriver.Chrome('/home/ocode-22/chromedriver')
+        # driver.get('url')
+        # meta_time= {"alert":"","data": ""}
+        # load_time = driver.execute_script(
+        #         """
+        #         var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
+        #         return loadTime;
+        #         """
+        #         )
+        
+
+        # print(load_time,"---------------------------Time")
+
+
+
         ####-------------------------IFramne Checker--------------------
         meta_iframe={"alert":"","data": ""}
         iframe_tag=page.get_metadata('iframe')
         if iframe_tag is None:
-            meta_title["alert"] =  "danger"
-            meta_title["alert_msg"]  = "Titile is Missing" 
+            meta_iframe["alert"] =  "success"
+            meta_iframe["alert_msg"]  = "Congratulations! Your webpage does not use frames." 
 
             error['title']="titile is Missing"
-            context["meta_title_msg"] = "titile is Missing"
+            context["meta_title_msg"] = "Congratulations! Your webpage does not use frames."
 
             print("Iframne None--------------------------")
         else:
-            meta_title["alert"] =  "success"
-            meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
-            meta_title["data"] = title_tag
+            meta_iframe["alert"] =  "danger"
+            meta_iframe["alert_msg"]  = f"Congratulations your webpage is using Iframe tag."
+            meta_iframe["data"] = iframe_tag
 
-            context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
-            print("IFramne Yes-----------------")
+            context["meta_title_msg"] =f"Congratulations your webpage is using Iframe tag."
+            print(iframe_tag,"IFramne Yes-----------------")
 
         context['meta_iframe']=meta_iframe
 
 
 
         ####-------------------------IDoctyp Checker--------------------
-        meta_page={"alert":"","data": ""}
+        meta_doc={"alert":"","data": ""}
         page=metadata_parser.MetadataParser(url)
         if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
-            meta_title["alert"] =  "danger"
-            meta_title["alert_msg"]  = "Titile is Missing" 
+            meta_doc["alert"] =  "success"
+            meta_doc["alert_msg"]  = f"Congratulations! Your website has a doctype declaration."
+            meta_doc["data"] = page
 
-            error['title']="titile is Missing"
-            context["meta_title_msg"] = "titile is Missing" 
+            context["meta_doc_msg"] =f"Congratulations! Your website has a doctype declaration."
+           
             print("Doctype Yes--------------------------")
        
         else:
-            meta_title["alert"] =  "success"
-            meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
-            meta_title["data"] = title_tag
+          
+            meta_doc["alert"] =  "danger"
+            meta_doc["alert_msg"]  = "Doctype Not Use" 
 
-            context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+            error['doc']="titile is Missing"
+            context["meta_doc_msg"] = "Doctype Not Use" 
             print("Doctype none-----------------")
 
-        context['meta_page']=meta_page
+        context['meta_doc']=meta_doc
+
+
 
         ###---------------------Check Donmain Name Samne or Not -----------------
         # o = urlparse(url)
@@ -508,31 +511,72 @@ def Score_checker(request):
 
         
         #####-----------------Check The Website used Http or Https---------------
+        meta_host={"alert":"", "alert_msg":""}
         if "https:" in url:
+            meta_host["alert"] =  "success"
+            meta_host["alert_msg"]  = f"Your website is successfully using https, a secure communication protocol over the Internet. "
+          
+
+            context["meta_host_msg"] =f"Your website is successfully using https, a  over the Internet."
+
             print("yes https==============")
         elif "http:" in url:
+            meta_host["alert"] =  "danger"
+            meta_host["alert_msg"]  = f"Your website is not using https, a  over the Internet." 
+
+            error['host']="Https is Missing"
+            context["meta_host_msg"] = f"Your website is not using https, a  over the Internet."
+           
             print("httpppppppppppp--------------------------")
-        else:
-            print("No Domian--------------")
+            
+        context['meta_host']=meta_host
 
         
         #####--------------------Secure or Not------------------####
+        meta_secure={"alert":"", "alert_msg":""}
         if "https:" in url:
-            print("Secure Protocol is used")
-        else:
-            print("Not Used Sceure--------------------------")
-      
+            meta_secure["alert"] =  "success"
+            meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found). "
+          
 
-      ###-------------------Check Safe Browsing or not-------------------------
-        if "https:" in url:
-            print("Safe Browsing--------------------")
+            context["meta_host_msg"] =f"This site is not currently listed as suspicious (no malware or phishing activity found)."
+
+            # print("Secure Protocol is used")
         else:
-            print("Not Safe Browsing--------------------------")
+            meta_secure["alert"] =  "danger"
+            meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found)." 
+
+            error['host']="Https is Missing"
+            context["meta_host_msg"] = f"This site is not currently listed as suspicious (no malware or phishing activity found)."
+            # print("Not Used Sceure--------------------------")
+        context['meta_secure']=meta_secure
+
+
+      ###-------------------Directory Browsing use or not-------------------------
+        meta_dir={"alert":"", "alert_msg":""}
+        dir_tag = Soup.findAll('dir')
+        print(dir_tag,"------dir is use")
+        if len(dir_tag) >= 0 :
+            meta_dir["alert"] =  "success"
+            meta_dir["alert_msg"]  = f"Congratulations! Your server has disabled directory browsing."
+          
+
+            context["meta_dir_msg"] =f"Congratulations! Your server has disabled directory browsing."
+
+        else:
+            meta_dir["alert"] =  "danger"
+            meta_dir["alert_msg"]  = f" Your server has enabled directory browsing.." 
+
+            error['dirtag']="dir is Missing"
+            context["meta_dir_msg"] = f"Your server has enabled directory browsing."
+            # print("Not Used Sceure--------------------------")
+        print(dir_tag,"------dir is use")
+        context['meta_dir']=meta_dir
       
 
         
 
-    return render(request,"SeoChecknew.html",{"context":context,"value":value})
+    return render(request,"SeoChecknew.html",{"context":context,"value":value, 'url':url})
 
 def Home(request):
     
