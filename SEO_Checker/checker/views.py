@@ -1,11 +1,11 @@
-from curses import meta
+
 from django.shortcuts import render
 import metadata_parser
 import requests
-# from urllib.parse import urlparse
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+# from selenium import webdriver
+# from webdriver_manager.chrome import ChromeDriverManager
 
 
 def Score_checker(request):
@@ -25,28 +25,31 @@ def Score_checker(request):
             #   ------------ MEta Title ----------------------------
             meta_title = {"alert":"", "alert_msg":"", "data": ""}
             title_tag=page.get_metadata('title')
-            if title_tag is None:
+            if len(title_tag) ==0:
                 meta_title["alert"] =  "danger"
                 meta_title["alert_msg"]  = "Titile is Missing" 
 
                 error['title']="titile is Missing"
                 context["meta_title_msg"] = "titile is Missing" 
             # print(error)
-            elif len(title_tag)>=30  and len(title_tag)<=350:
-                meta_title["alert"] =  "warning"
-                meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
-                meta_title["data"] = title_tag
-
-                warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
-                context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
-            else:
+            elif len(title_tag)>=1  and len(title_tag)<=70:
                 meta_title["alert"] =  "success"
                 meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
                 meta_title["data"] = title_tag
 
                 context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
             # print(page.get_metadata('title'))
-            # print(title_tag)
+            
+               
+            else:
+                meta_title["alert"] =  "warning"
+                meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(title_tag)} characters" 
+                meta_title["data"] = title_tag
+
+                warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
+                context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
+               
+            print(title_tag,"-------------------title")
             context["meta_title"] = meta_title
 
 
@@ -55,14 +58,21 @@ def Score_checker(request):
             meta_desc={"alert":"", "alert_msg":"", "data": ""}
             desc=page.get_metadata("description")
 
-            if desc is None:
+            if len(desc)==0 :
                 meta_desc["alert"] =  "danger"
                 meta_desc["alert_msg"]  = "description is Missing" 
 
                 error['description'] = "description is Missing"
                 context["meta_desc_msg"] = "description is Missing" 
-            elif len(desc) >= 160 :
-                meta_desc["alert"] =  "warning"
+            elif len(desc) >=1 and len(desc)<= 165 :
+                meta_desc["alert"] =  "success"
+                meta_desc["alert_msg"]  =f"Congratulations your webpage is using a limited description tag."
+                meta_desc["data"] = desc
+                
+                context["meta_desc_msg"] = f"Congratulations your webpage is using a limited description tag."
+               
+            else:
+                meta_desc["alert"] ="warning"
                 meta_desc["alert_msg"]  = f"description should be Greater than 160 characters {len(desc)}  characters"
                 meta_desc["data"] = desc
 
@@ -70,14 +80,8 @@ def Score_checker(request):
                 # print(f"description should be Greater than 160 characters {len(desc)}  characters")
                 warning['description'] =f"description should be Greater than 160 characters {len(desc)}  characters"
                 context["meta_desc_msg"] = f"description should be Greater than 160 characters {len(desc)}  characters"
-            else:
-                meta_desc["alert"] =  "success"
-                meta_desc["alert_msg"]  =f"Congratulations your webpage is using a limited description tag."
-                meta_desc["data"] = desc
                 
-                context["meta_desc_msg"] = f"Congratulations your webpage is using a limited description tag."
-                
-            print(meta_desc,"")
+            # print(len(desc),"-----------desc")
             context["meta_desc"] = meta_desc
           
 
@@ -298,12 +302,19 @@ def Score_checker(request):
                     
                     # print(f"your webpage is used limited style tag")
                     context["style_msg"]=f"your webpage is used limited style tag"
-                 
+                
+                # print(len(taggg),"------------------style,,,,,")
                 context["meta_style"] = meta_style   
                 
+            ####----------------SEO Friendly----------------
+            html = requests.get(url).content
+            soup = BeautifulSoup(html, "html.parser")
+            links = [a["href"] for a in soup.find_all("a", href=True)]
             
-            # # ##--------------Underscore----------------------
-            anc=[]
+            print(links,"Total link ----------------")
+            
+            # # ##--------------anchor tag----------------------
+       
             meta_anc={"alert":"", "alert_msg":"", "data": ""}
             all_anc = Soup.findAll('a')
             if len(all_anc) == 0:
@@ -314,11 +325,11 @@ def Score_checker(request):
                 context["anc_msg"]=f"anchor tag is Missing"
             elif len(all_anc) >= 100:
                 meta_anc["alert"] =  "warning"
-                meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(all_anc)} characters"
                 meta_anc["data"] = all_anc
                 
-                warning['a'] = f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
-                context["anc_msg"]=f"anchor Tag should be Greater than 100 characters {len(anc)} characters"
+                warning['a'] = f"anchor Tag should be Greater than 100 characters {len(all_anc)} characters"
+                context["anc_msg"]=f" Tag should be Greater than 100  {len(all_anc)} characters"
             
             else:
                 meta_anc["alert"] =  "success"
@@ -327,7 +338,7 @@ def Score_checker(request):
                 
                 context["anc_msg"]=f"your webpage is used limited anchor tag"
 
-            # print(anc,"---------Anchoorrrrrrr")
+            print(len(all_anc),"---------Anchoorrrrrrr")
             context["meta_anc"]=meta_anc
         
 

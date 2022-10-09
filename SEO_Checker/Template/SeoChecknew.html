@@ -102,9 +102,7 @@ table.table tbody td {
     float: right;
 
     }
-    button.btn.btn-outline-success.searchbtn {
-    margin: -39px 0px;
-}
+
     .content h1
     {
         text-align: center;
@@ -156,18 +154,18 @@ table.table tbody td {
 }
   
 }
-
+button.btn.btn-outline-success.searchbtn {
+  margin-right: 25px;
+}
    
 
     @media screen and  (min-device-width: 769px) and (max-device-width: 1280px) {
       input#url {
     height: 40px;
-    width: 80%;
+    width: 83%;
     border-radius: 8px;
     padding: 10px;
 }
-
-
     }
     .nav-link
     {
@@ -205,7 +203,7 @@ table.table tbody td {
  <!-- All Data -->
  <!-- <div class="loader"></div> -->
 
- <div class="container boddy">
+
 <div class="container my-4" >
   <div class="row">
     <div class="col-md-2 ">
@@ -224,20 +222,23 @@ table.table tbody td {
 
 
 <!-- Input Form -->
-  <div class="container" >
+ 
     <div class="row">
       <div class="col-md-3">
 
       </div>
-      <div class="col-md-6 formtag">
+      <div class="col-md-6 ">
        
           <form action='/score_checker/' id="update" class="input_url1" method="POST">
-            {% csrf_token %}
-            <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url">
-
-                
-                  <button class="btn btn-outline-success searchbtn" type="submit">Search</button>
-                 
+            <div class="row formm ">
+              <div class="col-md-11 ">
+                {% csrf_token %}
+                <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url">
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-outline-success searchbtn" type="submit">Search</button>
+              </div>
+            </div>    
                
           </form>
 
@@ -247,12 +248,12 @@ table.table tbody td {
 
       </div>
     </div>
-  </div>
+
 
     
     <!-- Chart or Content -->
-    <div class="container mt-5"  >
-        <div class="row">
+<div class="container mt-5"  >
+        <div class="row" >
           <div class="col-md-3">
     
                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -266,10 +267,10 @@ table.table tbody td {
           </div>
 
           
-          <div class="col-md-7">
-            <div class="tab-content" id="v-pills-tabContent">
-              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <table class="table">
+        <div class="col-md-7">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <table class="table">
 
       
                 <tbody>
@@ -281,7 +282,7 @@ table.table tbody td {
   
                           </td>
                           <td>      {% if context.meta_title.alert == "warning" %}
-                            <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <svg class="bi flex-shrink-0 me-2 alert-warning"id="hoverr" onclick="Showdata" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             {% elif context.meta_title.alert == "success" %}
                             <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                             {% elif context.meta_title.alert == "danger"  %}
@@ -313,7 +314,7 @@ table.table tbody td {
                           
                         </td>
                           <td>
-                            {% if context.meta_desc_msg.alert == "warning" %}
+                            {% if context.meta_desc.alert == "warning" %}
                             <svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             {% elif context.meta_desc.alert == "success" %}
                             <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -326,7 +327,7 @@ table.table tbody td {
                         <tr>
   
                           
-                        <th><label for="">Heading 1</label></th>
+                        <th><label for="">H1</label></th>
   
                         <td>  {% for text in context.meta_h1.data %}
                           {{text}} 
@@ -345,7 +346,7 @@ table.table tbody td {
                         </tr>
       
                         <tr>
-                            <th><label for="">Heading 2</label></th>
+                            <th><label for="">H2</label></th>
   
                             <td>{% for text in context.meta_h2.data %}
                               {{text}} <br>
@@ -367,7 +368,7 @@ table.table tbody td {
   
   
                         <tr>
-                            <th><label for="">Heading 3</label></th>
+                            <th><label for="">H3</label></th>
                             
                             <td> {% for text in context.meta_h3.data %}
                               {{text}} <br>
@@ -474,7 +475,7 @@ table.table tbody td {
       
                 </tbody>
               </table>
-            </div>
+          </div>
 
 
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -637,14 +638,15 @@ table.table tbody td {
     <p id="GFG_DOWN" style=
         "color: green; font-size: 24px; font-weight: bold;">
     </p>
-    </div>
+ 
+</div>
     <br><br>
   
      
     
 
    
-  </div>
+
 <script>
 //   var loadTime = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart;
 // console.log(loadTime);
@@ -654,9 +656,9 @@ var perf = () => {
   var duration = performance.getEntriesByType("navigation")[0].duration;
   if (!duration) setTimeout(perf, 0);
   else console.log({ duration });
-  time=duration/86400
+  time=duration/1000
   console.log(time)
-  document.getElementById('loading_time').innerHTML = time.toFixed(5);
+  document.getElementById('loading_time').innerHTML ="The web page load time is " + time.toFixed(5)+ " seconds.";
 }
 
 window.addEventListener('DOMContentLoaded', perf);
