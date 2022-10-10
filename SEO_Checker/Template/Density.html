@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Density Checker | {% endblock %}
+{% block title %} Density Checker | {% endblock %} 
+
+{% block head %} 
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-5-vertical-tabs@2.0.0/dist/b5vtabs.min.css"
+    integrity="sha384-AsoWNxsuu73eGp2MPWHa77155fyqP9rueKOeG4t2d/AD4eyBqL20TClzfbAkrul4"
+    crossorigin="anonymous"
+/>
+
+{% endblock %}
 
 {% block style %}
 <style>
@@ -75,13 +86,34 @@
 .show{
   display:block;
 }
+/* button#home-tab {
+    width: 100%;
+    text-align: center;
+}
+button#profile-tab {
+  width: 100%;
+  text-align: center;
+}
+button#contact-tab {
+  width: 100%;
+  text-align: center;
+} */
+#myTab li button   {
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+}
+textarea#textInput {
+    margin-top: 1px;
+    padding: 5px;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Hero or Desc -->
-      <div class="container mt-4">
-        <div class="row">
+     
+        <div class="row mt-4">
           <div class="col-md-2">
 
           </div>
@@ -95,97 +127,120 @@
 
         </div>
 
-      </div>
+
        
 
       <!-- Form  -->
 
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-3">
 
-          </div>
-          <div class="col-md-6">
-            <form action='/density/' id="update" class="input_url" method="POST">
-              {% csrf_token %}
-          
-              <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
-              <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
-             
-              <!-- <input class="hide" type="text" id="textInput"  /> -->
-              <textarea rows="3" class="hide" id="textInput" id="url"  style="width:100%"></textarea><br>
-            <div class="row">
-              <div class="col-md-4">
-                <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
-              </div>
-              <div class="col-md-4">
-                <input  type="button" class="btn btn-outline-success srchbtn" onclick="onButtonClick(); showField('opendialog'); " name="answer" value="Enter Manually"></button>
+        </div>
+        <div class="col-md-6">
 
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-outline-success" id="wrdsrch" type="submit">Check</button>
-
-              </div>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Url</button>
+              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Enter Keyword</button>
+              <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
             </div>
-           
-             
-             
-           
-          </form>
-          
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">  
+              <form action='/density/' id="update" class="input_url" method="POST">
+              {% csrf_token %}
+              <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+              <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
+            </div>
 
-          </div>
-          <div class="col-md-3">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <textarea rows="3"  id="textInput" id="url"  style="width:100%"></textarea><br>
+              <input  type="submit" class="btn btn-outline-success srchbtn"  name="answer" value="Check "></button>
+            
+            </div>
 
+            
           </div>
+
+        
+            <!-- {% csrf_token %}
+        
+            <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+            
+            <textarea rows="3" class="hide" id="textInput" id="url"  style="width:100%"></textarea><br>
+            <div class="row">
+            <div class="col-md-4">
+              <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
+            </div>
+            <div class="col-md-4">
+              <input  type="button" class="btn btn-outline-success srchbtn" onclick="onButtonClick(); showField(); " name="answer" value="Enter Manually"></button>
+
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-outline-success" id="wrdsrch" type="submit">Check</button>
+
+            </div>
+          </div>
+          -->
+        </form>
+        
+
+        </div>
+        <div class="col-md-3">
+
         </div>
       </div>
+
       
 
-        <div class="container mt-5">
-          <div class="row">
+       
+          <div class="row mt-5">
             <div class="col-md-3">
             
               
-                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                  <button class="nav-link active" onclick="showTable('one_word')"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">One Word</button>
-                  <button class="nav-link" id="v-pills-profile-tab" onclick="showTable('TWO_word')" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Two Word</button>
-                  <button class="nav-link" id="v-pills-messages-tab"onclick="showTable('Three_word')"  data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Three Word</button>
-                  <!-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button> -->
-                </div>
-                
-
-                
-  
+                <ul class="nav nav-tabs left-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">One Word</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Two Word</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Three Word</button>
+                  </li>
+                </ul>
+             
               
             </div>
-
-
-
             <div class="col-md-6">
-              <!-- One Word Density  -->
-              <table class="table" id="one_word">
-                <tbody>
-                  <tr>
-                    <th>Word</th>
-                    <th>Freq.</th>
-                    <th>Density</th>
-                    <th>Title</th>
-                  </tr>
-
-                  {% for key,val in data.items %}
-                   <tr>
-                      <td>{{key}}</td>
-                      <td>{{val.freq}}</td>
-                      <td>{{val.density}}</td>
-                    {% endfor %}
-                   
-                   </tr>
-                </tbody>
-              </table>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- One Word Density  -->
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th>Word</th>
+                        <th>Freq.</th>
+                        <th>Density</th>
+                        <th>Title</th>
+                      </tr>
+    
+                      {% for key,val in data.items %}
+                       <tr>
+                          <td>{{key}}</td>
+                          <td>{{val.freq}}</td>
+                          <td>{{val.density}}</td>
+                        {% endfor %}
+                       
+                       </tr>
+                    </tbody>
+                  </table>
+    
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
               <!-- Two Word Density Check -->
-              <table class="table hide" id="TWO_word">
+              <table class="table ">
                 <tbody>
                   <tr>
                     <th>Word</th>
@@ -205,8 +260,11 @@
               </table>
 
 
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
                <!-- THree Word Density Check -->
-              <table class="table hide" id="Three_word">
+              <table class="table ">
                 <tbody>
                   <tr>
                     <th>Word</th>
@@ -225,27 +283,19 @@
                 </tbody>
               </table>
               
+                </div>
+              </div>
+
+              
+            
+            
             </div>
             <div class="col-md-3">
-
             </div>
           </div>
-        </div>
-        
-        <ul class="nav nav-tabs ">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Active</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
+       
+    
+
       
 
 
@@ -254,57 +304,6 @@
 {% endblock %}  
    
 {% block script %}
-    <script>
-      function showTable(table_id){
-        let table = document.getElementById(table_id)
-        table.classList.remove("hide")
-        if(table_id === 'one_word'){
-          document.getElementById("TWO_word").classList.add("hide")
-          document.getElementById("Three_word").classList.add("hide")
-        }else if(table_id === 'TWO_word'){
-          document.getElementById("one_word").classList.add("hide")
-          document.getElementById("Three_word").classList.add("hide")
-        }else if(table_id === 'Three_word'){
-          document.getElementById("one_word").classList.add("hide")
-          document.getElementById("TWO_word").classList.add("hide")
-        }
-        console.log(table_id)
-      }
-    </script> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    
-
-    <script>
-      $(function(){
-        console.log('ready');
-
-        $('.nav-item a').click(function(e) {
-            e.preventDefault()
-
-            $that = $(this);
-
-            $that.parent().find('a').removeClass('active');
-            $that.addClass('active');
-        });
-        })
-    </script>
-
-    <script>
-          function onButtonClick(){
-      document.getElementById('textInput').className="show";
-    }
-    </script>
-
-<script>
-
-  function showField(){
-
-      document.getElementById("url").classList.add("hide")
-      document.getElementById("urlsrch").classList.add("hide")
-      document.getElementById("wrdsrch").classList.add("show")
-      
-  
-  }
-</script> 
+ 
 
     {% endblock %}

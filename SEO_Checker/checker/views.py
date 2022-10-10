@@ -270,14 +270,16 @@ def Score_checker(request):
                 imag["data"] = all_img
                 
                 context["img_msg"]=f"your webpage is used limited image "
-            print(all_img,"----------------------------imagess")
+            # print(all_img,"----------------------------imagess")
             context["imag"] = imag
             
             
             # #
             # #
             # ##Style Tags
-            style_tags = ["style"]
+            html = requests.get(url).content
+            soup = BeautifulSoup(html, "html.parser")
+            style_tags =soup.select('div style')
             meta_style={"alert":"", "alert_msg":"", "data": ""}
             for tags in Soup.find_all(style_tags):
                 taggg=tags.name + ' -> ' + tags.text.strip()
@@ -303,8 +305,9 @@ def Score_checker(request):
                     # print(f"your webpage is used limited style tag")
                     context["style_msg"]=f"your webpage is used limited style tag"
                 
-                # print(len(taggg),"------------------style,,,,,")
+                print(len(style_tags),"------------------style,,,,,")
                 context["meta_style"] = meta_style   
+
                 
             ####----------------SEO Friendly----------------
             html = requests.get(url).content
@@ -325,20 +328,20 @@ def Score_checker(request):
                 context["anc_msg"]=f"anchor tag is Missing"
             elif len(all_anc) >= 100:
                 meta_anc["alert"] =  "warning"
-                meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 characters {len(all_anc)} characters"
+                meta_anc["alert_msg"]  =f"anchor Tag should be Greater than 100 your webpage use {len(all_anc)} "
                 meta_anc["data"] = all_anc
                 
-                warning['a'] = f"anchor Tag should be Greater than 100 characters {len(all_anc)} characters"
-                context["anc_msg"]=f" Tag should be Greater than 100  {len(all_anc)} characters"
+                warning['a'] = f"anchor Tag should be Greater than 100 your webpage use {len(all_anc)} "
+                context["anc_msg"]=f" anchor Tag should be Greater than 100 your webpage use {len(all_anc)} "
             
             else:
                 meta_anc["alert"] =  "success"
-                meta_anc["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                meta_anc["alert_msg"]  =f"Congratulations! Your page contains limited anchor tag."
                 meta_anc["data"] = all_anc
                 
                 context["anc_msg"]=f"your webpage is used limited anchor tag"
 
-            print(len(all_anc),"---------Anchoorrrrrrr")
+            # print(len(all_anc),"---------Anchoorrrrrrr")
             context["meta_anc"]=meta_anc
         
 
@@ -501,7 +504,7 @@ def Score_checker(request):
             error['doc']="titile is Missing"
             context["meta_doc_msg"] = "Doctype Not Use" 
             print("Doctype none-----------------")
-
+        print(meta_doc,"--------------------------Doctype")
         context['meta_doc']=meta_doc
 
 

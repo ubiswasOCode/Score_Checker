@@ -9,12 +9,16 @@ import re
 
 
 def Density_Check(request):
-    
+
+    url=" " 
     context = dict()
     if request.method == "POST":
     
         url = request.POST.get('url')
         context = Density(url)
+        # context = WordDensity(wrdsrch)
+
+        context['url']=url
         # print(data,"------------------------alll Dictinory ")
         
     return render(request, 'Density.html', context )
@@ -25,17 +29,20 @@ def Density_Check(request):
 def Density(url):
     req = requests.get(url)
     soup = BeautifulSoup(req.content, 'html.parser')
-    value={}    
+   
 
     one=[]
     two = []
     three = []
     four = []
     
+    
     #Append into One List
     all_list=one+two+three+four
     print(all_list,"---------------------Listssssssss")
     
+  
+
     #Get Meta Title
     page=metadata_parser.MetadataParser(url)
     meta_title=page.get_metadata('title')
@@ -48,7 +55,12 @@ def Density(url):
             print(x,"---------------Yes")
         else: 
             print(x,"--------------------------no")
-            
+    
+      ### Keywords
+    keyword=page.get_metadata("keywords")
+    print(keyword,"-------------------------keywordss")
+
+    
     #Get Description
     meta_desc=page.get_metadata("description")
     print(meta_desc,"---------------Description")
@@ -212,44 +224,46 @@ def Density(url):
     return  {"data":data, "data1": data1, "data2":data2, "data3":data3}
 
 
-# def WordDensity(wrdsrch):
-# li=input("enter list")
+def WordDensity(wrdsrch):
 
-# convert=list(li.split(' '))
+    
+    convert=list(li.split(' '))
 
-# frequency={}
+    frequency={}
 
-##One OWrd
-# for item in convert:
-#    if item in frequency:
-#       frequency[item] += 1
-#    else:
-#       frequency[item] = 1
-#
-# #         # printing the frequency
-# print(frequency)
+    #One OWrd
+    for item in convert:
+        if item in frequency:
+            frequency[item] += 1
+        else:
+            frequency[item] = 1
 
-#
-# two_word=list(map(' '.join, zip(convert[:-1], convert[1:])))
-# print(two_word)
-# for item in two_word:
-#    if item in frequency:
-#       frequency[item] += 1
-#    else:
-#       frequency[item] = 1
-# print(frequency)
+        #         # printing the frequency
+        print(frequency)
 
 
-# print(convert)
-# three_word=list(map(' '.join, zip(convert[:-2], convert[2:])))
-# print(three_word)
+    two_word=list(map(' '.join, zip(convert[:-1], convert[1:])))
+    print(two_word)
+    for item in two_word:
+        if item in frequency:
+            frequency[item] += 1
+        else:
+            frequency[item] = 1
+    print(frequency)
 
 
-# three=[]
-# for i in range(len(convert) - 2):
-#     three.append(convert[i] + ' ' + convert[i+2])
-# print(three)
+    # print(convert)
+    # three_word=list(map(' '.join, zip(convert[:-2], convert[2:])))
+    # print(three_word)
 
+
+    three=[]
+    for i in range(len(convert) - 2):
+        three.append(convert[i] + ' ' + convert[i+2])
+    print(three)
+
+
+    return 
 
 
 

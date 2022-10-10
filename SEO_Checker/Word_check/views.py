@@ -1,16 +1,21 @@
 from django.shortcuts import render
 import readtime
 import re
+import pytesseract
 from collections import Counter
 # Create your views here.
 
 def Word_Count(request):
-    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0}
+    word=" "
+    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"word":word}
+
+
     if request.method == "POST": 
         word=request.POST.get('word')
         main_word=str(word)
         print(word,"-----------------Word is")
-        
+
+        context['word']=f"{(word)}"
     
         #Calculate Total Word
         context['word_length']=f"{len(main_word)}"
@@ -105,5 +110,15 @@ def Word_Count(request):
 
         print(len(number_of_sentences),"-----total sen")
         context["len_sen"]=f"{(len(number_of_sentences))}"
+        
+
     
     return render(request,"inner_page.html",context)
+
+
+
+# def UrlInput(request):
+  
+
+
+#     return render(request,"inner_page.html")
