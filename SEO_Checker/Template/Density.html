@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Density Checker | {% endblock %} 
+{% block title %} Density Checker | {% endblock %}
 
-{% block head %} 
+{% block head %}
 
 <link
     rel="stylesheet"
@@ -33,10 +33,10 @@
     input#url
     {
         height: 40px;
-    
+
     border-radius: 8px;
     padding: 10px;
-  
+
     }
     input::placeholder {
     font-size: 20px;
@@ -45,9 +45,9 @@
     }
     .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
-   
 
-  
+
+
 }
 .nav-link
     {
@@ -71,7 +71,7 @@
       box-shadow: 0 5px #767F87;
     } */
       /* transform: translateY(4px); */
-  
+
 @media (max-width: 600px) {
       input#url
     {
@@ -107,12 +107,15 @@ textarea#textInput {
     margin-top: 1px;
     padding: 5px;
 }
+input.btn.btn-outline-success.srchbtn {
+    margin-left: 50%;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Hero or Desc -->
-     
+
         <div class="row mt-4">
           <div class="col-md-2">
 
@@ -122,13 +125,13 @@ textarea#textInput {
             <p>If you want to check the SEO score for your site or your competitor’s. Enter the domain name or URL into the given field and click “Check SEO Score”.You will get the results in no time!</p>
           </div>
           <div class="col-md-2  ">
-          
+
           </div>
 
         </div>
 
 
-       
+
 
       <!-- Form  -->
 
@@ -145,45 +148,34 @@ textarea#textInput {
               <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
             </div>
           </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">  
-              <form action='/density/' id="update" class="input_url" method="POST">
-              {% csrf_token %}
-              <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
-              <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
-            </div>
+          <form action='/density/' id="update" class="input_url" method="POST">
+            {% csrf_token %}
+          <div class="tab-content" id="nav-tabContent" style="height: 100px;">
 
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <textarea rows="3"  id="textInput" id="url"  style="width:100%"></textarea><br>
-              <input  type="submit" class="btn btn-outline-success srchbtn"  name="answer" value="Check "></button>
-            
-            </div>
 
-            
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+
+
+                <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+
+              </div>
+
+
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <textarea rows="3"  id="wrdsrch" style="width:100%"></textarea><br>
+
+              </div>
+
+
+
           </div>
-
-        
-            <!-- {% csrf_token %}
-        
-            <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
-            
-            <textarea rows="3" class="hide" id="textInput" id="url"  style="width:100%"></textarea><br>
-            <div class="row">
-            <div class="col-md-4">
-              <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
-            </div>
-            <div class="col-md-4">
-              <input  type="button" class="btn btn-outline-success srchbtn" onclick="onButtonClick(); showField(); " name="answer" value="Enter Manually"></button>
-
-            </div>
-            <div class="col-md-4">
-              <button class="btn btn-outline-success" id="wrdsrch" type="submit">Check</button>
-
-            </div>
-          </div>
-          -->
+          <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
         </form>
-        
+
+
+
+
 
         </div>
         <div class="col-md-3">
@@ -191,13 +183,13 @@ textarea#textInput {
         </div>
       </div>
 
-      
 
-       
+
+
           <div class="row mt-5">
             <div class="col-md-3">
-            
-              
+
+
                 <ul class="nav nav-tabs left-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">One Word</button>
@@ -209,8 +201,8 @@ textarea#textInput {
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Three Word</button>
                   </li>
                 </ul>
-             
-              
+
+
             </div>
             <div class="col-md-6">
               <div class="tab-content" id="myTabContent">
@@ -224,18 +216,18 @@ textarea#textInput {
                         <th>Density</th>
                         <th>Title</th>
                       </tr>
-    
+
                       {% for key,val in data.items %}
                        <tr>
                           <td>{{key}}</td>
                           <td>{{val.freq}}</td>
                           <td>{{val.density}}</td>
                         {% endfor %}
-                       
+
                        </tr>
                     </tbody>
                   </table>
-    
+
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
@@ -254,7 +246,7 @@ textarea#textInput {
                      <td>{{val1.freq1}}</td>
                      <td>{{val1.density1}}</td>
                    {% endfor %}
-                  
+
                   </tr>
                 </tbody>
               </table>
@@ -278,32 +270,32 @@ textarea#textInput {
                      <td>{{val2.freq2}}</td>
                      <td>{{val2.density2}}</td>
                    {% endfor %}
-                  
+
                   </tr>
                 </tbody>
               </table>
-              
+
                 </div>
               </div>
 
-              
-            
-            
+
+
+
             </div>
             <div class="col-md-3">
             </div>
           </div>
-       
-    
 
-      
+
+
+
 
 
       </div>
-     
-{% endblock %}  
-   
+
+{% endblock %}
+
 {% block script %}
- 
+
 
     {% endblock %}
