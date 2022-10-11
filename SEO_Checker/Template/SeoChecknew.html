@@ -133,9 +133,9 @@ table.table tbody td {
       position: relative;
     }
 
-/* svg{
+ svg{
   background-color: transparent !important;
-} */
+} 
     /* @media (max-width: 600px) {
       input#url
     {
@@ -281,12 +281,12 @@ button.btn.btn-outline-success.searchbtn {
                       
   
                           </td>
-                          <td>      {% if context.meta_title.alert == "warning" %}
+                          <td>      {% if context.meta_title.alert =="warning"%}
                             <svg class="bi flex-shrink-0 me-2 alert-warning"id="hoverr" onclick="Showdata" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            {% elif context.meta_title.alert == "success" %}
+                            {% elif context.meta_title.alert == "success"%}
                             <svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            {% elif context.meta_title.alert == "danger"  %}
-                            <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            {% elif context.meta_title.alert == "danger"%}
+                            <svg class="bi flex-shrink-0 me-2 alert-danger"  data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                             {% endif %}</td>
                         </tr>
                 
@@ -673,6 +673,8 @@ window.addEventListener('DOMContentLoaded', perf);
 <script>
   console.log(url)
 </script>
+
+
   
 <!-- Check Flash -->
 

@@ -57,7 +57,7 @@ def Score_checker(request):
             #   ------------ MEta Desc. ----------------------------
             meta_desc={"alert":"", "alert_msg":"", "data": ""}
             desc=page.get_metadata("description")
-
+            broke=desc.split(",")
             if len(desc)==0 :
                 meta_desc["alert"] =  "danger"
                 meta_desc["alert_msg"]  = "description is Missing" 
@@ -81,7 +81,7 @@ def Score_checker(request):
                 warning['description'] =f"description should be Greater than 160 characters {len(desc)}  characters"
                 context["meta_desc_msg"] = f"description should be Greater than 160 characters {len(desc)}  characters"
                 
-            # print(len(desc),"-----------desc")
+            print(broke,"-----------desc")
             context["meta_desc"] = meta_desc
           
 
