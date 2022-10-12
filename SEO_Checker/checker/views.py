@@ -4,6 +4,7 @@ import metadata_parser
 import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
+import json
 # from selenium import webdriver
 # from webdriver_manager.chrome import ChromeDriverManager
 
@@ -30,14 +31,14 @@ def Score_checker(request):
                 meta_title["alert_msg"]  = "Titile is Missing"
 
                 error['title']="titile is Missing"
-                context["meta_title_msg"] = "titile is Missing"
+                # context["meta_title_msg"] = "titile is Missing"
             # print(error)
             elif len(title_tag)>=1  and len(title_tag)<=70:
                 meta_title["alert"] =  "success"
                 meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
                 meta_title["data"] = title_tag
 
-                context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
+                # context["meta_title_msg"] =f"Congratulations your webpage is using a title tag."
             # print(page.get_metadata('title'))
 
 
@@ -49,7 +50,7 @@ def Score_checker(request):
                 warning['title']=f"Title should be Greater than 60 characters {len(title_tag)} characters"
                 context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(title_tag)} characters"
 
-            print(title_tag,"-------------------title")
+            # print(title_tag,"-------------------title")
             context["meta_title"] = meta_title
 
 
@@ -61,6 +62,7 @@ def Score_checker(request):
             if desc is None :
                 meta_desc["alert"] =  "danger"
                 meta_desc["alert_msg"]  = "description is Missing"
+                meta_desc["data"] = f" description is Missing"
 
                 error['description'] = "description is Missing"
                 context["meta_desc_msg"] = "description is Missing"
@@ -73,7 +75,7 @@ def Score_checker(request):
 
             else:
                 meta_desc["alert"] ="warning"
-                meta_desc["alert_msg"]  = f"description should be Greater than 160 characters {len(desc)}  characters"
+                meta_desc["alert_msg"]  = f"description should be Greater than 160 characters use {len(desc)}  characters"
                 meta_desc["data"] = desc
 
 
@@ -93,22 +95,25 @@ def Score_checker(request):
             if keyword is None:
                 meta_key["alert"] =  "danger"
                 meta_key["alert_msg"]  = "keyword is Missing"
+                meta_key["data"] = f" keyword is Missing"
 
                 error['keyword'] = "keyword is Missing"
                 context["meta_keyword_msg"]="keyword is Missing"
-            elif len(keyword) >= 10:
-                meta_key["alert"] =  "warning"
-                meta_key["alert_msg"]  =f"Keyword should be Greater than 10 characters {len(desc)}  characters"
-                meta_key["data"] = keyword
-
-                warning['Keyword'] =f"Keyword should be Greater than 10 characters {len(desc)}  characters"
-                context["meta_keyword_msg"]=f"Keyword should be Greater than 10 characters {len(desc)}  characters"
-            else:
+            elif len(keyword) >= 100 and len(keyword)<=165:
                 meta_key["alert"] =  "success"
-                meta_key["alert_msg"]  =f"Keyword is Less than 10 keywords"
+                meta_key["alert_msg"]  =f"Keyword is Less than 100 keywords"
                 meta_key["data"] = keyword
 
-                context["meta_keyword_msg"]=f"Keyword is Less than 10 keywords"
+                context["meta_keyword_msg"]=f"Keyword is Less than 100 keywords"
+
+
+            else:
+                meta_key["alert"] =  "warning"
+                meta_key["alert_msg"]  =f"Keyword should be Greater than 100 characters use {len(keyword)}  characters"
+                meta_key["data"] = keyword
+
+                warning['Keyword'] =f"Keyword should be Greater than 100 characters {len(desc)}  characters"
+                context["meta_keyword_msg"]=f"Keyword should be Greater than 100 characters {len(keyword)}  characters"
 
             context["meta_key"] = meta_key
 
@@ -191,6 +196,7 @@ def Score_checker(request):
                 meta_h2["alert"] =  "danger"
                 meta_h2["alert_msg"]  = f"h2 is Missing"
 
+
                 error['h2'] = "h2 is Missing"
                 context["meta_h2_msg"]=f"h2 is Missing"
             # context["heading2_tags"] = heading2_tags
@@ -241,25 +247,14 @@ def Score_checker(request):
             all_img = Soup.findAll('img')
             if len(all_img) == 0:
                 imag["alert"] =  "danger"
-                imag["alert_msg"]  = f"img is Missing"
+                imag["alert_msg"]  = f"No Img tag Found, Images can help your user to understand about a topic easily."
 
                 error['img'] = "img is Missing"
-                context["img_msg"]=f"img is Missing"
+                context["img_msg"]=f"img Tag is Missing"
 
-
-                # for img in Soup.findAll('img'):
-
-                #     image.append(img.get('src'))
-                #     if len(image) ==0:
-                #         imag["alert"] =  "danger"
-                #         imag["alert_msg"]  = f"img is Missing"
-
-                #         error['img'] = "img is Missing"
-                #         context["img_msg"]=f"img is Missing"
-
-            elif len(all_img) >= 200 :
+            elif len(all_img) >= 100 :
                 imag["alert"] =  "warning"
-                imag["alert_msg"]  =f"Your webpage has 200 'img' tags and all of them has the required {len(all_img)} attribute."
+                imag["alert_msg"]  =f"Your webpage use {len(all_img)} but maximum use 100."
                 imag["data"] = all_img
 
                 warning['img'] = f"Your webpage has 200 'img' tags and all of them has the required {len(image)} attribute."
@@ -285,26 +280,26 @@ def Score_checker(request):
 
                 if len(taggg) is None:
                     meta_style["alert"] =  "danger"
-                    meta_style["alert_msg"]  = f"style is Missing"
+                    meta_style["alert_msg"]  = f"Inline CSS is Missing"
 
                     error['style'] = "style is Missing"
-                    context["style_msg"]=f"style is Missing"
+                    context["style_msg"]=f"Inline CSS is Missing"
                 elif len(taggg) >= 100:
                     meta_style["alert"] =  "warning"
-                    meta_style["alert_msg"]  =f"Style Tag should be Greater than 100 characters {len(taggg)} characters"
+                    meta_style["alert_msg"]  =f"Your webpage is using{len(taggg)}inline CSS styles"
                     meta_style["data"] = style_tags
 
                     warning['style'] = f"Style Tag should be Greater than 100 use {len(taggg)} "
-                    context["style_msg"]=f"Style Tag should be Greater than 100 use {len(taggg)} "
+                    context["style_msg"]=f"Your webpage is using{len(taggg)}inline CSS styles"
                 else:
                     meta_style["alert"] =  "success"
-                    meta_style["alert_msg"]  =f"Congratulations! Your page contains headings. Their contents are listed below:"
+                    meta_style["alert_msg"]  =f"Congratulations! Your webpage is not using any inline CSS styles."
                     meta_style["data"] = style_tags
 
                     # print(f"your webpage is used limited style tag")
-                    context["style_msg"]=f"your webpage is used limited style tag"
+                    context["style_msg"]=f"Congratulations! Your webpage is not using any inline CSS styles."
 
-                print(len(style_tags),"------------------style,,,,,")
+                # print(len(style_tags),"------------------style,,,,,")
                 context["meta_style"] = meta_style
 
 
@@ -320,8 +315,9 @@ def Score_checker(request):
             meta_anc={"alert":"", "alert_msg":"", "data": ""}
             all_anc = Soup.findAll('a')
             if len(all_anc) == 0:
-                imag["alert"] =  "danger"
-                imag["alert_msg"]  = f"img is Missing"
+                meta_anc["alert"] =  "danger"
+                meta_anc["alert_msg"]  = f"anchor tag is Missing"
+                meta_anc["data"] = all_anc
 
                 error['a'] = "anchor tag is Missing"
                 context["anc_msg"]=f"anchor tag is Missing"
@@ -358,6 +354,7 @@ def Score_checker(request):
             else:
                 # print(f"Robot.txt is Available")
                 meta_robot["alert"] =  "success"
+                meta_robot["alert_msg"]  =f"Congratulations! Your web page contains Robbot.txt File"
                 meta_robot["data"] = robots
 
                 context['rob_mess'] =f"Congratulations! Your web page contains Robbot.txt File"
@@ -379,10 +376,13 @@ def Score_checker(request):
                 # print(f"Sitemap.xml is Available")
                 meta_site["alert"] =  "success"
                 meta_site["data"] = robots
+                meta_site["alert_msg"]  =f"Congratulations! Your web page contains Sitemap.xml File"
 
                 context["site_mess"]=f"Sitemap.xml is Available"
 
             context['meta_site']=meta_site
+
+
 
 
             # print(site_map,"_____-abi")
@@ -458,6 +458,27 @@ def Score_checker(request):
 
         # print(load_time,"---------------------------Time")
 
+        ###Favicon
+        favcon_tag ={"alert":"","data": ""}
+        fav_icon=Soup.findAll('favicon')
+        if fav_icon is None:
+            favcon_tag["alert"] =  "danger"
+            favcon_tag["alert_msg"]  = f"Your website Not Using favicon..."
+            favcon_tag["data"] = fav_icon
+
+            error['favicon_img']="Https is Missing"
+            context["meta_favicon_msg"] = f"Your website Not Using favicon..."
+        else:
+
+            favcon_tag["alert"] =  "success"
+            favcon_tag["alert_msg"]  = f"Congratulations Your website appears to have a favicon. "
+            favcon_tag["data"] = fav_icon
+
+            context["meta_favicon_msg"] =f"Congratulations Your website appears to have a favicon.."
+
+        print("httpppppppppppp--------------------------")
+
+        context['favcon_tag']=favcon_tag
 
 
         ####-------------------------IFramne Checker--------------------
@@ -507,6 +528,26 @@ def Score_checker(request):
         context['meta_doc']=meta_doc
 
 
+
+        ####--------Minify or not
+        # data = """<script>
+        #         window.addEventListener('load', function (e)
+        #             {
+        #                 i = 4;
+        #             });
+        #             </script>
+        #         """
+
+        # soup = BeautifulSoup(data, 'lxml')
+        # script = soup.select_one('script')
+        # r = requests.post(url, data={"source":script.text, "type" :"js"})
+        # json_data = json.loads(r.text)
+        # script.clear()
+        # script.append(json_data['minified'])
+
+        # print(script,"-------------------------Minifiedss")
+
+        
 
         ###---------------------Check Donmain Name Samne or Not -----------------
         # o = urlparse(url)
