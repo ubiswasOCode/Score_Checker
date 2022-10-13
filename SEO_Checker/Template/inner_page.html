@@ -1,10 +1,19 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-5-vertical-tabs@2.0.0/dist/b5vtabs.min.css"
+    integrity="sha384-AsoWNxsuu73eGp2MPWHa77155fyqP9rueKOeG4t2d/AD4eyBqL20TClzfbAkrul4"
+    crossorigin="anonymous"
+    />
+{% endblock %}
 {% block title %} Word Counter Tool | {% endblock %}
 
-{% block style %} 
+{% block style %}
 <style>
+
 
       .foot_back
       {
@@ -13,30 +22,30 @@
       .my-4 {
         margin-bottom: 0 !important;
       }
-      .content
-      {
-        height: 520px;
-      }
+
       /* .STATISTICS
       {
-        
+
           height: 250px;
-      }
+      /* } */
       .STATISTICS h5
       {
          margin-top: 20px;
          text-align: center;
       }
-      .STATISTICS p{
+      h5 {
+          text-align: center;
+         }
+      /* .STATISTICS p{
           font-size: 15px;
           text-align: center;
       } */
       .read_time
       {
-        
+
           height: 150px;
       }
-     
+
       .read_time p
       {
           font-size: 15px;
@@ -54,13 +63,13 @@
       .read_btn
       {
         font-size: 20px;
-       
+
       }
       .word_btn{
         font-size: 20px;
       }
      th{
-      text-align: left; 
+      text-align: left;
      }
      .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
@@ -74,25 +83,18 @@
     width: 100%;
     color: black;
 }
-button#v-pills-profile-tab {
-    WIDTH: 100%;
-    color: black;
-}
-div#nav-profile {
-    margin-top: -100px;
-    position: absolute;
-}
+
 .alert {
     text-align: center;
 }
     </style>
 {% endblock %}
- 
+
 
 
 {% block content %}
      <!-- Herosssss -->
-     <div class="px-3 py-3 mt-3 text-center">
+    <div class="px-3 py-3 mt-3 text-center">
       <h1 class="display-5 fw-bold">Word Counter</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">To use this Word Count Checker, please copy and paste your content into the box below, and then sit back and watch as Word Count Checker will run a real-time scan.</p>
@@ -102,50 +104,57 @@ div#nav-profile {
 
 
     <!-- Grid -->
-  <div class="container text-center">
-      <div class="row">
+      <div class="row text-center">
         <div class="col-md-3">
         </div>
         <div class="col-md-6" >
-          
+
 
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Word Count</button>
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Manually Enter</button>
               <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">File Upload</button>
               <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
             </div>
           </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <form action='/Word_Count/' id="word" name="word" class="input_url1" method="POST">
 
-              {% csrf_token %}
+
+
+          <div class="tab-content" id="nav-tabContent">
+
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <form action='/Word_Count/' id="word" class="input_url1" method="POST">
+
+                {% csrf_token %}
               <textarea rows="3" id="word" name="word" placeholder="Enter Text Here" style="width:100%">{{word}}</textarea>
-              <button type="submit" class="btn btn-primary mt-2 btn-center">Count Words</button> 
+              <button type="submit" class="btn btn-primary mt-2 btn-center">Count Words</button>
+              </form>
             </div>
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <input type="file" id="myFile" name="filename">
-              <button type="submit" class="btn btn-primary mt-2 btn-center">Upload file</button>         
+              <form action='/Word_Count/' id="upload_file"  enctype="multipart/form-data"   method="POST">
+
+                {% csrf_token %}
+              <!-- <input type="file" id="myFile" name="filename"  accept="application/pdf,application/msword,
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document"> -->
+              <input type="file" id="myFile" name="filename" >
+              <button type="button" id="docscheck" onclick="Validatefile()" class="btn btn-primary mt-2 btn-center">Upload file</button>
+            </form>
             </div>
-            <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div> -->
+
           </div>
 
 
 
-           
-  
-        
-            </form>
-     
         </div>
+
+
         <div class="col-md-3">
         </div>
 
       </div>
-  </div>
-    
+
+
 
 <!-- Word Description -->
 <div class="container">
@@ -169,72 +178,79 @@ div#nav-profile {
 
       <div class="row mt-3 content">
         <div class="col-md-3">
-        
-            <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-              The current link item
-            </a> -->
-          <!-- <a href="#STATISTICS "  class="list-group-item list-group-item-action  btn btn-outline-primary word_btn">WORDS STATISTICS</a>
-          <a href="#READING"  class="list-group-item list-group-item-action btn btn-outline-primary read_btn">READING TIME</a>
-          -->
 
-          <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a href="#STATISTICS"><button class="nav-link   id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">WORDS STATISTICS</button></a>
-            <a href="#READING"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">READING TIME</button></a> 
-          </div>
-      
 
-          
+
+          <nav>
+            <div class="nav nav-tabs left-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#STATISTICS" role="tab" aria-controls="nav-home" aria-selected="true">WORDS STATISTICS</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#READING" role="tab" aria-controls="nav-profile" aria-selected="false">READING TIME</a>
+              <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> -->
+            </div>
+          </nav>
+
         </div>
-          
-   
+
+
         <div class="col-md-6 STATISTICS " id="STATISTICS">
-          
-        
+
+
                 <table class="table border">
 
-      
+
                   <tbody>
                       <tr>
                         <th><label for="">Total_word</label></th>
-                        
+
                             <td> {{Total_word}}</td>
                         </tr>
 
                         <th><label for="">Total Characters (With Space) </label></th>
-                        
+
                         <td>{{word_length}}</td>
                         </tr>
-                        
+
                         <th><label for="">Total Characters (Without Space)</label></th>
-                        
+
                         <td> {{withoutt_spc}}</td>
+                        </tr>
+
+
+                        <th><label for="">Longest Word is </label></th>
+
+                        <td> {{longest}}</td>
+                        </tr>
+
+                        <th><label for="">Repeated Elements are</label></th>
+
+                        <td> {{Rep_item}}</td>
                         </tr>
 
                   </tbody>
                 </table>
 
 
-                <div class="row read_time " id="READING">
+                <div class=" read_time " id="READING">
                   <h5>READING TIME</h5>
 
 
                 <table class="table border">
 
-      
+
                   <tbody>
                       <tr>
                         <th><label for="">Estimated Reading Time </label></th>
-                        
+
                             <td> {{Reading_Time}}</td>
                         </tr>
 
                         <th><label for="">Estimated Speaking Time </label></th>
-                        
+
                         <td>{{SpeakTime}}</td>
-                        </tr> 
-<!--                         
+                        </tr>
+<!--
                         <th><label for="">Total Characters (Without Space)</label></th>
-                        
+
                         <td> {{withoutt_spc}}</td>
                         </tr> -->
 
@@ -265,10 +281,33 @@ div#nav-profile {
             {{len_sen}} &nbsp Sentences
           </div>
           <div class="alert alert-danger" role="alert">
-            {{syllable}}&nbsp Syllable
+            {{syllable}} &nbsp Syllable
           </div>
         </div>
     </div>
-  </div>
-   
+
+
+  <script>
+    var myfile="";
+      function Validatefile(){
+        let inp = document.getElementById('myFile');
+        if((inp.files).length === 0){
+          alert("Upload file")
+        }else{
+          let file = inp.files[0].name;
+          let ext = file.split(".")
+          ext = ext[(ext.length)-1]
+          if (ext === "pdf" ||ext === "doc" ||ext === "docx"){
+            document.getElementById('upload_file').submit()
+          }else{
+            alert("Please Upload PDF or Doc File ")
+          }
+        }
+
+        // document.getElementById('upload_file').submit()
+
+
+    }
+
+  </script>
 {% endblock %}
