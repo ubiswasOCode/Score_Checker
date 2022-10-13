@@ -5,31 +5,9 @@
 
 {% block style %}
 <style>
-      .input_url1
-    {
-        /* text-align: c; */
-        margin-top: 50px;
-        border-radius: 30%;
-    }
-    input#url
-    {
-        height: 40px;
-    width: 77%;
-    border-radius: 8px;
-    padding: 10px;
-    position: absolute;
-    }
-    input::placeholder {
-    font-size: 20px;
-    margin-left: 10px;
-    padding: 10px;
-    }
-    .btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-    float: right;
-    position: relative;
-  
-}
+   
+
+
   .code h1{
     text-align: center;
   }
@@ -40,14 +18,7 @@
 .qrcode img{
   margin-left: 200px;
 }
-@media (max-width: 600px) {
-      input#url
-    {
-        height: 40px;
-    width: 68% !important;
-      }
 
-    }
 </style>
 {% endblock %}
 
@@ -77,18 +48,21 @@
 
       </div>
       <div class="col-md-6">
+        <div class="row "style="ba">
           <form action='/QRCode/' id="update" class="input_url1" method="POST">
-              
+          <div class="col-md-8">
+
             {% csrf_token %}
-                  <!-- <input type="text" name="url" id=url placeholder="enter url and word" style="margin-right:10px ;"><br><br>
-          
-                  <button type="submit" class="btn btn-primary">Submit</button>           -->
-                  <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url and Word">
-                  <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
-                  <button class="btn btn-outline-success" type="submit">Generate QR</button>
+               
+            <input type="text" class="form-control" id="url" name="url"  value="{{url}}" placeholder="Enter Url and Word">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-success" type="submit">Generate QR</button>
                      
+          </div>
           </form>
-      </div>
+        </div>
+    </div>
       <div class="col-md-3">
 
       </div>
@@ -110,4 +84,7 @@
     </div>
   </div>
 
+  <script>
+    console.log(url)
+  </script>
 {% endblock %}

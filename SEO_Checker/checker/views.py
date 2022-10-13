@@ -141,7 +141,7 @@ def Score_checker(request):
                 context["meta_h1_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
 
 
-            elif len(heading1_text) >=2:
+            elif len(heading1_text) ==2:
                 meta_h1["alert"] =  "warning"
                 meta_h1["alert_msg"]  =f"Your page contains headings two or more heading tag"
                 meta_h1["data"] = heading1_text
@@ -184,7 +184,7 @@ def Score_checker(request):
 
                 context["meta_h2_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
 
-            elif len(heading2_text) >=3:
+            elif len(heading2_text)>=2 and len(heading2_text) <=4:
                 meta_h2["alert"] =  "warning"
                 meta_h2["alert_msg"]  =f"Your page contains headings two or more heading tag"
                 meta_h2["data"] = heading2_text
@@ -195,7 +195,7 @@ def Score_checker(request):
 
                 meta_h2["alert"] =  "danger"
                 meta_h2["alert_msg"]  = f"h2 is Missing"
-
+                meta_h2["data"] = heading2_text
 
                 error['h2'] = "h2 is Missing"
                 context["meta_h2_msg"]=f"h2 is Missing"
@@ -221,7 +221,7 @@ def Score_checker(request):
                 context["meta_h3_msg"]=f"Congratulations! Your page contains headings. Their contents are listed below:"
                 # context["heading3_text"] = heading3_text
 
-            elif len(h3_tags) >= 3:
+            elif len(h3_tags)>=3 and len(h3_tags) <= 9:
                 meta_h3["alert"] =  "warning"
                 meta_h3["alert_msg"]  =f"Your page contains headings two or more heading tag"
                 meta_h3["data"] = heading3_text

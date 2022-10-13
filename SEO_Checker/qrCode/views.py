@@ -5,6 +5,7 @@ import pyqrcode
 # Create your views here.
 def QRCode(request):
     context=dict()
+    url=''
     if request.method == 'POST':
         url=request.POST.get('url')
         if url:    
@@ -18,7 +19,9 @@ def QRCode(request):
             pngImg=url.png('static/myqr.png', scale = 6) 
                     
             context={
-                "pngImg":pngImg
+                "pngImg":pngImg,
+               
+                
             }
         
-    return render(request, "qrcode.html",context)
+    return render(request, "qrcode.html",{"context":context, "url":url})
