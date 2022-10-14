@@ -3,14 +3,9 @@
 
 {% block title %} Meta Data Checker | {% endblock %}
 
-{% block style %} 
+{% block style %}
     <style>
-   .input_url1
-    {
-        /* text-align: c; */
-        margin-top: 50px;
-        border-radius: 30%;
-    }
+
     input#url
     {
         height: 40px;
@@ -33,7 +28,7 @@
     {
         text-align: center;
     }
-    /* .content 
+    /* .content
     {
         background-color: bisque;
     } */
@@ -41,6 +36,9 @@
     {
         text-align: center;
     }
+    .tab-content {
+    padding: 0;
+}
     @media (max-width: 600px) {
       input#url
     {
@@ -55,101 +53,120 @@
 
 {% block content %}
 <!-- Heading -->
-<div class="container mt-4" >
-    <div class="row">
+
+    <div class="row  mt-4">
       <div class="col-md-2 ">
 
       </div>
       <div class="col-md-8 content ">
-          <h1>WEBSITE Meta Data </h1>
+          <h1>Webiste Meta Data </h1>
           <p>If you want to check the SEO score for your site or your competitor’s. Enter the domain name or URL into the given field and click “Check SEO Score”.You will get the results in no time!</p>
       </div>
       <div class="col-md-2">
 
       </div>
     </div>
-  </div>
+
 
 
   <!-- Form  -->
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
           <div class="col-md-3">
-    
+
           </div>
           <div class="col-md-6">
-              <form action='/Meta/' id="update" class="input_url1" method="POST">
-                  
-                {% csrf_token %}
+            <div class="row">
+              <div class="col-md-11">
+                <form action='/Meta/' id="update" class="input_url1" method="POST">
 
-                <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
-                <!-- <input type="text" name="url" id=url placeholder="enter url" style="margin-right:10px ;"><br><br> -->
+                  {% csrf_token %}
+
+
+                  <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
+
+              </div>
+              <div class="col-md-1">
                 <button class="btn btn-outline-success" type="submit">Search</button>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button>           --> 
-              
-              </form>
+              </div>
+            </form>
+            </div>
+
           </div>
           <div class="col-md-3">
-    
-          </div>
+
+
         </div>
       </div>
+  </div>
 
-      
 
 
       <!-- Data -->
-      <div class="container mt-5">
-        <div class="row">
+
+        <div class="row mt-5">
             <div class="col-md-3">
+                <nav>
+                  <div class="nav nav-tabs left-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Meta Data</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">--</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">--</a>
+                  </div>
+                </nav>
+
 
             </div>
             <div class="col-md 6">
-                <table class="table border">
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> <table class="table border">
 
-     
-                    <tbody>
-                        <tr>
-                            <th><label for="">Meta Title</label><br></th>
-                            
-                                 <td>   {{meta_title_msg}}<br>{{meta_title}}</td>
-                            </tr>
-                    
-                            <tr>
-                            <th><label for="">Meta Keyword</label><br></th>
-                            <td>{{meta_desc_msg}}<br>{{meta_desc}}</td>
-                            </tr>
-                    
-                            <tr>
-                            <th><label for="">Meta Description</label><br></th>
-                            <td> {{meta_key_msg}}<br>{{meta_key}}</td>
-                            </tr>
-                    
-                            <tr>
-                            <th><label for="">Meta Viewport</label><br></th>
-                            <td>{{meta_view_msg}}<br>{{meta_view}}</td>
-                            </tr>
-                    
-                            <tr>
-                            <th><label for="">Meta Robots</label><br></th>
-                            <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
-                            </tr>    
-                            
-                            <tr>
-                            <th><label for="">Open Graph</label><br></th>
-                            <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
-                            </tr> 
-            
-            
-                    </tbody>
-                  </table>
+
+                  <tbody>
+                      <tr>
+                          <th><label for="">Meta Title</label><br></th>
+
+                               <td>   {{meta_title_msg}}<br>{{meta_title}}</td>
+                          </tr>
+
+                          <tr>
+                          <th><label for="">Meta Keyword</label><br></th>
+                          <td>{{meta_desc_msg}}<br>{{meta_desc}}</td>
+                          </tr>
+
+                          <tr>
+                          <th><label for="">Meta Description</label><br></th>
+                          <td> {{meta_key_msg}}<br>{{meta_key}}</td>
+                          </tr>
+
+                          <tr>
+                          <th><label for="">Meta Viewport</label><br></th>
+                          <td>{{meta_view_msg}}<br>{{meta_view}}</td>
+                          </tr>
+
+                          <tr>
+                          <th><label for="">Meta Robots</label><br></th>
+                          <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
+                          </tr>
+
+                          <tr>
+                          <th><label for="">Open Graph</label><br></th>
+                          <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
+                          </tr>
+
+
+                  </tbody>
+                </table>
+</div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+              </div>
 
             </div>
             <div class="col-md-3">
-                
+
             </div>
         </div>
-      </div>
 
-    
+
+
 {% endblock %}

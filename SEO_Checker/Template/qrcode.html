@@ -5,7 +5,7 @@
 
 {% block style %}
 <style>
-   
+
 
 
   .code h1{
@@ -34,7 +34,7 @@
         <p>It is a niche tool that is used to generate different types of QR Codes. Depending on your purpose, you can use our generator to create QR Codes to open a website, view a PDF file, listen to music, watch Youtube videos, store image files, connect to a WiFi network, and much more.</p>
       </div>
       <div class="col-md-2">
-        
+
       </div>
     </div>
   </div>
@@ -48,17 +48,17 @@
 
       </div>
       <div class="col-md-6">
-        <div class="row "style="ba">
+        <div class="row "style="background-color:pink;">  
           <form action='/QRCode/' id="update" class="input_url1" method="POST">
-          <div class="col-md-8">
+          <div class="col-md-10">
 
             {% csrf_token %}
-               
-            <input type="text" class="form-control" id="url" name="url"  value="{{url}}" placeholder="Enter Url and Word">
+
+            <input type="text" class="form-control" id="url" name="url"  placeholder="Enter Url and Word">
           </div>
           <div class="col-md-2">
             <button class="btn btn-outline-success" type="submit">Generate QR</button>
-                     
+
           </div>
           </form>
         </div>
@@ -76,10 +76,10 @@
 
       </div>
       <div class="col-md-8 qrcode">
-          <img src="{% static 'myqr.png' %}" alt="qr code"> 
+          <img src="{% static 'myqr.png' %}" alt="qr code">
       </div>
       <div class="col-md-2">
-        
+
       </div>
     </div>
   </div>

@@ -87,6 +87,13 @@
 .alert {
     text-align: center;
 }
+.btnn{
+  margin-top: 10px;
+}
+.contentform
+{
+  height: 120px;
+}
     </style>
 {% endblock %}
 
@@ -114,19 +121,19 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Manually Enter</button>
               <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">File Upload</button>
-              <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">From Url</button>
             </div>
           </nav>
 
 
 
-          <div class="tab-content" id="nav-tabContent">
+          <div class="tab-content contentform" id="nav-tabContent">
 
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <form action='/Word_Count/' id="word" class="input_url1" method="POST">
 
                 {% csrf_token %}
-              <textarea rows="3" id="word" name="word" placeholder="Enter Text Here" style="width:100%">{{word}}</textarea>
+              <textarea rows="3" id="word" name="word" placeholder="Enter Text Here" style="width:100%" required >{{word}}</textarea>
               <button type="submit" class="btn btn-primary mt-2 btn-center">Count Words</button>
               </form>
             </div>
@@ -139,6 +146,17 @@
               application/vnd.openxmlformats-officedocument.wordprocessingml.document"> -->
               <input type="file" id="myFile" name="filename" >
               <button type="button" id="docscheck" onclick="Validatefile()" class="btn btn-primary mt-2 btn-center">Upload file</button>
+            </form>
+            </div>
+
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <form action='/Word_Count/' id="upload_file"  enctype="multipart/form-data"   method="POST">
+
+                {% csrf_token %}
+              <!-- <input type="file" id="myFile" name="filename"  accept="application/pdf,application/msword,
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document"> -->
+              <input type="text" class="form-control " id="url" name="url" value="{{url}}" placeholder="Enter Url" required >
+              <button class="btn btn-success btnn" type="submit">Search</button>
             </form>
             </div>
 
@@ -202,28 +220,28 @@
                       <tr>
                         <th><label for="">Total_word</label></th>
 
-                            <td> {{Total_word}}</td>
+                            <td> {{context.Total_word}}</td>
                         </tr>
 
                         <th><label for="">Total Characters (With Space) </label></th>
 
-                        <td>{{word_length}}</td>
+                        <td>{{context.word_length}}</td>
                         </tr>
 
                         <th><label for="">Total Characters (Without Space)</label></th>
 
-                        <td> {{withoutt_spc}}</td>
+                        <td> {{context.withoutt_spc}}</td>
                         </tr>
 
 
                         <th><label for="">Longest Word is </label></th>
 
-                        <td> {{longest}}</td>
+                        <td> {{context.longest}}</td>
                         </tr>
 
                         <th><label for="">Repeated Elements are</label></th>
 
-                        <td> {{Rep_item}}</td>
+                        <td> {{context.Rep_item}}</td>
                         </tr>
 
                   </tbody>
@@ -241,12 +259,12 @@
                       <tr>
                         <th><label for="">Estimated Reading Time </label></th>
 
-                            <td> {{Reading_Time}}</td>
+                            <td> {{context.Reading_Time}}</td>
                         </tr>
 
                         <th><label for="">Estimated Speaking Time </label></th>
 
-                        <td>{{SpeakTime}}</td>
+                        <td>{{context.SpeakTime}}</td>
                         </tr>
 <!--
                         <th><label for="">Total Characters (Without Space)</label></th>
@@ -269,19 +287,19 @@
 
         <div class="col-md-3">
           <div class="alert alert-success" role="alert">
-            {{word_length}} &nbsp Characters
+            {{context.word_length}} &nbsp Characters
           </div>
           <div class="alert alert-primary" role="alert">
-            {{Total_word}} &nbsp Words
+            {{context.Total_word}} &nbsp Words
           </div>
           <div class="alert alert-danger" role="alert">
-            {{Reading_Time}} &nbsp Reading Time
+            {{context.Reading_Time}} &nbsp Reading Time
           </div>
           <div class="alert alert-success" role="alert">
-            {{len_sen}} &nbsp Sentences
+            {{context.len_sen}} &nbsp Sentences
           </div>
           <div class="alert alert-danger" role="alert">
-            {{syllable}} &nbsp Syllable
+            {{context.syllable}} &nbsp Syllable
           </div>
         </div>
     </div>

@@ -215,10 +215,10 @@ h5#exampleModalCenterTitle {
             <div class="row mt-4">
               <div class="col-md-10 ">
                 {% csrf_token %}
-                <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url">
+                <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url" required >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-success " type="submit">Search</button>
+                <button class="btn btn-success" type="submit">Search</button>
               </div>
             </div>
 
@@ -253,7 +253,7 @@ h5#exampleModalCenterTitle {
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
-              <table class="table">
+              <table class="table border">
 
 
                 <tbody>
@@ -512,7 +512,7 @@ h5#exampleModalCenterTitle {
 
 
       <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                <table class="table">
+                <table class="table border">
                   <tbody>
                     <tr>
                         <th><label for="">Iframe Tag</label></th>
@@ -583,7 +583,7 @@ h5#exampleModalCenterTitle {
             </div>
 
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-              <table class="table">
+              <table class="table border">
                 <tbody>
                   <tr>
                     <th><label for="">HTTPS Test </label></th>

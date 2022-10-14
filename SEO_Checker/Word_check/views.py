@@ -1,7 +1,10 @@
 
 from cgitb import text
+from fileinput import filename
 from django.shortcuts import render
 import readtime
+import requests
+from bs4 import BeautifulSoup
 import docx2txt
 from PyPDF2 import PdfReader
 import re
@@ -13,24 +16,36 @@ def Word_Count(request):
     context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"word":word,"syllable":0,"len_sen":0}
 
 
-    if request.method == "POST":
+    if request.method == "POST" :
+
 
         word=request.POST.get('word')
-        # context = Word_Check(word)
+        if (word):
+            context = Word_Check(word)
+        else:
+            file=(request.FILES['filename'])
+            print(file,"--------------file")
 
-        filename=(request.FILES)
-        print(filename,"--------------file")
-        data=PdfType()
+            if "pdf" in file:
+                data = PdfType(file)
+                context = Word_Check(data)
+            elif "doc"or "docs" in file:
+                worddata=DocxType(file)
+                context= Word_Check(worddata)
+            else:
+                print("nopppeee")
 
 
-    return render(request,"inner_page.html",context)
+
+
+
+    return render(request,"inner_page.html",{'context':context})
 
 def Word_Check(word):
-    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"word":word,"syllable":0,"len_sen":0}
-
-    print(word, "-------------------------jfsdhjdshfjkh")
+    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"syllable":0,"len_sen":0}
+    # print(word, "-------------------------jfsdhjdshfjkh")
     main_word=str(word)
-    print(word,"-----------------Word is")
+    # print(word,"-----------------Word is")
 
     context['word']=f"{(word)}"
 
@@ -38,7 +53,7 @@ def Word_Check(word):
     context['word_length']=f"{len(main_word)}"
 
     #Count Total String
-    Total_string = main_word.count(" ")+1
+    Total_string = main_word.count(" ")
     context['Total_word']=f"{(Total_string)}"
 
 
@@ -51,7 +66,7 @@ def Word_Check(word):
             if(words[i] == (words[j])):
                 count = count + 1
                 #Set words[j] to 0 to avoid printing visited word
-                words[j] = "0";
+                words[j] = "0"
 
             rep=[]
         #Displays the duplicate word if count is greater than 1
@@ -141,11 +156,15 @@ def PdfType(filename):
 
     return text
 
-def DocxType():
+def DocxType(filename):
 
-    text = docx2txt.process("doc.docx")
-    remove=re.sub('\s+',' ',text)
-    print(remove)
+    word_text = docx2txt.process(filename)
+    # print(text)
+    # remove=re.sub('\s+',' ',text)
+    # print(remove)
 
-    return DocxType
+    return word_text
 
+def FromUrl():
+
+    return
