@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% block title %} Change Case Tool | {% endblock %}
 
-{% block style %} 
+{% block style %}
     <style>
-        
+
         .button_back{
             background-color:aquamarine ;
             height: 150px;
-            
+
             }
             textarea::placeholder {
                 font-size: 30px;
                 text-align: center;
                 padding: 20px;
               }
-            
+
             .text_align h1{
             text-align: center;
             }
@@ -55,10 +55,10 @@
              {
                 new_text = new_text + " " +capitall[i][0].toUpperCase() + capitall[i].substr(1);
             }
-        
+
             // alert(new_text)
             document.getElementById("passed").value = new_text
-        
+
         }
 
 
@@ -72,7 +72,7 @@
             return word.charAt(0).toLowerCase() + word.slice(1);
             })
             .join(" ");
-        
+
         return newText;
         };
 
@@ -90,8 +90,8 @@
         //         str[i] =  String.fromCharCode(str[i].charCodeAt(0) + 'A'.charCodeAt(0) - 'a'.charCodeAt(0));
         // }
         // }
- 
-    
+
+
 
      </script>
 {% endblock %}
@@ -110,7 +110,7 @@
             <p>Change Text Case is a handy web application that enables you to change the text case of any given text. Simply copy and paste the text into the text area below and click the required text case.</p>
           </div>
           <div class="col-md-2  ">
-          
+
           </div>
 
         </div>
@@ -126,22 +126,22 @@
             <div class="col-md-8">
                 <form action='/ChangeCase/' name="word" class="input_url1" method="POST">
                     {% csrf_token %}
-                
+
                     <!-- <label for="" class="text_main">Enter Word </label> -->
                     <textarea rows="4" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br>
-                
+
                     <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
-            
+
                 </form>
             </div>
             <div class="col-md-2">
 
             </div>
         </div>
-    
+
     </div>
 
-   
+
 
 
     <!-- Button and Data-->
@@ -151,25 +151,21 @@
                 <div class="list-group">
                     <button type="button" onclick="lower_Case()" class="btn btn-outline-primary">lower</button><br>
                     <button type="button" onclick="upper_case()" class="btn btn-outline-primary">UPPER</button><br>
-                    <button type="button" onclick="capital()" class="btn btn-outline-primary">Capitalize</button>
-                 
-                  
-                </div>
-                 
-            </div>
-            <div class="col-md-8">
-                <textarea rows="9" id="passed" name="word"style="width:700px ;"  disabled="disabled"></textarea>
-                
-            </div>
-            <div class="col-md-2">
-                <div class="list-group">
+                    <button type="button" onclick="capital()" class="btn btn-outline-primary">Capitalize</button><br>
                     <button type="button" onclick="toggleCase()" class="btn btn-outline-primary">tOGGLE cASE</button><br>
                     <button type="button" class="btn btn-outline-primary">aLtErNaTe cAsE</button><br>
                     <button type="button" class="btn btn-outline-primary">Sentense case</button>
-                 
-                  
+
+
                 </div>
-                 
+
+            </div>
+            <div class="col-md-8">
+                <textarea rows="9" id="passed" name="word"style="width:700px ;"  disabled="disabled"></textarea>
+
+            </div>
+            <div class="col-md-2">
+
             </div>
         </div>
     </div>

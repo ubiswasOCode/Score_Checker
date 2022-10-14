@@ -24,12 +24,12 @@ def Word_Count(request):
             context = Word_Check(word)
         else:
             file=(request.FILES['filename'])
-            print(file,"--------------file")
+            print(file.name,"--------------file")
 
-            if "pdf" in file:
+            if "pdf" in file.name:
                 data = PdfType(file)
                 context = Word_Check(data)
-            elif "doc"or "docs" in file:
+            elif "doc"  in file.name or "docx"  in file.name:
                 worddata=DocxType(file)
                 context= Word_Check(worddata)
             else:
@@ -165,6 +165,3 @@ def DocxType(filename):
 
     return word_text
 
-def FromUrl():
-
-    return
