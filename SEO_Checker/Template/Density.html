@@ -19,7 +19,10 @@
 .input_url
 {
     text-align: center;
-   margin-top: 20px;
+
+}
+button#urlsrch {
+  margin-top: 25px;
 }
 .hide{
   display: none;
@@ -58,11 +61,7 @@
       margin-top: 6px;
       margin: 5px 5px;
     }
-    .wrdsrch
-    {
-      margin-top: 6px;
-      margin: 5px 5px;
-    }
+   
 
     /* .list-group a:hover {background-color: #767F87}
 
@@ -158,8 +157,10 @@ input.btn.btn-outline-success.srchbtn {
               </div>
 
               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <textarea rows="3"  id="wrdsrch" style="width:100%"></textarea><br>
-
+                <!-- <textarea rows="3"  id="wrdsrch" style="width:100%"></textarea><br> -->
+                <textarea class="form-control" placeholder="Enter Text Here" id="wrdsrch" name="wrdsrch" style="height: 100px"required ></textarea>
+               
+               
               </div>
           </div>
           <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>

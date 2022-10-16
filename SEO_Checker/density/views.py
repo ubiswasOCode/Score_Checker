@@ -12,14 +12,17 @@ def Density_Check(request):
     context = dict()
 
     if request.method == "POST":
-
         url = request.POST.get('url')
-
-        context = Density(url)
+        if (url):
+       
+            context = Density(url)
+        else:
+            context =WordDensity(wrdsrch)
+            
         # context = WordDensity(wrdsrch)
 
         context['url']=url
-        # print(data,"------------------------alll Dictinory ")
+       
 
     return render(request, 'Density.html', context)
 
