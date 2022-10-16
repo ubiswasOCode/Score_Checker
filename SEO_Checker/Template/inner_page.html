@@ -14,7 +14,12 @@
 {% block style %}
 <style>
 
-
+    h1{
+      text-align:center;
+    }
+    .para p{
+      text-align:center;
+    }
       .foot_back
       {
         background-color: rgba(0, 0, 0, 0.918);
@@ -92,8 +97,10 @@
 }
 .contentform
 {
-  height: 120px;
+  height: 150px;
 }
+
+
     </style>
 {% endblock %}
 
@@ -101,27 +108,35 @@
 
 {% block content %}
      <!-- Herosssss -->
-    <div class="px-3 py-3 mt-3 text-center">
-      <h1 class="display-5 fw-bold">Word Counter</h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">To use this Word Count Checker, please copy and paste your content into the box below, and then sit back and watch as Word Count Checker will run a real-time scan.</p>
+    <!-- <div class="px-3 py-3 mt-3 text-center">
+      
+      <div class="col-md-8 mx-auto">
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md-8 mt-4 para">
+        <h1>WORD COUNTER</h1>
+        <p>To use this Word Count Checker, please copy and paste your content into the box below, and then sit back and watch as Word Count Checker will run a real-time scan.</p>
+      </div>
+      <div class="col-md-2">
+
       </div>
     </div>
 
-
-
     <!-- Grid -->
-      <div class="row text-center">
+      <div class="row text-center mt-3">
         <div class="col-md-3">
         </div>
-        <div class="col-md-6" >
-
-
+        <div class="col-md-6">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Manually Enter</button>
               <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">File Upload</button>
-              <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">From Url</button> -->
+
             </div>
           </nav>
 
@@ -133,18 +148,25 @@
               <form action='/Word_Count/' id="word" class="input_url1" method="POST">
 
                 {% csrf_token %}
-              <textarea rows="3" id="word" name="word" placeholder="Enter Text Here" style="width:100%" required >{{word}}</textarea>
-              <button type="submit" class="btn btn-primary mt-2 btn-center">Count Words</button>
+              <!-- <textarea rows="3" id="word" name="word" placeholder="Enter Text Here" class="textinput"style="width:100%"; ; required >{{word}}</textarea>
+               -->
+  
+                <textarea class="form-control" placeholder="Enter Text Here" id="word" name="word" style="height: 100px"required >{{word}}</textarea>
+               
+                <button type="submit" class="btn btn-outline-success mt-2 btn-center">Count Words</button>
+          
+              
               </form>
             </div>
+            
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <form action='/Word_Count/' id="upload_file"  enctype="multipart/form-data"   method="POST">
+              <form action='/Word_Count/' id="upload_file"  enctype="multipart/form-data" method="POST">
 
                 {% csrf_token %}
 
-              <input type="file" id="myFile" name="filename" >
-              <button type="button" id="docscheck" onclick="Validatefile()" class="btn btn-primary mt-2 btn-center">Upload file</button>
+              <input type="file" id="myFile" name="file" >
+              <button type="button" id="docscheck" onclick="Validatefile()" class="btn btn-outline-success mt-2 btn-center">Upload file</button>
             </form>
             </div>
 
@@ -165,12 +187,12 @@
 <!-- Word Description -->
 <div class="container">
 <div class="row mt-5 ">
-  <div class="col-md-2">
+  <div class="col-md-3">
   </div>
-  <div class="col-md-8 alert alert-info "role="alert">
-    You entered the total {{Total_word}} word and total {{word_length}} character
+  <div class="col-md-6 alert alert-info "role="alert">
+    You entered the total {{context.Total_word}} word and total {{context.word_length}} character
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
 
   </div>
   </div>
@@ -201,7 +223,7 @@
         <div class="col-md-6 STATISTICS " id="STATISTICS">
 
 
-                <table class="table border">
+                <table class="table">
 
 
                   <tbody>
@@ -240,7 +262,7 @@
                   <h5>READING TIME</h5>
 
 
-                <table class="table border">
+                <table class="table ">
 
 
                   <tbody>

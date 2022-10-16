@@ -177,6 +177,9 @@ table.table tbody td {
 h5#exampleModalCenterTitle {
     padding: 10px;
 }
+.tab-content {
+ padding: 0px;
+}
 </style>
 {% endblock %}
 <!--  -->
@@ -218,7 +221,7 @@ h5#exampleModalCenterTitle {
                 <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url" required >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="submit">Search</button>
               </div>
             </div>
 
@@ -237,12 +240,18 @@ h5#exampleModalCenterTitle {
 
     <div class="row mt-5" >
           <div class="col-md-3">
+            <nav>
+              <div class="nav nav-tabs left-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+              </div>
+            </nav>
 
-                   <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active"  id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Common SEO Issue</button>
-                    <button class="nav-link" id="v-pills-profile-tab"  data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Speed Optimizations</button>
-                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Server and Security</button>
-                  </div>
+           
+             
+        
+     
 
 
 
@@ -250,10 +259,10 @@ h5#exampleModalCenterTitle {
 
 
         <div class="col-md-6">
-          <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
-              <table class="table border">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        
+              <table class="table"style="border-top:none;">
 
 
                 <tbody>
@@ -509,10 +518,11 @@ h5#exampleModalCenterTitle {
                 </tbody>
               </table>
             </div>
+      
 
 
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                <table class="table border">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <table class="table">
                   <tbody>
                     <tr>
                         <th><label for="">Iframe Tag</label></th>
@@ -582,8 +592,8 @@ h5#exampleModalCenterTitle {
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-              <table class="table border">
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <table class="table ">
                 <tbody>
                   <tr>
                     <th><label for="">HTTPS Test </label></th>
@@ -648,8 +658,11 @@ h5#exampleModalCenterTitle {
               </table>
             </div>
 
-          </div>
+         
 
+            
+
+          </div>
         </div>
 
 
