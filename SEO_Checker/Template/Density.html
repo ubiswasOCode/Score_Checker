@@ -112,6 +112,14 @@ input.btn.btn-outline-success.srchbtn {
 .alldata {
      padding: 0;
 }
+.tab-content {
+    padding:0;
+}
+div#nav-profile {
+    margin-top: 20px;
+}div#nav-home {
+    margin-top: 20px;
+}
 </style>
 {% endblock %}
 
@@ -138,10 +146,10 @@ input.btn.btn-outline-success.srchbtn {
       <!-- Form  -->
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
 
           <nav>
             <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
@@ -153,7 +161,7 @@ input.btn.btn-outline-success.srchbtn {
 
           <form action='/density/' id="update" class="input_url" method="POST">
             {% csrf_token %}
-          <div class="tab-content" id="nav-tabContent" style="height: 100px;">
+          <div class="tab-content" id="nav-tabContent" >
               <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url">
 
@@ -174,7 +182,7 @@ input.btn.btn-outline-success.srchbtn {
 
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
 
         </div>
       </div>
