@@ -9,7 +9,7 @@
     input#url
     {
         height: 40px;
-    width: 84%;
+    width: 90%;
     border-radius: 8px;
     padding: 10px;
     position: absolute;
@@ -70,32 +70,32 @@
 
 
   <!-- Form  -->
-    
+
         <div class="row mt-4">
-          <div class="col-md-3">
+          <div class="col-md-2">
 
           </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="row">
-              
+
               <div class="col-md-11">
                 <form action='/Meta/' id="update" class="input_url1" method="POST" >
 
                   {% csrf_token %}
 
-                  <input type="text" class="form-control" id="url" name="url" placeholder="Enter Url"required>
+                  <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url"required>
 
               </div>
               <div class="col-md-1">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
               </div>
-           
+
             </div>
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
 
 
           </div>
@@ -120,39 +120,51 @@
             </div>
             <div class="col-md 6">
               <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> <table class="table border">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> <table class="table ">
 
 
                   <tbody>
                       <tr>
                           <th><label for="">Meta Title</label><br></th>
 
-                               <td>   {{meta_title_msg}}<br>{{meta_title}}</td>
+
+                               <td>
+                                {{context.meta_title_msg}}
+                                <!-- {% if context.meta_alert.alert == "warning" %}
+                                <div class="alert alert-warning" role="alert">{{context.meta_title_msg}}</div>
+
+                                  {% elif context.meta_alert.alert == "success" %}
+                                  <div class="alert alert-success" role="alert">
+                                    {{context.meta_title_msg}}
+                                  </div>
+                                  {% endif %} -->
+
+                                <br>{{context.meta_title}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Keyword</label><br></th>
-                          <td>{{meta_desc_msg}}<br>{{meta_desc}}</td>
+                          <td>{{context.meta_desc_msg}}<br>{{context.meta_desc}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Description</label><br></th>
-                          <td> {{meta_key_msg}}<br>{{meta_key}}</td>
+                          <td> {{context.meta_key_msg}}<br>{{context.meta_key}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Viewport</label><br></th>
-                          <td>{{meta_view_msg}}<br>{{meta_view}}</td>
+                          <td>{{context.meta_view}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Robots</label><br></th>
-                          <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
+                          <td>{{context.meta_robots_msg}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Open Graph</label><br></th>
-                          <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
+                          <td>{{context.meta_graph_msg}}</td>
                           </tr>
 
 

@@ -75,21 +75,6 @@ table.table tbody td {
     }
 
 
-    input::placeholder {
-    font-size: 20px;
-    margin-left: 10px;
-    padding: 10px;
-    }
-
-    .formtag {
-    position: relative;
-}
-    .btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-    float: right;
-
-    }
-
     .content h1
     {
         text-align: center;
@@ -117,7 +102,7 @@ table.table tbody td {
  svg{
   background-color: transparent !important;
 }
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
       input#url
     {
         height: 40px;
@@ -134,17 +119,17 @@ table.table tbody td {
     padding: 10px;
 }
 
-}
+} */
 
 
-    @media screen and  (min-device-width: 769px) and (max-device-width: 1280px) {
+    /* @media screen and  (min-device-width: 769px) and (max-device-width: 1280px) {
       input#url {
     height: 40px;
     width: 83%;
     border-radius: 8px;
     padding: 10px;
 }
-    }
+    } */
     .nav-link
     {
       color: black;
@@ -180,6 +165,67 @@ h5#exampleModalCenterTitle {
 .tab-content {
  padding: 0px;
 }
+
+/* bodY {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, cyan, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+} */
+
 </style>
 {% endblock %}
 <!--  -->
@@ -188,7 +234,18 @@ h5#exampleModalCenterTitle {
  <!-- All Data -->
  <!-- <div class="loader"></div> -->
 
-
+ <!-- <div class="center">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div> -->
 
   <div class="row my-4" >
     <div class="col-md-2 ">
@@ -209,27 +266,30 @@ h5#exampleModalCenterTitle {
 <!-- Input Form -->
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
 
       </div>
-      <div class="col-md-6  ">
+      <div class="col-md-8">
 
-          <form action='/score_checker/' id="update" class="input_url1" method="POST" >
             <div class="row mt-4">
-              <div class="col-md-10 ">
+
+              <div class="col-md-11">
+                <form action='/score_checker/' id="update"  method="POST" >
+
                 {% csrf_token %}
-                <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url" required >
+                <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url" required />
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+              <div class="col-md-1">
+                <button class="btn btn-outline-success" type="submit" id="submit">Search</button>
               </div>
+            </form>
             </div>
 
-          </form>
+
 
 
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
 
       </div>
     </div>
@@ -248,10 +308,10 @@ h5#exampleModalCenterTitle {
               </div>
             </nav>
 
-           
-             
-        
-     
+
+
+
+
 
 
 
@@ -261,7 +321,7 @@ h5#exampleModalCenterTitle {
         <div class="col-md-6">
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        
+
               <table class="table"style="border-top:none;">
 
 
@@ -461,22 +521,42 @@ h5#exampleModalCenterTitle {
 
 
                         <tr>
-                            <th><label for="">Anchar Tag</label></th>
-                            <td>{{context.anc_msg}} </td>
+                            <th><label for="">Viewport </label></th>
+                            <td>{{context.meta_view_msg}} </td>
                             <td>
                               {% if context.meta_anc.alert == "warning" %}
-                              <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              <a href="#" onclick="showModal('Viewport', '{{context.meta_view.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                               </a>
                                 {% elif context.meta_anc.alert == "success" %}
-                              <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                              <a href="#" onclick="showModal('Viewport', '{{context.meta_view.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                               </a>
                                 {% elif context.meta_anc.alert == "danger" %}
-                              <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              <a href="#" onclick="showModal('Viewport', '{{context.meta_view.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                               </a>
                                 {% endif %}
 
                             </td>
                         </tr>
+
+
+
+                        <tr>
+                          <th><label for="">Anchar Tag</label></th>
+                          <td>{{context.anc_msg}} </td>
+                          <td>
+                            {% if context.meta_anc.alert == "warning" %}
+                            <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            </a>
+                              {% elif context.meta_anc.alert == "success" %}
+                            <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            </a>
+                              {% elif context.meta_anc.alert == "danger" %}
+                            <a href="#" onclick="showModal('Anchor Tag', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            </a>
+                              {% endif %}
+
+                          </td>
+                      </tr>
 
 
 
@@ -518,7 +598,7 @@ h5#exampleModalCenterTitle {
                 </tbody>
               </table>
             </div>
-      
+
 
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -658,15 +738,15 @@ h5#exampleModalCenterTitle {
               </table>
             </div>
 
-         
 
-            
+
+
 
           </div>
         </div>
 
 
-          <div  class="col-md-3 percent"id="piechart">
+          <div  class="col-md-3 percent" id="piechart">
 
             <script>
 
@@ -679,9 +759,6 @@ h5#exampleModalCenterTitle {
               google.charts.setOnLoadCallback(drawChart);
 
             </script>
-              <div class="row">
-                <h4>Total Percentage is={{value.per}}</h4>
-              </div>
 
 
           </div>
@@ -787,7 +864,12 @@ window.addEventListener('DOMContentLoaded', perf);
 
 
 <script>
-  console.log(url)
+  // console.log(url)
+  $(document).ready(function(){
+  $("#update").on("submit", function(){
+    $("#center").fadeIn();
+  });//submit
+});
 </script>
 
 

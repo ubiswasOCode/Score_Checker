@@ -340,11 +340,27 @@ def Score_checker(request):
             context["meta_anc"]=meta_anc
 
 
+            ####----------------------------ViewPort ----------------------
+            meta_view={"alert":"", "alert_msg":"", "data": ""}
+            view_port=page.get_metadata("viewport")
+            if view_port is None:
+                meta_view["alert"] =  "danger"
+                meta_view["alert_msg"]  = f"Viewport Not used"
+
+                context["meta_view_msg"] ="No Viewport"
+
+            else:
+                meta_view["alert"] =  "success"
+                meta_view["alert_msg"]  = f"Viewport is used"
+                context["meta_view_msg"] =f"Viewport is used"
+            # print(meta_view)
+            context["meta_view"] = meta_view
+
 
             #Check Robot.Txt File Is availabale or not
             robots = requests.get(url+"/robots.txt")
             # print(robots,"--------------file")
-            print(robots,"--------------file")
+            # print(robots,"--------------file")
             meta_robot={"alert":"","data": ""}
             if robots is None:
                 meta_robot["alert"] =  "danger"
@@ -547,7 +563,7 @@ def Score_checker(request):
 
         # print(script,"-------------------------Minifiedss")
 
-        
+
 
         ###---------------------Check Donmain Name Samne or Not -----------------
         # o = urlparse(url)

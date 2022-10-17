@@ -61,7 +61,7 @@ button#urlsrch {
       margin-top: 6px;
       margin: 5px 5px;
     }
-   
+
 
     /* .list-group a:hover {background-color: #767F87}
 
@@ -109,6 +109,9 @@ textarea#textInput {
 input.btn.btn-outline-success.srchbtn {
     margin-left: 50%;
 }
+.alldata {
+     padding: 0;
+}
 </style>
 {% endblock %}
 
@@ -141,13 +144,13 @@ input.btn.btn-outline-success.srchbtn {
         <div class="col-md-6">
 
           <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Url</button>
               <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Enter Keyword</button>
               <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
             </div>
           </nav>
-          
+
           <form action='/density/' id="update" class="input_url" method="POST">
             {% csrf_token %}
           <div class="tab-content" id="nav-tabContent" style="height: 100px;">
@@ -159,8 +162,8 @@ input.btn.btn-outline-success.srchbtn {
               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <!-- <textarea rows="3"  id="wrdsrch" style="width:100%"></textarea><br> -->
                 <textarea class="form-control" placeholder="Enter Text Here" id="wrdsrch" name="wrdsrch" style="height: 100px"required ></textarea>
-               
-               
+
+
               </div>
           </div>
           <button class="btn btn-outline-success srchbtn" id="urlsrch" type="submit">Search</button>
@@ -198,7 +201,7 @@ input.btn.btn-outline-success.srchbtn {
 
             </div>
             <div class="col-md-6">
-              <div class="tab-content" id="myTabContent">
+              <div class="tab-content alldata" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <!-- One Word Density  -->
                   <table class="table">
