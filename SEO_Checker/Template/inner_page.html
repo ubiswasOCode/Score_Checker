@@ -148,7 +148,7 @@ div#nav-tabContent {
           <div class="tab-content contentform" id="nav-tabContent">
 
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <form action='/Word_Count/' class="input_url1" method="POST">
+              <form action='/Word_Count/' class="input_url1" onsubmit="add_loader()" method="POST">
 
                 {% csrf_token %}
 
@@ -164,7 +164,7 @@ div#nav-tabContent {
 
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <form action='/Word_Count/' id="upload_file"  enctype="multipart/form-data" method="POST">
+              <form action='/Word_Count/' id="upload_file"  onsubmit="add_loader()" enctype="multipart/form-data" method="POST">
 
                 {% csrf_token %}
 

@@ -5,6 +5,7 @@ import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import json
+import re
 # from selenium import webdriver
 # from webdriver_manager.chrome import ChromeDriverManager
 
@@ -116,6 +117,28 @@ def Score_checker(request):
                 context["meta_keyword_msg"]=f"Keyword should be Greater than 100 characters {len(keyword)}  characters"
 
             context["meta_key"] = meta_key
+
+
+            #####----------------Repeated Keyword
+
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content, 'html5lib')  # If this line causes an error, run 'pip install html5lib' or install html5lib
+            text=soup.prettify()
+            # remove=re.sub('<[^<]+?>', '', text)
+            # print(text)
+
+            frequency={}
+
+            #One OWrd
+            for item in text:
+                if item in frequency:
+                    frequency[item] += 1
+                else:
+                    frequency[item] = 1
+
+
+                # print(frequency,"-------------------freqqq")
+
 
 
             # ----------------------Heading H1----------------------------
@@ -240,7 +263,7 @@ def Score_checker(request):
             # #
             # # ##For Images
             #
-            # images = Soup.findAll('img')
+
             imag={"alert":"", "alert_msg":"", "data": ""}
             # for image in images:
             image = []
@@ -544,6 +567,42 @@ def Score_checker(request):
         context['meta_doc']=meta_doc
 
 
+
+        #####-------------Minify CSS-----------
+        minify={"alert":"","data":""}
+        r = requests.get(url)
+        # print(r.content)
+        remove=re.sub('\s+',' ','\n'+str(r.content))
+        # print(remove,"=========================minify")
+        if len(remove)>=1:
+            minify["alert"]="success"
+            minify["alert_msg"]="Congratulations! Your webpage CSS resources are minified"
+
+        else:
+
+            minify["alert"]="danger"
+            minify["alert_msg"]="! Your webpage CSS resources are not minified"
+
+        context['minify']=minify
+
+
+        ####------------Preloader-------------
+        loader={"alert":"","alert_msg":""}
+        sibling_soup = Soup.findAll('link')
+
+        if len(sibling_soup)>= 1:
+            loader["alert"]="success"
+            loader["alert_msg"]="Congratulations! Your webpage is using rel-preload"
+
+        else:
+
+            loader["alert"]="danger"
+            loader["alert_msg"]="! Your webpage is not using rel-preload"
+
+        context['loader']=loader
+
+        ####---------------Script
+        
 
         ####--------Minify or not
         # data = """<script>

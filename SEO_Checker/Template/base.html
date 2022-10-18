@@ -146,12 +146,71 @@
     padding: 30px;
   }
 
+  .loader {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
+    border-radius: 60px;
+    animation: loader 0.8s linear infinite;
+    -webkit-animation: loader 0.8s linear infinite;
+    display: none;
+}
+
+@keyframes loader {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        border: 4px solid #056d4d;
+        /* border: 4px solid #f44336; */
+        border-left-color: transparent;
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border: 4px solid #056d4d;
+        /* border: 4px solid #673ab7; */
+        border-left-color: transparent;
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+        border: 4px solid #056d4d;
+        border-left-color: transparent;
+    }
+}
+
+@-webkit-keyframes loader {
+    0% {
+        -webkit-transform: rotate(0deg);
+        border: 4px solid #056d4d;
+        border-left-color: transparent;
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+        border: 4px solid #056d4d;
+        border-left-color: transparent;
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        border: 4px solid #056d4d;
+        border-left-color: transparent;
+    }
+}
+
 </style>
 {% block style %} {% endblock %}
 </head>
 
 <body>
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom">
+  <div id="preloder">
+    <div class="loader"></div>
+</div>
+
+  <header class="headerr d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom">
     <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
       <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg> -->
       <img src="{% static 'img/Doddle-1.png' %}" style="width:200px;height:40px" alt="logo">
@@ -175,7 +234,7 @@
 
 
 
-  <div class="container" id="main_page" style="min-height:75% ;">
+  <div class="container" id="main_page" style="min-height:75%;">
       <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -193,7 +252,7 @@
     {% endblock %}
   </div>
 
-  <footer class="foot_back">
+  <footer class="foot_back mt-4">
     <ul class="nav justify-content-center pb-3 mb-3">
       <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
@@ -205,7 +264,14 @@
   </footer>
 
 
+
   <script>
+    function add_loader(){
+      $(".loader").show();
+      $(".container").css("opacity"," 0.1");
+      $(".headerr").css("opacity"," 0.1");
+      $(".foot_back").css("opacity"," 0.1");
+    }
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)

@@ -4,24 +4,25 @@ import pyqrcode
 # from pyqrcode import QRCode
 # Create your views here.
 def QRCode(request):
+
     context=dict()
     url=''
     if request.method == 'POST':
         url=request.POST.get('url')
-        if url:    
+        if url:
             # Generate QR code
-            url = pyqrcode.create(url)
-            
+            code = pyqrcode.create(url)
+
             # Create and save the svg file naming "myqr.svg"
-            svgimg=url.svg("myqr.svg", scale = 8)
-            
+            svgimg=code.svg("myqr.svg", scale = 8)
+
             # Create and save the png file naming "myqr.png"
-            pngImg=url.png('static/myqr.png', scale = 6) 
-                    
+            pngImg=code.png('static/myqr.png', scale = 6)
+
             context={
                 "pngImg":pngImg,
-               
-                
+
+
             }
-        
+
     return render(request, "qrcode.html",{"context":context, "url":url})
