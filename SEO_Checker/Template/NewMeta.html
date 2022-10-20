@@ -62,6 +62,19 @@
     {
       color: #dc3545;
     }
+
+    td.alert-icon {
+    border-top: none;
+    float: revert;
+    padding: 2px;
+    border-bottom: none;
+}
+a {
+    color: var(--bs-link-color);
+    text-decoration: underline;
+    padding-left: 16px;
+}
+
     </style>
 {% endblock %}
 
@@ -145,7 +158,7 @@
 
                                <td>{{context.meta_title.data}}</td>
 
-                                    <td> {% if context.meta_title.alert == "warning" %}
+                                    <td class="alert-icon" > {% if context.meta_title.alert == "warning" %}
                                       <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                       </a>
                                       {% elif context.meta_title.alert == "success"%}
@@ -163,15 +176,15 @@
                           <th><label for="">Meta Description</label><br></th>
                           <td>{{context.desc.data}}</td>
 
-                              <td> {% if context.desc.alert == "warning" %}
-                                <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                              <td class="alert-icon" > {% if context.desc.alert == "warning" %}
+                                <a href="#"onclick="showModal('Meta Description', '{{context.desc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% elif context.desc.alert == "success"%}
-                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                <a href="#" onclick="showModal('Meta Description', '{{context.desc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% elif context.desc.alert == "danger"%}
 
-                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                <a href="#" onclick="showModal('Meta Description', '{{context.desc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% endif %}</td>
 
@@ -181,19 +194,39 @@
                           <th><label for="">Meta Keyword</label><br></th>
                           <td>{{context.keyword.data}}</td>
 
-                              <td> {% if context.keyword.alert == "warning" %}
-                                <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                              <td class="alert-icon" > {% if context.keyword.alert == "warning" %}
+                                <a href="#"onclick="showModal('Meta Keyword', '{{context.keyword.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% elif context.keyword.alert == "success"%}
-                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                <a href="#" onclick="showModal('Meta Keyword', '{{context.keyword.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% elif context.keyword.alert == "danger"%}
 
-                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                <a href="#" onclick="showModal('Meta Keyword', '{{context.keyword.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                                 </a>
                                 {% endif %}</td>
 
                           </tr>
+
+                          <tr>
+                            <th><label for="">Total Urls</label><br></th>
+                            <td>{{context.meta_anc.alert_msg}}</td>
+
+                                <td class="alert-icon" > {% if context.meta_anc.alert == "warning" %}
+                                  <a href="#"onclick="showModal('Urls', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% elif context.meta_anc.alert == "success"%}
+                                  <a href="#" onclick="showModal('Urls', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% elif context.meta_anc.alert == "danger"%}
+
+                                  <a href="#" onclick="showModal('Urls', '{{context.meta_anc.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% endif %}</td>
+
+                            </tr>
+
+
 
                         <a  id="nav-profile"></a>
 
@@ -202,14 +235,14 @@
                           <th><label for="">Meta Viewport</label><br></th>
                           <td>{{context.view_port.data}}</td>
 
-                                <td>
+                                <td class="alert-icon" >
 
                                   {% if context.view_port.alert == "success"%}
-                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  <a href="#" onclick="showModal('Meta Viewport', '{{context.view_port.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                   </a>
                                   {% elif context.view_port.alert == "warning" %}
 
-                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                  <a href="#" onclick="showModal('Meta Viewport', '{{context.view_port.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                                   </a>
                                   {% endif %}</td>
 
@@ -220,12 +253,12 @@
                           <th><label for="">Meta Robots</label><br></th>
                           <td>{{context.meta_robot.alert_msg}}</td>
 
-                                  <td>{% if context.meta_robot.alert == "success"%}
-                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  <td class="alert-icon" >{% if context.meta_robot.alert == "success"%}
+                                  <a href="#" onclick="showModal('Robot File', '{{context.meta_robot.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                   </a>
                                   {% elif context.meta_robot.alert == "danger"%}
 
-                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                  <a href="#" onclick="showModal('Robot File', '{{context.meta_robot.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                                   </a>
                           {% endif %}</td>
 
@@ -236,12 +269,12 @@
                           <td>{{context.meta_graph.alert_msg}}</td>
 
 
-                                  <td>{% if context.meta_graph.alert == "success"%}
-                                    <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  <td class="alert-icon" >{% if context.meta_graph.alert == "success"%}
+                                    <a href="#" onclick="showModal('Open Graph', '{{context.meta_graph.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                                     </a>
                                     {% elif context.meta_graph.alert == "danger"%}
 
-                                    <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                    <a href="#" onclick="showModal('Open Graph', '{{context.meta_graph.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                                     </a>
                             {% endif %}</td>
 
@@ -250,7 +283,7 @@
 
                   </tbody>
                 </table>
-</div>
+              </div>
                 <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div> -->
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
               </div>
@@ -259,8 +292,49 @@
             <div class="col-md-3">
 
             </div>
-        </div>
+      </div>
 
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="Model_Title"></h5>
+                    <button type="button" onclick="hideModal()" class="close" >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="model_data"  >
+
+                  </div>
+
+                </div>
+              </div>
+    </div>
+
+
+
+
+<script>
+
+  function showModal(heading, data)
+  {
+
+    document.getElementById('Model_Title').innerHTML = heading;
+    document.getElementById('model_data').innerHTML = data;
+
+    $('#exampleModalCenter').modal('show');
+  }
+  function hideModal()
+  {
+
+    $('#exampleModalCenter').modal('hide');
+
+  }
+  function show_mess()
+{
+  $('#show_messg').modal(context.alert_msg);
+}
+</script>
 
 
 {% endblock %}

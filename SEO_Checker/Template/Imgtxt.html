@@ -3,8 +3,8 @@
 {% load static %}
 
         <!-- <!-- <link href="{% static 'css/form.css' %}" rel="stylesheet" type="text/css"> -->
-        <script src="{% static 'js/form.js' %}"></script> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" > 
+        <script src="{% static 'js/form.js' %}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" >
         <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
@@ -71,7 +71,7 @@
                     </form>
                 </div>
                 <!-- <div class="col-md-6 area">
-                  
+
                 </div> -->
                 <div class="col-md-3">
 
@@ -86,13 +86,13 @@
                 </div>
                 <div class="col-md-6 output mt-4">
                     <!-- <p style="color: red;">{{message}}</p> -->
-                    
+
                     <h2>
-                        Text Found on Your Image 
+                        Text Found on Your Image
                     </h2>
-                    
+
                     <label><p>Ocred Text:</p></label>
-                   
+
                 </div>
                 <div class="col-md-3">
 
@@ -114,14 +114,14 @@
                 </div>
             </div>
         </div>
-    
-<!-- 
+
+<!--
         <div class="form-container">
             <p style="color: red;">{{message}}</p>
             <h1>
                 Ocr an Image and Summarize Using Gensim
             </h1>
-            
+
             <label><h2>Ocred Text:</h2></label>
             <span class="textarea" role="textbox" contenteditable>{{text}}</span> -->
 
@@ -132,7 +132,7 @@
         <script>
             var fileTag = document.getElementById("image");
             var preview = document.getElementById("preview");
-                
+
             fileTag.addEventListener("change", function() {
             changeImage(this);
             });
