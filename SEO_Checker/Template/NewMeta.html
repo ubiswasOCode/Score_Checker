@@ -46,6 +46,22 @@
       }
 
     }
+    svg{
+  background-color: transparent !important;
+}
+
+    .alert-warning
+    {
+      color:#ffc107;
+    }
+    .alert-success
+    {
+      color: green;
+    }
+    .alert-danger
+    {
+      color: #dc3545;
+    }
     </style>
 {% endblock %}
 
@@ -82,7 +98,7 @@
 
                   {% csrf_token %}
 
-                  <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url"required>
+                  <input type="text" class="form-control" id="url" name="url" value="{{url}}" placeholder="Enter Url" required>
 
               </div>
               <div class="col-md-1">
@@ -109,15 +125,15 @@
             <div class="col-md-3">
                 <nav>
                   <div class="nav nav-tabs left-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Meta Data</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">--</a>
-                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">--</a>
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Meta Data</a>
+                    <a class="nav-item nav-link"ta-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meta Viewport</a>
+                    <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">--</a> -->
                   </div>
                 </nav>
 
 
             </div>
-            <div class="col-md 6">
+            <div class="col-md-6">
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> <table class="table ">
 
@@ -127,50 +143,115 @@
                           <th><label for="">Meta Title</label><br></th>
 
 
-                               <td>
-                                {{context.meta_title_msg}}
-                                <!-- {% if context.meta_alert.alert == "warning" %}
-                                <div class="alert alert-warning" role="alert">{{context.meta_title_msg}}</div>
+                               <td>{{context.meta_title.data}}</td>
 
-                                  {% elif context.meta_alert.alert == "success" %}
-                                  <div class="alert alert-success" role="alert">
-                                    {{context.meta_title_msg}}
-                                  </div>
-                                  {% endif %} -->
+                                    <td> {% if context.meta_title.alert == "warning" %}
+                                      <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                      </a>
+                                      {% elif context.meta_title.alert == "success"%}
+                                      <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                      </a>
+                                      {% elif context.meta_title.alert == "danger"%}
 
-                                <br>{{context.meta_title}}</td>
-                          </tr>
+                                      <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                      </a>
+                                      {% endif %}</td>
 
-                          <tr>
-                          <th><label for="">Meta Keyword</label><br></th>
-                          <td>{{context.meta_desc_msg}}<br>{{context.meta_desc}}</td>
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Description</label><br></th>
-                          <td> {{context.meta_key_msg}}<br>{{context.meta_key}}</td>
+                          <td>{{context.desc.data}}</td>
+
+                              <td> {% if context.desc.alert == "warning" %}
+                                <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% elif context.desc.alert == "success"%}
+                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% elif context.desc.alert == "danger"%}
+
+                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% endif %}</td>
+
                           </tr>
 
                           <tr>
+                          <th><label for="">Meta Keyword</label><br></th>
+                          <td>{{context.keyword.data}}</td>
+
+                              <td> {% if context.keyword.alert == "warning" %}
+                                <a href="#"onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% elif context.keyword.alert == "success"%}
+                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% elif context.keyword.alert == "danger"%}
+
+                                <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                </a>
+                                {% endif %}</td>
+
+                          </tr>
+
+                        <a  id="nav-profile"></a>
+
+
+                          <tr>
                           <th><label for="">Meta Viewport</label><br></th>
-                          <td>{{context.meta_view}}</td>
+                          <td>{{context.view_port.data}}</td>
+
+                                <td>
+
+                                  {% if context.view_port.alert == "success"%}
+                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% elif context.view_port.alert == "warning" %}
+
+                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% endif %}</td>
+
+
                           </tr>
 
                           <tr>
                           <th><label for="">Meta Robots</label><br></th>
-                          <td>{{context.meta_robots_msg}}</td>
+                          <td>{{context.meta_robot.alert_msg}}</td>
+
+                                  <td>{% if context.meta_robot.alert == "success"%}
+                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                                  {% elif context.meta_robot.alert == "danger"%}
+
+                                  <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                  </a>
+                          {% endif %}</td>
+
                           </tr>
 
                           <tr>
                           <th><label for="">Open Graph</label><br></th>
-                          <td>{{context.meta_graph_msg}}</td>
+                          <td>{{context.meta_graph.alert_msg}}</td>
+
+
+                                  <td>{% if context.meta_graph.alert == "success"%}
+                                    <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                                    </a>
+                                    {% elif context.meta_graph.alert == "danger"%}
+
+                                    <a href="#" onclick="showModal('Meta Title', '{{context.meta_title.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                                    </a>
+                            {% endif %}</td>
+
                           </tr>
 
 
                   </tbody>
                 </table>
 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div> -->
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
               </div>
 

@@ -40,7 +40,7 @@ def Word_Count(request):
 
 
 
-    return render(request,"inner_page.html",{'context':context,"word":word,"file":file})
+    return render(request,"Word_counter.html",{'context':context,"word":word,"file":file})
 
 def Word_Check(word):
     context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"syllable":0,"len_sen":0}

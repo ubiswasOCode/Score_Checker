@@ -60,10 +60,11 @@ def Score_checker(request):
             meta_desc={"alert":"", "alert_msg":"", "data": ""}
             desc=page.get_metadata("description")
 
-            if desc is None :
+            if len(desc)==0 :
                 meta_desc["alert"] =  "danger"
                 meta_desc["alert_msg"]  = "description is Missing"
-                meta_desc["data"] = f" description is Missing"
+                meta_desc["alert_msg"]  = "description is Missing"
+                meta_desc["data"] =desc
 
                 error['description'] = "description is Missing"
                 context["meta_desc_msg"] = "description is Missing"
@@ -382,8 +383,6 @@ def Score_checker(request):
 
             #Check Robot.Txt File Is availabale or not
             robots = requests.get(url+"/robots.txt")
-            # print(robots,"--------------file")
-            # print(robots,"--------------file")
             meta_robot={"alert":"","data": ""}
             if robots is None:
                 meta_robot["alert"] =  "danger"
@@ -602,7 +601,7 @@ def Score_checker(request):
         context['loader']=loader
 
         ####---------------Script
-        
+
 
         ####--------Minify or not
         # data = """<script>

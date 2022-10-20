@@ -1,8 +1,11 @@
+
+
 from django.shortcuts import render
 
 # Create your views here.
 from multiprocessing import context
 from re import template
+import requests
 from django.http import HttpResponse
 from django.shortcuts import render
 import metadata_parser
@@ -17,96 +20,131 @@ def Meta(request):
 
         page=metadata_parser.MetadataParser(url)
 
-        meta_title=page.get_metadata('title')
-        if meta_title is None:
+        meta_title = {"alert":"", "alert_msg":"", "data": ""}
+        meta_tag=page.get_metadata('title')
+        if len(meta_tag)==0:
             context["meta_title_msg"] = "Title Not Found"
+            meta_title["alert"] =  "danger"
+            meta_title["alert_msg"]  = "Titile is Missing"
+            meta_title["data"]="Titile is Missing"
 
-        elif len(meta_title) >= 60:
+            # error['title']="titile is Missing"
 
-            context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(meta_title)} characters"
+        elif len(meta_tag)>=1  and len(meta_tag)<=70:
+            meta_title["alert"] =  "success"
+            meta_title["alert_msg"]  = f"Congratulations your webpage is using a title tag."
+            meta_title["data"] = meta_tag
+
+            context["meta_title_msg"] =f"Title should be Greater than 60 characters {len(meta_tag)} characters"
 
         else:
-
-            context["meta_title_msg"] = f"title is smaller than 60 characters {len(meta_title)} characters"
+            meta_title["alert"] =  "warning"
+            meta_title["alert_msg"]  = f"Title should be Greater than 60 characters {len(meta_tag)} characters"
+            meta_title["data"] = meta_tag
+            context["meta_title_msg"] = f"title is smaller than 60 characters {len(meta_tag)} characters"
 
         context["meta_title"] = meta_title
-        print()
-        print()
+        # print()
+        # print()
 
-
+        desc={"alert":"", "alert_msg":"", "data": ""}
         meta_desc=page.get_metadata("description")
-        if meta_desc is None:
+        if len(meta_desc)==0:
+            desc["alert"] =  "danger"
+            desc["alert_msg"]  = "description is Missing"
+            desc["data"] = "description is Missing"
+
             context["meta_desc_msg"] = "Description not Found"
 
-        elif len(meta_desc) >= 60:
+        elif len(desc) >=1 and len(desc)<= 165 :
+            desc["alert"] =  "success"
+            desc["alert_msg"]  =f"Congratulations your webpage is using a limited description tag."
+            desc["data"] = meta_desc
 
             context["meta_desc_msg"] =f"Description should be Greater than 60 characters {len(meta_desc)}  characters"
         else:
-
+            desc["alert"] ="warning"
+            desc["alert_msg"]  = f"description should be Greater than 160 characters use {len(meta_desc)}  characters"
+            desc["data"] = meta_desc
             context["meta_desc_msg"] =f"Description is smaller than 60 characters {len(meta_desc)}characters"
-        print(meta_desc)
-        context["meta_desc"] = meta_desc
-        print()
-        print()
+
+        context["desc"] = desc
 
 
+        keyword={"alert":"", "alert_msg":"", "data": ""}
         meta_key=page.get_metadata("keywords")
         if meta_key is None:
+            keyword["alert"] =  "danger"
+            keyword["alert_msg"]  = "keyword is Missing"
+            keyword["data"] = f" keyword is Missing"
+
             context["meta_key_msg"] = "No keywords found"
             # print("No Keywords")
-        elif len(meta_key) >= 60:
+        elif len(meta_key) >= 100 and len(meta_key)<=165:
+            keyword["alert"] =  "success"
+            keyword["alert_msg"]  =f"Keyword is Less than 100 keywords"
+            keyword["data"] = meta_key
 
-            context["meta_key_msg"] = f"Keywords should be Greater than 60 characters {len(meta_key)}  characters"
+            context["meta_keyword_msg"]=f"Keyword is Less than 100 keywords"
+
         else:
 
-            context["meta_key_msg"] =  f"Keywords is smaller than 60 characters {len(meta_key)}characters"
+            keyword["alert"] =  "warning"
+            keyword["alert_msg"]  =f"Keyword should be Greater than 100 characters use {len(meta_key)}  characters"
+            keyword["data"] = meta_key
 
-        context["meta_key"] = meta_key
-        print()
-        print()
+        context["keyword"] = keyword
 
 
+        view_port={"alert":"", "alert_msg":"", "data": ""}
         meta_view=page.get_metadata("viewport")
         if meta_view is None:
+            view_port["alert"] =  "danger"
+            view_port["alert_msg"]  = f"Viewport Not used"
+            view_port["data"] = meta_view
             context["meta_view_msg"] ="No Viewport"
-            # print("No Keywords")
-        # elif len(meta_view) >= 60:
 
-        #     context["meta_view_msg"] =f"Viewport should be Greater than 60 characters {len(meta_view)}  characters"
         else:
-
+            view_port["alert"] =  "success"
+            view_port["alert_msg"]  = f"Viewport is used"
+            view_port["data"] = meta_view
             context["meta_view_msg"] =f"Viewport is used"
-        print(meta_view)
-        context["meta_view"] = meta_view
-        print()
-        print()
+
+        context["view_port"] = view_port
 
 
-        meta_rob=page.get_metadata("robots")
-        if meta_rob is None:
-            context["meta_robots_msg"] ="No Robot.txt file is used"
-            # print("No Keywords")
-
-        else:
-
-            context["meta_robots_msg"] =f"Robot.txt file is available"
-        print(meta_rob)
-        context["meta_rob"] = ""
-        print()
-        print()
-
-
-        meta_graph=page.get_metadata("open-graph")
-        if meta_graph is None:
-            context["meta_graph_msg"] ="Open Graph is used"
+        meta_robot={"alert":"","data": ""}
+        robots = requests.get(url+"/robots.txt")
+        if robots is None:
+            meta_robot["alert"] =  "danger"
+            meta_robot["alert_msg"]  = f"Robbot File is Missing"
 
         else:
 
-            context["meta_graph_msg"] = f"Open graph is not uses "
+            meta_robot["alert"] =  "success"
+            meta_robot["alert_msg"]  =f"Congratulations! Your web page contains Robbot.txt File"
+            meta_robot["data"] = robots
+
+            context['rob_mess'] =f"Congratulations! Your web page contains Robbot.txt File"
+
+        context["meta_robot"]=meta_robot
+
+
+        meta_graph={"alert":"","data": ""}
+        graph=page.get_metadata("open-graph")
+        if graph is None:
+            meta_graph["alert"] =  "danger"
+            meta_graph["alert_msg"]  = f"Open graph is Missing"
+
+
+        else:
+            meta_graph["alert"] =  "success"
+            meta_graph["alert_msg"]  =f"Congratulations! Your web page contains Open graph"
+            meta_graph["data"] = graph
 
 
 
-        context["meta_graph"] = ""
+        context["meta_graph"] = meta_graph
 
 
 

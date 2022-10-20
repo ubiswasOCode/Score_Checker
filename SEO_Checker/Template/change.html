@@ -21,6 +21,33 @@
             .text_align p{
             text-align: center;
             }
+.nav-link active
+
+{
+    border-bottom: 1px solid black;
+}
+.left-tabs.nav-tabs {
+    border-right: none;
+    border-bottom: none;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #dee2e6;
+}
+.nav-link
+{
+         color: black;
+}
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    padding: 10px;
+    text-align: center;
+    background: 0 0;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
     </style>
 
 {% endblock %}
@@ -101,8 +128,18 @@
             .map((x) => (x.charAt(0).toUpperCase() + x.slice(1)))
             .join(" ");
             document.getElementById("passed").value = ret;
-        }
+        };
 
+
+        ///--------------------Show alert message
+        document.getElementById('nav-home-tab'  ).addEventListener('click', function(){
+        let taVal = document.getElementById('word').value;
+        if(taVal == ''){
+            alert("Please Enter a word")
+        } else{
+            console.log("success")
+        }
+        })
 
      </script>
 
@@ -131,7 +168,6 @@
 
 
 
-
     <div class="row mt-4">
         <div class="col-md-2">
 
@@ -140,15 +176,13 @@
             <form action='/ChangeCase/' name="word"  method="POST">
                 {% csrf_token %}
 
-                <!-- <label for="" class="text_main">Enter Word </label> -->
+
 
                 <textarea class="form-control" rows="4" id="word" name="word" placeholder="Enter Text Here" style="width:100% ;" required></textarea>
                     <!-- <label for="floatingTextarea2">Comments</label> -->
 
 
-                <!-- <textarea rows="4" id="word" name="word" placeholder="Enter Text Here" style="width:700px ;"></textarea><br> -->
 
-                <!-- <button type="submit" class="btn btn-primary btn-center">Click Me</button>           -->
 
             </form>
         </div>
@@ -164,24 +198,27 @@
     <!-- Button and Data-->
 
     <div class="row mt-4">
-        <div class="col-md-3">
-            <div class="list-group">
-                <button type="button" onclick="lower_Case()" class="btn btn-outline-primary">lower</button><br>
-                <button type="button" onclick="upper_case()" class="btn btn-outline-primary">UPPER</button><br>
-                <button type="button" onclick="capital()" class="btn btn-outline-primary">Capitalize</button><br>
-                <button type="button" onclick="toggleCase()" class="btn btn-outline-primary">tOGGLE cASE</button><br>
-                <button type="button" onclick="alternatecase()" class="btn btn-outline-primary">aLtErNaTe cAsE</button><br>
-                <button type="button" onclick="SentenceCase()" class="btn btn-outline-primary">Sentense case</button>
+        <div class="col-md-2">
 
 
-            </div>
+            <nav>
+                <div class="nav nav-tabs left-tabs"  id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" onclick="lower_Case()"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">lower</button>
+                  <button class="nav-link" id="nav-profile-tab" onclick="upper_case()" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">UPPER</button>
+                  <button class="nav-link" id="nav-contact-tab" onclick="capital()" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Capitalize</button>
+                  <button class="nav-link" id="nav-toggle-tab" onclick="toggleCase()" data-bs-toggle="tab" data-bs-target="#nav-toggle" type="button" role="tab" aria-controls="nav-toggle" aria-selected="false">tOGGLE cASE</button>
+                  <button class="nav-link" id="nav-alter-tab"  onclick="alternatecase()" data-bs-toggle="tab" data-bs-target="#nav-alter" type="button" role="tab" aria-controls="nav-alter" aria-selected="false">aLtErNaTe cAsE</button>
+                  <button class="nav-link" id="nav-sentense-tab" onclick="SentenceCase()" data-bs-toggle="tab" data-bs-target="#nav-sentense" type="button" role="tab" aria-controls="nav-sentense" aria-selected="false">Sentense case</button>
+
+                </div>
+              </nav>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <textarea rows="9" id="passed" name="word"style="width:100% ;"  disabled="disabled"></textarea>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
 
         </div>
     </div>
