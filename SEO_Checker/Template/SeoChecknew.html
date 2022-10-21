@@ -149,6 +149,10 @@ a {
     text-decoration: underline;
     padding-left: 16px;
 }
+.scr_image img
+{
+  margin-top: 20px;
+}
 </style>
 {% endblock %}
 <!--  -->
@@ -711,6 +715,18 @@ a {
 
                         <td id="media"></td>
                         <td   class="alert-icon" id="media_response"></td>
+
+                    </tr>
+
+
+                    <tr>
+                      <th><label for="">Home Page</label></th>
+                          {% if url %}
+                        <td class="scr_image">
+                           <img src="{% static 'screenshot.png' %}" alt="home page">
+
+                          </td>
+                          {% endif %}
 
                     </tr>
 

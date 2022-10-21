@@ -331,7 +331,7 @@ div#nav-tabContent {
             document.getElementById('upload_file').submit()
           }else{
             alert("Please Upload PDF or Doc File ")
-          }
+          } 
         }
 
         // document.getElementById('upload_file').submit()
@@ -342,30 +342,21 @@ div#nav-tabContent {
   </script>
 
 <script>
-  // var fileTag = document.getElementById("myFile");
-  // var preview = document.getElementById("preview");
 
-  // fileTag.addEventListener("change", function() {
-  // changeImage(this);
-  // });
-
-  // function changeImage(input) {
-  // var reader;
-
-  // if (input.files && input.files[0]) {
-  //     reader = new FileReader();
-
-  //     reader.onload = function(e) {
-  //     preview.setAttribute('src', e.target.result);
-  //     }
-
-  //     reader.readAsDataURL(input.files[0]);
-  // }
-  // }
   function previewFile() {
     let pdffile=document.getElementById("myFile").files[0];
-    let pdffile_url=URL.createObjectURL(pdffile);
-    $('#viewer').attr('src',pdffile_url);
+    let check_file=myFile.value.split('.')[1]
+    if (".pdf"){
+        let pdffile_url=URL.createObjectURL(pdffile);
+        $('#viewer').attr('src',pdffile_url);
+    }
+    else{
+      let word_file=URL.createObjectURL(pdffile);
+        $('#viewer').attr('src',word_file);
+    }
+
 }
+// <iframe src="http://docs.google.com/gview?url=http://example.com/my-document.doc&embedded=true"></iframe>
+
 </script>
 {% endblock %}

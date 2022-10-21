@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import json
 import re
+from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -558,7 +559,7 @@ def Score_checker(request):
       ###-------------------Directory Browsing use or not-------------------------
         meta_dir={"alert":"", "alert_msg":""}
         dir_tag = Soup.findAll('dir')
-        print(dir_tag,"------dir is use")
+
         if len(dir_tag) >= 0 :
             meta_dir["alert"] =  "success"
             meta_dir["alert_msg"]  = f"Congratulations! Your server has disabled directory browsing."
@@ -573,7 +574,7 @@ def Score_checker(request):
             error['dirtag']="dir is Missing"
             context["meta_dir_msg"] = f"Your server has enabled directory browsing."
             # print("Not Used Sceure--------------------------")
-        print(dir_tag,"------dir is use")
+
         context['meta_dir']=meta_dir
 
 
@@ -604,11 +605,14 @@ def Score_checker(request):
         # 3
         driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
-        # 4
-        driver.get(url)
-        driver.save_screenshot('screenshot.png')
 
-        # 5
+        driver.get(url)
+        driver.save_screenshot('static/pic.png')
+        image = Image.open('static/pic.png')
+        new_image = image.resize((400, 400))
+        new_image.save('static/screenshot.png')
+
+
         driver.quit()
 
 
