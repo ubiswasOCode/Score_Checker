@@ -9,6 +9,10 @@ from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+
+
 
 def Score_checker(request):
     error={}
@@ -599,12 +603,10 @@ def Score_checker(request):
 
 
         # ####-------------__Screenshot-------------------------
-        options = Options()
-        options.headless = True
+ 
 
         # 3
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-
+        driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
 
         driver.get(url)
         driver.save_screenshot('static/pic.png')

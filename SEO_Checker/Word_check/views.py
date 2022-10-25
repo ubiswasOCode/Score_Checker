@@ -13,6 +13,7 @@ from collections import Counter
 
 def Word_Count(request):
     word=""
+    print(word,"--------------word")
     file=""
     context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"word":word,"syllable":0,"len_sen":0}
 
@@ -37,17 +38,11 @@ def Word_Count(request):
                 print("nopppeee")
 
 
-
-
-
-    return render(request,"Word_counter.html",{'context':context,"word":word,"file":file})
+    return render(request,"Word_counter.html",{'context':context,"file":file})
 
 def Word_Check(word):
     context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"syllable":0,"len_sen":0}
-    # print(word, "-------------------------jfsdhjdshfjkh")
     main_word=str(word)
-    # print(word,"-----------------Word is")
-
     context['word']=f"{(word)}"
 
     #Calculate Total Word
@@ -56,7 +51,6 @@ def Word_Check(word):
     #Count Total String
     Total_string = main_word.count(" ")
     context['Total_word']=f"{(Total_string)}"
-
 
     string = main_word.lower()
     #Split the string into words using built-in function
@@ -102,12 +96,11 @@ def Word_Check(word):
     for line in list_con:
         if len(line)<=12:
             pass
-    print(line,"----------------it is Heading")
+ 
     context["is_Heading"]=f"yes, it is a Heading"
 
     #check Longest Word
-    longest=max(main_word.split(), key=len)
-    print(longest,"----------------Longest Word")
+    longest=max(main_word.split(),default=0, key=len)
     context["longest"]=f"{(longest)}"
 
 
@@ -125,8 +118,6 @@ def Word_Check(word):
     for w in main_word:
         if(w=='a' or w=='e' or w=='i' or w=='o' or w=='u' or w=='A' or w=='E' or w=='I' or w=='O' or w=='U'):
                 syllable_count=syllable_count+1
-    print("The number of syllables in the word is: ")
-    print(syllable_count)
     context["syllable"]=f"{(syllable_count)}"
 
     #Calculate Sentenses
@@ -136,8 +127,6 @@ def Word_Check(word):
 
     sentences =main_word
     number_of_sentences = sent_tokenize(sentences)
-
-    print(len(number_of_sentences),"-----total sen")
     context["len_sen"]=f"{(len(number_of_sentences))}"
 
 
@@ -147,13 +136,10 @@ def Word_Check(word):
 def PdfType(filename):
 
     reader = PdfReader(filename)
-    print(reader,"------------read")
     number_of_pages = len(reader.pages) ##If Check Number Of Pages
-    print(number_of_pages)
     page = reader.pages[0]
     text = page.extract_text()
     # remove=re.sub('\s+',' ',text) ###If Remove Extra Space or line
-    print(text)
 
     return text
 

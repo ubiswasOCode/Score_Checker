@@ -8,3 +8,15 @@ services:
       - .:/code
     ports:
       - "7000:7000"
+    depends_on:
+      - selenium
+
+
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+     - 4444:4444
+    restart: always 
+
+  
+
