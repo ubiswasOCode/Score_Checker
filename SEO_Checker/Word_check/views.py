@@ -49,7 +49,7 @@ def Word_Check(word):
     context['word_length']=f"{len(main_word)}"
 
     #Count Total String
-    Total_string = main_word.count(" ")
+    Total_string = main_word.count(" ")+1
     context['Total_word']=f"{(Total_string)}"
 
     string = main_word.lower()

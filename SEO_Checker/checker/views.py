@@ -51,7 +51,7 @@ def Score_checker(request):
 
 
 
-            #   ------------ MEta Desc. ----------------------------
+            #   ------------ Meta Desc. ----------------------------
             meta_desc={"alert":"", "alert_msg":"", "data": ""}
             desc=page.get_metadata("description")
 
@@ -81,8 +81,7 @@ def Score_checker(request):
 
 
 
-
-            # ###--------------------Meta Keywords-------------------------------
+            ####--------------------Meta Keywords-------------------------------
             meta_key={"alert":"", "alert_msg":"", "data": ""}
             keyword=page.get_metadata("keywords")
             if keyword is None:
@@ -108,33 +107,13 @@ def Score_checker(request):
             context["meta_key"] = meta_key
 
 
-            #####----------------Repeated Keyword
-
-            # r = requests.get(url)
-            # soup = BeautifulSoup(r.content, 'html5lib')  # If this line causes an error, run 'pip install html5lib' or install html5lib
-            # text=soup.prettify()
-            # # remove=re.sub('<[^<]+?>', '', text)
-            # print(text)
-
-            # frequency={}
-
-            # #One OWrd
-            # for item in text:
-            #     if item in frequency:
-            #         frequency[item] += 1
-            #     else:
-            #         frequency[item] = 1
-
-
-
-            # ----------------------Heading H1----------------------------
+            ####----------------------Heading H1----------------------------
             page_urls = requests.get(url)
             Soup = BeautifulSoup(page_urls.text, 'lxml')
             # creating a list of all common heading tags
             heading_tags = ["h1"]
             heading1_text = []
             meta_h1={"alert":"", "alert_msg":"", "data": ""}
-            # h1_tags = Soup.find_all(heading_tags)
             for tags in Soup.find_all(heading_tags):
                 print(tags.name + ' -> ' + tags.text.strip())
                 li=(tags.name)
@@ -164,7 +143,7 @@ def Score_checker(request):
             context["meta_h1"] = meta_h1
 
 
-            # ##---------------------H2 Tags--------------------------
+            ####---------------------H2 Tags--------------------------
             heading2_tags = ["h2"]
             heading2_text = []
             h2_tags = Soup.find_all(heading_tags)
@@ -199,7 +178,7 @@ def Score_checker(request):
 
 
 
-            ##--------------------H3 Tags----------------
+            ####--------------------H3 Tags----------------
             heading3_tags = ["h3"]
             heading3_text = []
             h3_tags = Soup.find_all(heading3_tags)
@@ -229,7 +208,7 @@ def Score_checker(request):
             context["meta_h3"] = meta_h3
 
 
-            # # ##-------------For Images--------------
+            ####-------------For Images--------------
             imag={"alert":"", "alert_msg":"", "data": ""}
             image = []
             all_img = Soup.findAll('img')
@@ -255,7 +234,7 @@ def Score_checker(request):
             context["imag"] = imag
 
 
-            # ##----------------Style Tags--------------------
+            ####----------------Style Tags--------------------
             style_tags =Soup.findAll('div''style')
             meta_style={"alert":"", "alert_msg":"", "data": ""}
             for tags in Soup.find_all(style_tags):
@@ -309,6 +288,26 @@ def Score_checker(request):
 
             context["meta_anc"]=meta_anc
 
+            # print(all_anc,"--------------anchorrrrrrrrrrr")
+            ####---------------------Check Underscore or not
+            under_meta={"alert":"","data": ""}
+            und=[" "]
+            if "_"or "&" or "?" or "%" in all_anc:
+                und.append(all_anc)
+                under_meta["alert"] =  "danger"
+                under_meta["alert_msg"]  = "An SEO friendly url must caontain only lower alphabets, numbers, slashes(/), dash(-). Underscores, upercase Alphabets and specialchars (e-g: & ? %) are not seo friendly."
+                context["under_msg"]=f"internal urls found that are not seo friendly"
+
+            else:
+                # print("not Present")
+                under_meta["alert"] =  "success"
+                under_meta["alert_msg"]  = f"this website is seo friendly"
+                context["under_msg"]= f"this website is seo friendly"
+
+            
+            print(len(und),"---------------------lennnn")
+            context["under_meta"] = under_meta
+            
 
             ####----------------------------ViewPort ----------------------
             meta_view={"alert":"", "alert_msg":"", "data": ""}
@@ -334,6 +333,7 @@ def Score_checker(request):
                 meta_robot["alert"] =  "danger"
                 meta_robot["alert_msg"]  = f"Robbot File is Missing"
                 error['rob_mess'] =f"Robbot File is Missing"
+                context['rob_mess'] =f"Robbot File is Missing"
 
             else:
                 meta_robot["alert"] =  "success"
@@ -392,39 +392,6 @@ def Score_checker(request):
                     "per":per}
 
 
-
-
-    ######------------------------------------Page Opening Time--------------------
-        # driver = webdriver.Chrome(ChromeDriverManager().install())
-
-        # driver.get(url)
-        # load_time = driver.execute_script(
-        # """
-        # var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
-        # return loadTime;
-        # """
-        # )
-
-        # print(load_time,"---------------------------Time")
-
-        # driver.close()
-
-
-
-        ##Calculate Time
-        # driver=webdriver.Chrome('/home/ocode-22/chromedriver')
-        # driver.get('url')
-        # meta_time= {"alert":"","data": ""}
-        # load_time = driver.execute_script(
-        #         """
-        #         var loadTime = ((window.performance.timing.domComplete- window.performance.timing.navigationStart)/1000)+" sec.";
-        #         return loadTime;
-        #         """
-        #         )
-
-
-        # print(load_time,"---------------------------Time")
-
         ###Favicon
         favcon_tag ={"alert":"","data": ""}
         fav_icon=Soup.findAll('favicon')
@@ -482,6 +449,24 @@ def Score_checker(request):
         context['meta_doc']=meta_doc
 
 
+        ####---------------------Check Donmain Name Samne or Not -----------------
+        url_meta={"alert":"","alert_msg":""}
+        main_url = urlparse(url)
+        domain = main_url.hostname
+        temp = domain.rsplit('.')
+        if(len(temp) == 3):
+            domain = temp[1] + '.' + temp[2]
+            url_meta["alert"] =  "success"
+            url_meta["alert_msg"]  = "Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
+            context["meta_url_msg"] ="Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
+
+        else:
+            url_meta["alert"] =  "danger"
+            url_meta["alert_msg"]  ="not Same url or Domain Name"
+            context["meta_url_msg"] ="not Same url or Domain Name"
+            
+        context['url_meta']=url_meta
+
 
         #####-------------Minify CSS-----------
         minify={"alert":"","data":""}
@@ -510,22 +495,6 @@ def Score_checker(request):
             loader["alert_msg"]="! Your webpage is not using rel-preload"
 
         context['loader']=loader
-
-
-
-        ###---------------------Check Donmain Name Samne or Not -----------------
-        # o = urlparse(url)
-
-        # domain = o.hostname
-
-        # temp = domain.rsplit('.')
-
-        # if(len(temp) == 3):
-        #     domain = temp[1] + '.' + temp[2]
-        #     print("Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL.")
-
-        # else:
-        #     print("not Same url or Domain Name")
 
 
         #####-----------------Check The Website used Http or Https---------------
@@ -617,6 +586,12 @@ def Score_checker(request):
 
         driver.quit()
 
+
+        #####------------------------Advance SEO------------------
+        if "itemscope" in Soup:
+            print("yes--------------------")
+        else:
+            print("no--------------------------")
 
     return render(request,"SeoChecknew.html",{"context":context,"value":value, 'url':url})
 

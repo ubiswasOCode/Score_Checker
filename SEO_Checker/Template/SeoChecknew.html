@@ -222,6 +222,7 @@ a {
                 <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Speed Optimization</button>
                 <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Server And Security</button>
                 <button class="nav-link" id="nav-mobile-tab" data-bs-toggle="tab" data-bs-target="#nav-mobile" type="button" role="tab" aria-controls="nav-mobile" aria-selected="false">Mobile Usability</button>
+                <button class="nav-link" id="nav-advance-tab" data-bs-toggle="tab" data-bs-target="#nav-advance" type="button" role="tab" aria-controls="nav-advance" aria-selected="false">Advance SEO</button>
 
               </div>
             </nav>
@@ -464,6 +465,21 @@ a {
                       </tr>
 
 
+                      <tr>
+                        <th><label for="">SEO Friendly URL</label></th>
+                        <td>{{context.under_msg}}</td>
+                        <td  class="alert-icon">
+                          {% if context.under_meta.alert == "success" %}
+                         <a href="#" onclick="showModal('SEO Friendly URL', '{{context.under_meta.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                          </a>
+                          {% elif context.under_meta.alert == "danger"  %}
+                          <a href="#" onclick="showModal('SEO Friendly URL', '{{context.under_meta.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                          </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+
 
                         <tr>
                             <th><label for="">Robot.txt</label></th>
@@ -570,6 +586,23 @@ a {
                               </a>
                                 {% endif %}</td>
                           </tr>
+
+
+                          <tr>
+                            <th><label for="">WWW Redirection</label></th>
+                            <td>{{context.meta_url_msg}}</td>
+                            <td  class="alert-icon">
+                              {% if context.url_meta.alert == "success" %}
+                              <a href="#" onclick="showModal('WWW Redirection', '{{context.url_meta.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                              </a>
+                                {% elif context.url_meta.alert == "danger"  %}
+                              <a href="#" onclick="showModal('WWW Redirection', '{{context.url_meta.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                              </a>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+
 
 
                           <tr>
