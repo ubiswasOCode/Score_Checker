@@ -792,10 +792,10 @@ a {
                       <td>{{context.meta_index_msg}}</td>
 
                       <td  class="alert-icon" > {% if context.no_index.alert == "success"%}
-                        <a href="#" onclick="showModal('Structured Data', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                        <a href="#" onclick="showModal('No-Index Tag', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                         </a>
                         {% elif context.no_index.alert == "warning" %}
-                        <a href="#" onclick="showModal('Structured Data', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                        <a href="#" onclick="showModal('No-Index Tag', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                         </a>
                         {% endif %}</td>
   
@@ -808,10 +808,10 @@ a {
                       <td>{{context.meta_struct_msg}}</td>
 
                             <td  class="alert-icon" > {% if context.struct_data.alert == "success"%}
-                              <a href="#" onclick="showModal('Structured Data', '{{context.struct_data.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                              <a href="#" onclick="showModal('NoFollow Tag', '{{context.struct_data.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                               </a>
                               {% elif context.struct_data.alert == "warning" %}
-                              <a href="#" onclick="showModal('Structured Data', '{{context.struct_data.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                              <a href="#" onclick="showModal('NoFollow Tag', '{{context.struct_data.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                               </a>
                               {% endif %}</td>
 
