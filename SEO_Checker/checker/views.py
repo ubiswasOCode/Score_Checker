@@ -1,3 +1,4 @@
+from contextvars import Context
 from django.shortcuts import render
 import metadata_parser
 import requests
@@ -572,9 +573,7 @@ def Score_checker(request):
 
 
         # ####-------------__Screenshot-------------------------
- 
 
-        # 3
         driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
 
         driver.get(url)
@@ -582,16 +581,77 @@ def Score_checker(request):
         image = Image.open('static/pic.png')
         new_image = image.resize((400, 400))
         new_image.save('static/screenshot.png')
-
-
         driver.quit()
 
 
         #####------------------------Advance SEO------------------
+        #### Structure Data --------------------
+        struct_data={"alert":"", "alert_msg":""}
         if "itemscope" in Soup:
-            print("yes--------------------")
+            # print("yes--------------------")
+            struct_data["alert"] =  "danger"
+            struct_data["alert_msg"]  ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
+            context["meta_struct_msg"] ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
+            
         else:
-            print("no--------------------------")
+            # print("no--------------------------")
+            struct_data["alert"] =  "success"
+            struct_data["alert_msg"]  ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
+            context["meta_struct_msg"] ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
+        
+        context["struct_data"]=struct_data
+
+
+        ####------------------Noindex--------------------
+        no_index={"alert":"", "alert_msg":""}
+        if "noindex" in Soup:
+            # print("yes--------------------")
+            no_index["alert"] =  "danger"
+            no_index["alert_msg"]  ="Your web page is using no-index meta tag.!"
+            context["meta_index_msg"] ="Your web page is using no-index meta tag.!"
+            
+        else:
+            # print("no--------------------------")
+            no_index["alert"] =  "success"
+            no_index["alert_msg"]  ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
+            context["meta_index_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
+        
+        context["no_index"]=no_index
+        
+        
+        ####-------------nofollow-----------
+        no_follow={"alert":"", "alert_msg":""}
+        if "nofollow" in Soup:
+            # print("yes--------------------")
+            no_follow["alert"] =  "danger"
+            no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+            context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+            
+        else:
+            # print("no--------------------------")
+            no_follow["alert"] =  "success"
+            no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+            context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+        
+        context["no_follow"]=no_follow
+        
+        
+        ####----------------------Dissaloww---------
+        disallow={"alert":"", "alert_msg":""}
+        if "Disallow" in Soup:
+            # print("yes--------------------")
+            disallow["alert"] =  "danger"
+            disallow["alert_msg"]  ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
+            context["meta_disallow_msg"] ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
+            
+        else:
+            # print("no--------------------------")
+            disallow["alert"] =  "success"
+            disallow["alert_msg"]  ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
+            context["meta_disallow_msg"] ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
+        
+        context["disallow"]=disallow
+        
 
     return render(request,"SeoChecknew.html",{"context":context,"value":value, 'url':url})
 
