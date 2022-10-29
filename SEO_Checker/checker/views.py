@@ -298,6 +298,7 @@ def Score_checker(request):
                 under_meta["alert"] =  "danger"
                 under_meta["alert_msg"]  = "An SEO friendly url must caontain only lower alphabets, numbers, slashes(/), dash(-). Underscores, upercase Alphabets and specialchars (e-g: & ? %) are not seo friendly."
                 context["under_msg"]=f"internal urls found that are not seo friendly"
+                error['under'] = "internal urls found that are not seo friendly"
 
             else:
                 # print("not Present")
@@ -305,8 +306,7 @@ def Score_checker(request):
                 under_meta["alert_msg"]  = f"this website is seo friendly"
                 context["under_msg"]= f"this website is seo friendly"
 
-            
-            print(len(und),"---------------------lennnn")
+            # print(len(und),"---------------------lennnn")
             context["under_meta"] = under_meta
             
 
@@ -316,7 +316,7 @@ def Score_checker(request):
             if view_port is None:
                 meta_view["alert"] =  "danger"
                 meta_view["alert_msg"]  = f"Viewport Not used"
-
+                error['view'] = "Viewport Not used"
                 context["meta_view_msg"] ="No Viewport"
 
             else:
@@ -362,16 +362,294 @@ def Score_checker(request):
             context['meta_site']=meta_site
 
 
+        
+            ###Favicon
+            favcon_tag ={"alert":"","data": ""}
+            fav_icon=Soup.findAll('favicon')
+            if fav_icon is None:
+                favcon_tag["alert"] =  "danger"
+                favcon_tag["alert_msg"]  = f"Your website Not Using favicon..."
+                favcon_tag["data"] = fav_icon
+                error['favicon_img']="Https is Missing"
+                context["meta_favicon_msg"] = f"Your website Not Using favicon..."
+
+            else:
+                favcon_tag["alert"] =  "success"
+                favcon_tag["alert_msg"]  = f"Congratulations Your website appears to have a favicon. "
+                favcon_tag["data"] = fav_icon
+                context["meta_favicon_msg"] =f"Congratulations Your website appears to have a favicon.."
+
+            context['favcon_tag']=favcon_tag
+
+
+            ####-------------------------IFramne Checker--------------------
+            meta_iframe={"alert":"","data": ""}
+            iframe_tag=page.get_metadata('iframe')
+            if iframe_tag is None:
+                meta_iframe["alert"] =  "success"
+                meta_iframe["alert_msg"]  = "Congratulations! Your webpage does not use frames."
+                error['iframe_err']="titile is Missing"
+                context["meta_iframe_msg"] = "Congratulations! Your webpage does not use frames."
+
+            else:
+                meta_iframe["alert"] =  "danger"
+                meta_iframe["alert_msg"]  = f"Congratulations your webpage is using Iframe tag."
+                meta_iframe["data"] = iframe_tag
+                context["meta_iframe_msg"] =f"Congratulations your webpage is using Iframe tag."
+
+            context['meta_iframe']=meta_iframe
+
+
+
+            ####-------------------------IDoctyp Checker--------------------
+            meta_doc={"alert":"","data": ""}
+            page=metadata_parser.MetadataParser(url)
+            if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
+                meta_doc["alert"] =  "success"
+                meta_doc["alert_msg"]  = f"Congratulations! Your website has a doctype declaration."
+                meta_doc["data"] = page
+                context["meta_doc_msg"] =f"Congratulations! Your website has a doctype declaration."
+
+            else:
+                meta_doc["alert"] =  "danger"
+                meta_doc["alert_msg"]  = "Doctype Not Use"
+                error['doc']="Doctype Not Use"
+                context["meta_doc_msg"] = "Doctype Not Use"
+
+            context['meta_doc']=meta_doc
+
+
+            ####---------------------Check Donmain Name Samne or Not -----------------
+            url_meta={"alert":"","alert_msg":""}
+            main_url = urlparse(url)
+            domain = main_url.hostname
+            temp = domain.rsplit('.')
+            if(len(temp) == 3):
+                domain = temp[1] + '.' + temp[2]
+                url_meta["alert"] =  "success"
+                url_meta["alert_msg"]  = "Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
+                context["meta_url_msg"] ="Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
+
+            else:
+                url_meta["alert"] =  "danger"
+                url_meta["alert_msg"]  ="not Same url or Domain Name"
+                context["meta_url_msg"] ="not Same url or Domain Name"
+                error['meta_url']="not Same url or Domain Name"
+                
+            context['url_meta']=url_meta
+
+
+            #####-------------Minify CSS-----------
+            minify={"alert":"","data":""}
+            r = requests.get(url)
+            remove=re.sub('\s+',' ','\n'+str(r.content))
+            if len(remove)>=1:
+                minify["alert"]="success"
+                minify["alert_msg"]="Congratulations! Your webpage CSS resources are minified"
+
+            else:
+                minify["alert"]="danger"
+                minify["alert_msg"]="! Your webpage CSS resources are not minified"
+                error['minify']="! Your webpage CSS resources are not minified"
+
+            context['minify']=minify
+
+
+            ####------------Preloader-------------
+            loader={"alert":"","alert_msg":""}
+            sibling_soup = Soup.findAll('link')
+            if len(sibling_soup)>= 1:
+                loader["alert"]="success"
+                loader["alert_msg"]="Congratulations! Your webpage is using rel-preload"
+
+            else:
+                loader["alert"]="danger"
+                loader["alert_msg"]="! Your webpage is not using rel-preload"
+                error['loader']="! Your webpage is not using rel-preload"
+                 
+            context['loader']=loader
+
+
+            #####-----------------Check The Website used Http or Https---------------
+            meta_host={"alert":"", "alert_msg":""}
+            if "https:" in url:
+                meta_host["alert"] =  "success"
+                meta_host["alert_msg"]  = f"Your website is successfully using https, a secure communication protocol over the Internet. "
+                context["meta_host_msg"] =f"Your website is successfully using https, a  over the Internet."
+
+            elif "http:" in url:
+                meta_host["alert"] =  "danger"
+                meta_host["alert_msg"]  = f"Your website is not using https, a  over the Internet."
+                error['host']="Https is Missing"
+                context["meta_host_msg"] = f"Your website is not using https, a  over the Internet."
+
+            context['meta_host']=meta_host
+
+
+            #####--------------------Secure or Not------------------####
+            meta_secure={"alert":"", "alert_msg":""}
+            if "https:" in url:
+                meta_secure["alert"] =  "success"
+                meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found). "
+                context["meta_host_msg"] =f"This site is not currently listed as suspicious (no malware or phishing activity found)."
+
+            else:
+                meta_secure["alert"] =  "danger"
+                meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found)."
+                error['host']="This site is not currently listed as suspicious (no malware or phishing activity found)."
+                context["meta_host_msg"] = f"This site is not currently listed as suspicious (no malware or phishing activity found)."
+
+            context['meta_secure']=meta_secure
+
+
+        ###-------------------Directory Browsing use or not-------------------------
+            meta_dir={"alert":"", "alert_msg":""}
+            dir_tag = Soup.findAll('dir')
+            if len(dir_tag) >= 0 :
+                meta_dir["alert"] =  "success"
+                meta_dir["alert_msg"]  = f"Congratulations! Your server has disabled directory browsing."
+                context["meta_dir_msg"] =f"Congratulations! Your server has disabled directory browsing."
+
+            else:
+                meta_dir["alert"] =  "danger"
+                meta_dir["alert_msg"]  = f" Your server has enabled directory browsing.."
+                error['dirtag']="dir is Missing"
+                context["meta_dir_msg"] = f"Your server has enabled directory browsing."
+                # print("Not Used Sceure--------------------------")
+
+            context['meta_dir']=meta_dir
+
+
+
+        ####---------------------------Mobile Usability
+            ##----------------Viewport-----------------
+            view_port={"alert":"", "alert_msg":"", "data": ""}
+            meta_view=page.get_metadata("viewport")
+            if meta_view is None:
+                view_port["alert"] =  "danger"
+                view_port["alert_msg"]  = "Viewport Not used"
+                view_port["data"] = meta_view
+                context["meta_view_msg"] ="Viewport Not used"
+                error['view']="Viewport Not used"
+                
+            else:
+                view_port["alert"] =  "success"
+                view_port["alert_msg"]  = f"Congratulations Your Web page Using Viewport meta tag!"
+                view_port["data"] = meta_view
+                context["meta_view_msg"] =f"Congratulations Your Web page Using Viewport meta tag!"
+
+            context["view_port"] = view_port
+
+
+
+            # ####-------------__Screenshot-------------------------
+
+            driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+
+            driver.get(url)
+            driver.save_screenshot('static/pic.png')
+            image = Image.open('static/pic.png')
+            new_image = image.resize((400, 400))
+            new_image.save('static/screenshot.png')
+            driver.quit()
+
+
+            #####------------------------Advance SEO------------------
+            #### Structure Data --------------------
+            struct_data={"alert":"", "alert_msg":""}
+            if "itemscope" in Soup:
+                struct_data["alert"] =  "danger"
+                struct_data["alert_msg"]  ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
+                context["meta_struct_msg"] ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
+                error['struct']="Your web page is using HTML Microdata specifications in order to markup structured data.!"
+                
+            else:
+                struct_data["alert"] =  "success"
+                struct_data["alert_msg"]  ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
+                context["meta_struct_msg"] ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
+            
+            context["struct_data"]=struct_data
+
+
+            ####------------------Noindex--------------------
+            no_index={"alert":"", "alert_msg":""}
+            if "noindex" in Soup:
+                no_index["alert"] =  "danger"
+                no_index["alert_msg"]  ="Your web page is using no-index meta tag.!"
+                context["meta_index_msg"] ="Your web page is using no-index meta tag.!"
+                error['index']="Your web page is using no-index meta tag.!"
+
+
+            else:
+                no_index["alert"] =  "success"
+                no_index["alert_msg"]  ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
+                context["meta_index_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
+            
+            context["no_index"]=no_index
+            
+            
+            ####-------------nofollow-----------
+            no_follow={"alert":"", "alert_msg":""}
+            if "nofollow" in Soup:
+                no_follow["alert"] =  "danger"
+                no_follow["alert_msg"]  ="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
+                context["meta_nofollow_msg"] ="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
+                error['follow']="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
+                
+            else:
+                no_follow["alert"] =  "success"
+                no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+                context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
+            
+            context["no_follow"]=no_follow
+            
+            
+            ####----------------------Dissaloww---------
+            disallow={"alert":"", "alert_msg":""}
+            if "Disallow" in Soup:
+                disallow["alert"] =  "danger"
+                disallow["alert_msg"]  ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
+                context["meta_disallow_msg"] ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
+                error['disallow']="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
+  
+            else:
+                disallow["alert"] =  "success"
+                disallow["alert_msg"]  ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
+                context["meta_disallow_msg"] ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
+            
+            context["disallow"]=disallow
+            
+            
+            ####---------Meta Refresh Tag----------
+            meta_refresh={"alert":"", "alert_msg":""}
+            if "http-equiv" in Soup:
+                meta_refresh["alert"] =  "danger"
+                meta_refresh["alert_msg"]  ="Your page use refresh meta tag .!"
+                context["meta_refresh_msg"] ="Your page use refresh meta tag .!"
+                error['refresh']="Your page use refresh meta tag .!"
+
+            else:
+                meta_refresh["alert"] =  "success"
+                meta_refresh["alert_msg"]  ="Congratulations! Your page has no refresh meta tag."
+                context["meta_refresh_msg"] ="Congratulations! Your page has no refresh meta tag."
+            
+            context["meta_refresh"]=meta_refresh
+            
+        
             ERR=1
             WARN=0.5
 
             err=len(error)
             warn=len(warning)
+            print(err,"---------------total Error")
+            print(warn,"---------------------Total Warnning")
 
-            case=11
+
+            case=29
             temp=case
             total_right=err+warn
             total_correct=case-total_right
+            print(total_correct,"---------------------Correect")
 
 
             for i in range(1,err+1):
@@ -392,252 +670,6 @@ def Score_checker(request):
                     "per":per}
 
 
-        ###Favicon
-        favcon_tag ={"alert":"","data": ""}
-        fav_icon=Soup.findAll('favicon')
-        if fav_icon is None:
-            favcon_tag["alert"] =  "danger"
-            favcon_tag["alert_msg"]  = f"Your website Not Using favicon..."
-            favcon_tag["data"] = fav_icon
-            error['favicon_img']="Https is Missing"
-            context["meta_favicon_msg"] = f"Your website Not Using favicon..."
-
-        else:
-            favcon_tag["alert"] =  "success"
-            favcon_tag["alert_msg"]  = f"Congratulations Your website appears to have a favicon. "
-            favcon_tag["data"] = fav_icon
-            context["meta_favicon_msg"] =f"Congratulations Your website appears to have a favicon.."
-
-        context['favcon_tag']=favcon_tag
-
-
-        ####-------------------------IFramne Checker--------------------
-        meta_iframe={"alert":"","data": ""}
-        iframe_tag=page.get_metadata('iframe')
-        if iframe_tag is None:
-            meta_iframe["alert"] =  "success"
-            meta_iframe["alert_msg"]  = "Congratulations! Your webpage does not use frames."
-            error['iframe_err']="titile is Missing"
-            context["meta_iframe_msg"] = "Congratulations! Your webpage does not use frames."
-
-        else:
-            meta_iframe["alert"] =  "danger"
-            meta_iframe["alert_msg"]  = f"Congratulations your webpage is using Iframe tag."
-            meta_iframe["data"] = iframe_tag
-            context["meta_iframe_msg"] =f"Congratulations your webpage is using Iframe tag."
-
-        context['meta_iframe']=meta_iframe
-
-
-
-        ####-------------------------IDoctyp Checker--------------------
-        meta_doc={"alert":"","data": ""}
-        page=metadata_parser.MetadataParser(url)
-        if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
-            meta_doc["alert"] =  "success"
-            meta_doc["alert_msg"]  = f"Congratulations! Your website has a doctype declaration."
-            meta_doc["data"] = page
-            context["meta_doc_msg"] =f"Congratulations! Your website has a doctype declaration."
-
-        else:
-            meta_doc["alert"] =  "danger"
-            meta_doc["alert_msg"]  = "Doctype Not Use"
-            error['doc']="titile is Missing"
-            context["meta_doc_msg"] = "Doctype Not Use"
-
-        context['meta_doc']=meta_doc
-
-
-        ####---------------------Check Donmain Name Samne or Not -----------------
-        url_meta={"alert":"","alert_msg":""}
-        main_url = urlparse(url)
-        domain = main_url.hostname
-        temp = domain.rsplit('.')
-        if(len(temp) == 3):
-            domain = temp[1] + '.' + temp[2]
-            url_meta["alert"] =  "success"
-            url_meta["alert_msg"]  = "Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
-            context["meta_url_msg"] ="Great, a redirect is in place to redirect traffic from your non-preferred domain. Your website directs "+url+" and "+domain+" to the same URL."
-
-        else:
-            url_meta["alert"] =  "danger"
-            url_meta["alert_msg"]  ="not Same url or Domain Name"
-            context["meta_url_msg"] ="not Same url or Domain Name"
-            
-        context['url_meta']=url_meta
-
-
-        #####-------------Minify CSS-----------
-        minify={"alert":"","data":""}
-        r = requests.get(url)
-        remove=re.sub('\s+',' ','\n'+str(r.content))
-        if len(remove)>=1:
-            minify["alert"]="success"
-            minify["alert_msg"]="Congratulations! Your webpage CSS resources are minified"
-
-        else:
-            minify["alert"]="danger"
-            minify["alert_msg"]="! Your webpage CSS resources are not minified"
-
-        context['minify']=minify
-
-
-        ####------------Preloader-------------
-        loader={"alert":"","alert_msg":""}
-        sibling_soup = Soup.findAll('link')
-        if len(sibling_soup)>= 1:
-            loader["alert"]="success"
-            loader["alert_msg"]="Congratulations! Your webpage is using rel-preload"
-
-        else:
-            loader["alert"]="danger"
-            loader["alert_msg"]="! Your webpage is not using rel-preload"
-
-        context['loader']=loader
-
-
-        #####-----------------Check The Website used Http or Https---------------
-        meta_host={"alert":"", "alert_msg":""}
-        if "https:" in url:
-            meta_host["alert"] =  "success"
-            meta_host["alert_msg"]  = f"Your website is successfully using https, a secure communication protocol over the Internet. "
-            context["meta_host_msg"] =f"Your website is successfully using https, a  over the Internet."
-
-        elif "http:" in url:
-            meta_host["alert"] =  "danger"
-            meta_host["alert_msg"]  = f"Your website is not using https, a  over the Internet."
-            error['host']="Https is Missing"
-            context["meta_host_msg"] = f"Your website is not using https, a  over the Internet."
-
-        context['meta_host']=meta_host
-
-
-        #####--------------------Secure or Not------------------####
-        meta_secure={"alert":"", "alert_msg":""}
-        if "https:" in url:
-            meta_secure["alert"] =  "success"
-            meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found). "
-            context["meta_host_msg"] =f"This site is not currently listed as suspicious (no malware or phishing activity found)."
-
-        else:
-            meta_secure["alert"] =  "danger"
-            meta_secure["alert_msg"]  = f"This site is not currently listed as suspicious (no malware or phishing activity found)."
-            error['host']="Https is Missing"
-            context["meta_host_msg"] = f"This site is not currently listed as suspicious (no malware or phishing activity found)."
-
-        context['meta_secure']=meta_secure
-
-
-      ###-------------------Directory Browsing use or not-------------------------
-        meta_dir={"alert":"", "alert_msg":""}
-        dir_tag = Soup.findAll('dir')
-        if len(dir_tag) >= 0 :
-            meta_dir["alert"] =  "success"
-            meta_dir["alert_msg"]  = f"Congratulations! Your server has disabled directory browsing."
-            context["meta_dir_msg"] =f"Congratulations! Your server has disabled directory browsing."
-
-        else:
-            meta_dir["alert"] =  "danger"
-            meta_dir["alert_msg"]  = f" Your server has enabled directory browsing.."
-            error['dirtag']="dir is Missing"
-            context["meta_dir_msg"] = f"Your server has enabled directory browsing."
-            # print("Not Used Sceure--------------------------")
-
-        context['meta_dir']=meta_dir
-
-
-
-    ####---------------------------Mobile Usability
-        ##----------------Viewport-----------------
-        view_port={"alert":"", "alert_msg":"", "data": ""}
-        meta_view=page.get_metadata("viewport")
-        if meta_view is None:
-            view_port["alert"] =  "danger"
-            view_port["alert_msg"]  = "Viewport Not used"
-            view_port["data"] = meta_view
-            context["meta_view_msg"] ="Viewport Not used"
-            
-        else:
-            view_port["alert"] =  "success"
-            view_port["alert_msg"]  = f"Congratulations Your Web page Using Viewport meta tag!"
-            view_port["data"] = meta_view
-            context["meta_view_msg"] =f"Congratulations Your Web page Using Viewport meta tag!"
-
-        context["view_port"] = view_port
-
-
-
-        # ####-------------__Screenshot-------------------------
-
-        driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-
-        driver.get(url)
-        driver.save_screenshot('static/pic.png')
-        image = Image.open('static/pic.png')
-        new_image = image.resize((400, 400))
-        new_image.save('static/screenshot.png')
-        driver.quit()
-
-
-        #####------------------------Advance SEO------------------
-        #### Structure Data --------------------
-        struct_data={"alert":"", "alert_msg":""}
-        if "itemscope" in Soup:
-            struct_data["alert"] =  "danger"
-            struct_data["alert_msg"]  ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
-            context["meta_struct_msg"] ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
-            
-        else:
-            struct_data["alert"] =  "success"
-            struct_data["alert_msg"]  ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
-            context["meta_struct_msg"] ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
-        
-        context["struct_data"]=struct_data
-
-
-        ####------------------Noindex--------------------
-        no_index={"alert":"", "alert_msg":""}
-        if "noindex" in Soup:
-            no_index["alert"] =  "danger"
-            no_index["alert_msg"]  ="Your web page is using no-index meta tag.!"
-            context["meta_index_msg"] ="Your web page is using no-index meta tag.!"
-            
-        else:
-            no_index["alert"] =  "success"
-            no_index["alert_msg"]  ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
-            context["meta_index_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
-        
-        context["no_index"]=no_index
-        
-        
-        ####-------------nofollow-----------
-        no_follow={"alert":"", "alert_msg":""}
-        if "nofollow" in Soup:
-            no_follow["alert"] =  "danger"
-            no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
-            context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
-            
-        else:
-            no_follow["alert"] =  "success"
-            no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
-            context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
-        
-        context["no_follow"]=no_follow
-        
-        
-        ####----------------------Dissaloww---------
-        disallow={"alert":"", "alert_msg":""}
-        if "Disallow" in Soup:
-            disallow["alert"] =  "danger"
-            disallow["alert_msg"]  ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
-            context["meta_disallow_msg"] ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
-            
-        else:
-            disallow["alert"] =  "success"
-            disallow["alert_msg"]  ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
-            context["meta_disallow_msg"] ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
-        
-        context["disallow"]=disallow
         
 
     return render(request,"SeoChecknew.html",{"context":context,"value":value, 'url':url})
