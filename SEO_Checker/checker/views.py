@@ -372,7 +372,6 @@ def Score_checker(request):
             temp=case
             total_right=err+warn
             total_correct=case-total_right
-            print(total_correct,"-------------------Correct")
 
 
             for i in range(1,err+1):
@@ -404,7 +403,6 @@ def Score_checker(request):
             context["meta_favicon_msg"] = f"Your website Not Using favicon..."
 
         else:
-
             favcon_tag["alert"] =  "success"
             favcon_tag["alert_msg"]  = f"Congratulations Your website appears to have a favicon. "
             favcon_tag["data"] = fav_icon
@@ -533,18 +531,14 @@ def Score_checker(request):
       ###-------------------Directory Browsing use or not-------------------------
         meta_dir={"alert":"", "alert_msg":""}
         dir_tag = Soup.findAll('dir')
-
         if len(dir_tag) >= 0 :
             meta_dir["alert"] =  "success"
             meta_dir["alert_msg"]  = f"Congratulations! Your server has disabled directory browsing."
-
-
             context["meta_dir_msg"] =f"Congratulations! Your server has disabled directory browsing."
 
         else:
             meta_dir["alert"] =  "danger"
             meta_dir["alert_msg"]  = f" Your server has enabled directory browsing.."
-
             error['dirtag']="dir is Missing"
             context["meta_dir_msg"] = f"Your server has enabled directory browsing."
             # print("Not Used Sceure--------------------------")
@@ -562,6 +556,7 @@ def Score_checker(request):
             view_port["alert_msg"]  = "Viewport Not used"
             view_port["data"] = meta_view
             context["meta_view_msg"] ="Viewport Not used"
+            
         else:
             view_port["alert"] =  "success"
             view_port["alert_msg"]  = f"Congratulations Your Web page Using Viewport meta tag!"
@@ -588,13 +583,11 @@ def Score_checker(request):
         #### Structure Data --------------------
         struct_data={"alert":"", "alert_msg":""}
         if "itemscope" in Soup:
-            # print("yes--------------------")
             struct_data["alert"] =  "danger"
             struct_data["alert_msg"]  ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
             context["meta_struct_msg"] ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
             
         else:
-            # print("no--------------------------")
             struct_data["alert"] =  "success"
             struct_data["alert_msg"]  ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
             context["meta_struct_msg"] ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
@@ -605,13 +598,11 @@ def Score_checker(request):
         ####------------------Noindex--------------------
         no_index={"alert":"", "alert_msg":""}
         if "noindex" in Soup:
-            # print("yes--------------------")
             no_index["alert"] =  "danger"
             no_index["alert_msg"]  ="Your web page is using no-index meta tag.!"
             context["meta_index_msg"] ="Your web page is using no-index meta tag.!"
             
         else:
-            # print("no--------------------------")
             no_index["alert"] =  "success"
             no_index["alert_msg"]  ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
             context["meta_index_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
@@ -622,13 +613,11 @@ def Score_checker(request):
         ####-------------nofollow-----------
         no_follow={"alert":"", "alert_msg":""}
         if "nofollow" in Soup:
-            # print("yes--------------------")
             no_follow["alert"] =  "danger"
             no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
             context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
             
         else:
-            # print("no--------------------------")
             no_follow["alert"] =  "success"
             no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
             context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
@@ -639,13 +628,11 @@ def Score_checker(request):
         ####----------------------Dissaloww---------
         disallow={"alert":"", "alert_msg":""}
         if "Disallow" in Soup:
-            # print("yes--------------------")
             disallow["alert"] =  "danger"
             disallow["alert_msg"]  ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
             context["meta_disallow_msg"] ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
             
         else:
-            # print("no--------------------------")
             disallow["alert"] =  "success"
             disallow["alert_msg"]  ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
             context["meta_disallow_msg"] ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
