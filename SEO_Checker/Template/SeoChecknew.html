@@ -142,7 +142,7 @@ td.alert-icon {
     border-top: none;
     float: revert;
     padding: 2px;
-  
+
 }
 a {
     color: var(--bs-link-color);
@@ -152,6 +152,11 @@ a {
 .scr_image img
 {
   margin-top: 20px;
+}
+
+td.alert-icon {
+    border-top: none;
+    border-bottom: none;
 }
 </style>
 {% endblock %}
@@ -211,20 +216,6 @@ a {
     </div>
 
 
-    <!-- Error or Warnning  -->
-    <!-- <div class="row">
-      <div class="col-md-2">
-
-      </div>
-
-      <div class="col-md-8">
-          <svg class="bi flex-shrink-0 me-2 alert-warning modal-title "width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>{{value.warn}}
-      </div>
-
-      <div class="col-md-2">
-
-      </div>
-    </div> -->
 
 
     <!-- Chart or Content -->
@@ -806,29 +797,35 @@ a {
                       <th><label for="">No-Index Tag</label><br></th>
                       <td>{{context.meta_index_msg}}</td>
 
-                      <td  class="alert-icon" > {% if context.no_index.alert == "success"%}
-                        <a href="#" onclick="showModal('No-Index Tag', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
-                        </a>
-                        {% elif context.no_index.alert == "danger" %}
-                        <a href="#" onclick="showModal('No-Index Tag', '{{context.no_index.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
-                        </a>
-                        {% endif %}</td>
-  
-                      </tr>
 
 
-                      
+                      <td  class="alert-icon" > {% if context.meta_noindex.alert == "success"%}
+                        <a href="#" onclick="showModal('No-Index Tag', `{{context.meta_noindex.alert_msg}}`)"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                        </a>
+                        {% elif context.meta_noindex.alert == "danger" %}
+                        <a href="#" onclick="showModal('No-Index Tag', `{{context.meta_noindex.alert_msg}}`)"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                        </a>
+                        {% endif %}
+                      </td>
+
+
+
+                    </tr>
+
+
+
                     <tr>
                       <th><label for="">NoFollow Tag</label><br></th>
                       <td>{{context.meta_nofollow_msg}}</td>
 
-                            <td  class="alert-icon" > {% if context.no_follow.alert == "success"%}
-                              <a href="#" onclick="showModal('NoFollow Tag', '{{context.no_follow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
-                              </a>
-                              {% elif context.no_follow.alert == "danger" %}
-                              <a href="#" onclick="showModal('NoFollow Tag', '{{context.no_follow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
-                              </a>
-                              {% endif %}</td>
+                      <td  class="alert-icon" > {% if context.no_follow.alert == "success"%}
+                        <a href="#" onclick="showModal('NoFollow Tag', '{{context.no_follow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
+                        </a>
+                        {% elif context.no_follow.alert == "danger" %}
+                        <a href="#" onclick="showModal('NoFollow Tag', '{{context.no_follow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
+                        </a>
+                        {% endif %}
+                      </td>
 
                       </tr>
 
@@ -836,7 +833,7 @@ a {
                       <tr>
                         <th><label for="">Disallow Directive</label><br></th>
                         <td>{{context.meta_disallow_msg}}</td>
-                        
+
                         <td  class="alert-icon" > {% if context.disallow.alert == "success"%}
                           <a href="#" onclick="showModal('Disallow Directive', '{{context.disallow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                           </a>
@@ -844,13 +841,13 @@ a {
                           <a href="#" onclick="showModal('Disallow Directive', '{{context.disallow.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                           </a>
                           {% endif %}</td>
-    
+
                         </tr>
 
                         <tr>
                           <th><label for="">Meta Refresh </label><br></th>
                           <td>{{context.meta_refresh_msg}}</td>
-                          
+
                           <td  class="alert-icon" > {% if context.meta_refresh.alert == "success"%}
                             <a href="#" onclick="showModal('Meta Refresh', '{{context.meta_refresh.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-success modal-title" width="24" id="example" height="24" role="img" aria-label="Success:" ><use xlink:href="#check-circle-fill" data-toggle="modal" data-target="#exampleModalCenter" id="exampleModalCenterTitle" ></svg>
                             </a>
@@ -858,11 +855,11 @@ a {
                             <a href="#" onclick="showModal('Meta Refresh', '{{context.meta_refresh.alert_msg}}')"><svg class="bi flex-shrink-0 me-2 alert-danger modal-title" data-bs-toggle="popover" data-bs-trigger="focus" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"data-toggle="modal" data-target="#exampleModalCenter" onclick="showModal()" id="exampleModalCenterTitle" ></svg>
                             </a>
                             {% endif %}</td>
-      
-                          </tr>
-  
 
-                  
+                          </tr>
+
+
+
 
                 </tbody>
               </table>
@@ -927,59 +924,55 @@ a {
 </div>
 
 <script>
-//   var loadTime = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart;
-// console.log(loadTime);
-// console.log(window.startTime = (new Date).getTime());
-// Check Load Time
-var perf = () => {
-  var duration = performance.getEntriesByType("navigation")[0].duration;
-  if (!duration) setTimeout(perf, 0);
-  else console.log({ duration });
-  time=duration/1000
+  if ("{{context.meta_title.alert}}" !== ""){
+      var perf = () => {
+      var duration = performance.getEntriesByType("navigation")[0].duration;
+      if (!duration) setTimeout(perf, 0);
+      else console.log({ duration });
+      time=duration/1000
 
-  document.getElementById('loading_time').innerHTML ="The web page load time is " + time.toFixed(3)+ " seconds.";
-
-
-}
-
-window.addEventListener('DOMContentLoaded', perf);
-
+      document.getElementById('loading_time').innerHTML ="The web page load time is " + time.toFixed(3)+ " seconds.";
+    }
+    window.addEventListener('DOMContentLoaded', perf);
+  }
 </script>
 
 
 <script>
   // console.log(window.location.hostname);
+  // console.log("{{context.meta_title.alert}}", "ghdfsgyudyu")
+  if ("{{context.meta_title.alert}}" !== ""){
 
-  let check_http2=performance.getEntriesByType('navigation')[0].nextHopProtocol
-  console.log(check_http2)
-  document.getElementById('check_http2').innerHTML ="This Webpage Using " + check_http2 ;
-  let verson = check_http2.split("/")[1]
-  if(parseInt(verson)<2){
-    document.getElementById("HTTP2_alert").innerHTML = `<a href="#" onclick="showModal('HTTP2 Check ', 'This Webpage Is Not Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>`
-  }else{
-    document.getElementById("HTTP2_alert").innerHTML = `<a href="#" onclick="showModal('Lazy Load ', 'This Webpage Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>`
+
+    let check_http2=performance.getEntriesByType('navigation')[0].nextHopProtocol
+    console.log(check_http2)
+    document.getElementById('check_http2').innerHTML ="This Webpage Using " + check_http2 ;
+    let verson = check_http2.split("/")[1]
+    if(parseInt(verson)<2){
+      document.getElementById("HTTP2_alert").innerHTML = `<a href="#" onclick="showModal('HTTP2 Check ', 'This Webpage Is Not Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-warning" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>`
+    }
+
+    else{
+      document.getElementById("HTTP2_alert").innerHTML = `<a href="#" onclick="showModal('Lazy Load ', 'This Webpage Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>`
+    }
+
   }
-
-
-
 
 </script>
 
-<script>
 
+<script>
   function showModal(heading, data)
   {
 
+
     document.getElementById('Model_Title').innerHTML = heading;
     document.getElementById('model_data').innerHTML = data;
-
     $('#exampleModalCenter').modal('show');
   }
   function hideModal()
   {
-
     $('#exampleModalCenter').modal('hide');
-
   }
   function show_mess()
 {
@@ -988,29 +981,19 @@ window.addEventListener('DOMContentLoaded', perf);
 </script>
 
 
-
-
 <script>
-
- $(document).ready(
-     function()     {
-      let pagebytes = $('html').html().length;
-
-       var kbytes = pagebytes / 1024;
-      //  console.log(kbytes,"----------------daat")
-      document.getElementById('page_size').innerHTML ="The web page size is " + kbytes.toFixed(3)+ " kb.";
-  }
-);
-
-
-let widthscreen = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-
-
-document.getElementById('media').innerHTML ="Congratulations! Your website uses media query technique, which is base for responsive design.";
-document.getElementById("media_response").innerHTML = `<a href="#" onclick="showModal('Lazy Load ', 'This Webpage Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>`
-
-
-
+ if ("{{context.meta_title.alert}}" !== ""){
+    $(document).ready(
+        function()     {
+          let pagebytes = $('html').html().length;
+          var kbytes = pagebytes / 1024;
+          document.getElementById('page_size').innerHTML ="The web page size is " + kbytes.toFixed(3)+ " kb.";
+      }
+    );
+    let widthscreen = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    document.getElementById('media').innerHTML ="Congratulations! Your website uses media query technique, which is base for responsive design.";
+    document.getElementById("media_response").innerHTML = `<a href="#" onclick="showModal('Lazy Load ', 'This Webpage Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>`
+ }
 </script>
 
 

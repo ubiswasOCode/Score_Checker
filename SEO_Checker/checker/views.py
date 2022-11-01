@@ -308,7 +308,7 @@ def Score_checker(request):
 
             # print(len(und),"---------------------lennnn")
             context["under_meta"] = under_meta
-            
+
 
             ####----------------------------ViewPort ----------------------
             meta_view={"alert":"", "alert_msg":"", "data": ""}
@@ -362,7 +362,7 @@ def Score_checker(request):
             context['meta_site']=meta_site
 
 
-        
+
             ###Favicon
             favcon_tag ={"alert":"","data": ""}
             fav_icon=Soup.findAll('favicon')
@@ -435,7 +435,7 @@ def Score_checker(request):
                 url_meta["alert_msg"]  ="not Same url or Domain Name"
                 context["meta_url_msg"] ="not Same url or Domain Name"
                 error['meta_url']="not Same url or Domain Name"
-                
+
             context['url_meta']=url_meta
 
 
@@ -466,7 +466,7 @@ def Score_checker(request):
                 loader["alert"]="danger"
                 loader["alert_msg"]="! Your webpage is not using rel-preload"
                 error['loader']="! Your webpage is not using rel-preload"
-                 
+
             context['loader']=loader
 
 
@@ -531,7 +531,7 @@ def Score_checker(request):
                 view_port["data"] = meta_view
                 context["meta_view_msg"] ="Viewport Not used"
                 error['view']="Viewport Not used"
-                
+
             else:
                 view_port["alert"] =  "success"
                 view_port["alert_msg"]  = f"Congratulations Your Web page Using Viewport meta tag!"
@@ -562,32 +562,31 @@ def Score_checker(request):
                 struct_data["alert_msg"]  ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
                 context["meta_struct_msg"] ="Your web page is using HTML Microdata specifications in order to markup structured data.!"
                 error['struct']="Your web page is using HTML Microdata specifications in order to markup structured data.!"
-                
+
             else:
                 struct_data["alert"] =  "success"
                 struct_data["alert_msg"]  ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
                 context["meta_struct_msg"] ="Your web page is not using HTML Microdata specifications in order to markup structured data.!"
-            
+
             context["struct_data"]=struct_data
 
 
             ####------------------Noindex--------------------
-            no_index={"alert":"", "alert_msg":""}
+            meta_noindex={"alert":"", "alert_msg":""}
             if "noindex" in Soup:
-                no_index["alert"] =  "danger"
-                no_index["alert_msg"]  ="Your web page is using no-index meta tag.!"
+                meta_noindex["alert"] ="danger"
+                meta_noindex["alert_msg"] ="Your web page is using no-index meta tag.!"
                 context["meta_index_msg"] ="Your web page is using no-index meta tag.!"
                 error['index']="Your web page is using no-index meta tag.!"
 
-
             else:
-                no_index["alert"] =  "success"
-                no_index["alert_msg"]  ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
+                meta_noindex["alert"] ="success"
+                meta_noindex["alert_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
                 context["meta_index_msg"] ="Webpage don't use no-index meta tag. This means your page will be searchable and indexed by all search engines."
-            
-            context["no_index"]=no_index
-            
-            
+
+            context["meta_noindex"]=meta_noindex
+
+
             ####-------------nofollow-----------
             no_follow={"alert":"", "alert_msg":""}
             if "nofollow" in Soup:
@@ -595,15 +594,15 @@ def Score_checker(request):
                 no_follow["alert_msg"]  ="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
                 context["meta_nofollow_msg"] ="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
                 error['follow']="You webpage use nofollow meta tag. This means search engines will crawal all links from your page."
-                
+
             else:
                 no_follow["alert"] =  "success"
                 no_follow["alert_msg"]  ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
                 context["meta_nofollow_msg"] ="You webpage does not use nofollow meta tag. This means search engines will crawal all links from your page."
-            
+
             context["no_follow"]=no_follow
-            
-            
+
+
             ####----------------------Dissaloww---------
             disallow={"alert":"", "alert_msg":""}
             if "Disallow" in Soup:
@@ -611,15 +610,15 @@ def Score_checker(request):
                 disallow["alert_msg"]  ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
                 context["meta_disallow_msg"] ="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
                 error['disallow']="Your robots.txt file use disallow directive. This means whole site can be crawled by search engines."
-  
+
             else:
                 disallow["alert"] =  "success"
                 disallow["alert_msg"]  ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
                 context["meta_disallow_msg"] ="Your robots.txt file does not use disallow directive. This means whole site can be crawled by search engines."
-            
+
             context["disallow"]=disallow
-            
-            
+
+
             ####---------Meta Refresh Tag----------
             meta_refresh={"alert":"", "alert_msg":""}
             if "http-equiv" in Soup:
@@ -632,24 +631,24 @@ def Score_checker(request):
                 meta_refresh["alert"] =  "success"
                 meta_refresh["alert_msg"]  ="Congratulations! Your page has no refresh meta tag."
                 context["meta_refresh_msg"] ="Congratulations! Your page has no refresh meta tag."
-            
+
             context["meta_refresh"]=meta_refresh
-            
-        
+
+
             ERR=1
             WARN=0.5
 
             err=len(error)
             warn=len(warning)
-            print(err,"---------------total Error")
-            print(warn,"---------------------Total Warnning")
+            # print(err,"---------------total Error")
+            # print(warn,"---------------------Total Warnning")
 
 
             case=29
             temp=case
             total_right=err+warn
             total_correct=case-total_right
-            print(total_correct,"---------------------Correect")
+            # print(total_correct,"---------------------Correect")
 
 
             for i in range(1,err+1):
@@ -670,7 +669,7 @@ def Score_checker(request):
                     "per":per}
 
 
-        
+
 
     return render(request,"SeoChecknew.html",{"context":context,"value":value, 'url':url})
 

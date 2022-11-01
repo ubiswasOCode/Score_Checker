@@ -91,13 +91,25 @@
 div#nav-tabContent {
     margin-top: 30px;
 }
-    </style>
+
+.left-tabs.nav-tabs {
+    border-right:none;
+    border-bottom: none;
+}
+
+.left-tabs .nav-link.active {
+    border-top: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+}
+</style>
 {% endblock %}
 
 
 
 {% block content %}
-  
+
 
     <div class="row">
       <div class="col-md-2">
@@ -135,10 +147,10 @@ div#nav-tabContent {
                 {% csrf_token %}
 
                 <div class="form-floating">
-                <textarea class="form-control " onkeyup="CountWord(this)" placeholder="Enter Text Here" id="word" name="word" style="height: 100px"required >{{word}}</textarea>
+                <textarea class="form-control " onkeyup="CountWord(this),SetUserName()" placeholder="Enter Text Here" id="word" name="word" style="height: 100px"required >{{word}}</textarea>
                 <label for="word">Word </label>
                 </div>
-               
+
 
                 <button type="submit" class="btn btn-outline-success mt-2 btn-center">Count Words</button>
 
@@ -182,7 +194,7 @@ div#nav-tabContent {
 
   </div>
   <div class="col-md-8 alert alert-info "role="alert">
-    <span id="count-word"></span>
+    <span id="count-word">You entered the total 0 words and 0 Characters </span>
   </div>
   <div class="col-md-2">
 
@@ -311,7 +323,7 @@ div#nav-tabContent {
             document.getElementById('upload_file').submit()
           }else{
             alert("Please Upload PDF or Doc File ")
-          } 
+          }
         }
 
 
@@ -324,14 +336,14 @@ div#nav-tabContent {
     function CountWord(self)
     {
       var space=self.value.match(/\S+/g);
-      var wordss=space ? space.length:0; 
+      var wordss=space ? space.length:0;
       var len = self.value.length;
+
       document.getElementById("count-word").innerHTML="You entered the total "+wordss+" words and "+len+ " Characters ";
     }
   </script>
 
 
-  
 <script>
 
   function previewFile() {
