@@ -147,7 +147,7 @@ div#nav-tabContent {
                 {% csrf_token %}
 
                 <div class="form-floating">
-                <textarea class="form-control " onkeyup="CountWord(this),SetUserName()" placeholder="Enter Text Here" id="word" name="word" style="height: 100px"required >{{word}}</textarea>
+                <textarea class="form-control " onkeyup="CountWord()" placeholder="Enter Text Here" id="word" name="word" style="height: 100px"required >{{context.word}}</textarea>
                 <label for="word">Word </label>
                 </div>
 
@@ -333,14 +333,17 @@ div#nav-tabContent {
 
   <script>
 
-    function CountWord(self)
+
+  function CountWord()
     {
-      var space=self.value.match(/\S+/g);
+      let text_area = document.getElementById("word")
+      var space=text_area.value.match(/\S+/g);
       var wordss=space ? space.length:0;
-      var len = self.value.length;
+      var len = text_area.value.length;
 
       document.getElementById("count-word").innerHTML="You entered the total "+wordss+" words and "+len+ " Characters ";
     }
+
   </script>
 
 
@@ -359,6 +362,9 @@ div#nav-tabContent {
     }
 
 }
+$(window).on('load', function() {
+  CountWord()
+});
 // <iframe src="http://docs.google.com/gview?url=http://example.com/my-document.doc&embedded=true"></iframe>
 
 </script>

@@ -1,4 +1,5 @@
 from contextvars import Context
+from urllib import response
 from django.shortcuts import render
 import metadata_parser
 import requests
@@ -541,17 +542,14 @@ def Score_checker(request):
             context["view_port"] = view_port
 
 
-
-            # ####-------------__Screenshot-------------------------
-
-            driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-
-            driver.get(url)
-            driver.save_screenshot('static/pic.png')
-            image = Image.open('static/pic.png')
-            new_image = image.resize((400, 400))
-            new_image.save('static/screenshot.png')
-            driver.quit()
+            # #####-------------__Screenshot-------------------------
+            # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+            # driver.get(url)
+            # driver.save_screenshot('static/pic.png')
+            # image = Image.open('static/pic.png')
+            # new_image = image.resize((400, 400))
+            # new_image.save('static/screenshot.png')
+            # driver.quit()
 
 
             #####------------------------Advance SEO------------------
@@ -678,7 +676,17 @@ def Home(request):
     return render(request, "Boot_head_foot.html")
 
 
+def Selenium(request):
+        driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+        driver.get(url)
+        driver.save_screenshot('static/pic.png')
+        image = Image.open('static/pic.png')
+        new_image = image.resize((400, 400))
+        new_image.save('static/screenshot.png')
+        driver.quit()
 
+
+        return request
 
 
 

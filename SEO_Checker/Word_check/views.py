@@ -36,14 +36,15 @@ def Word_Count(request):
                 context= Word_Check(worddata)
             else:
                 print("nopppeee")
+        print(context, "fdsfdsf")
 
 
     return render(request,"Word_counter.html",{'context':context,"file":file})
 
 def Word_Check(word):
-    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"syllable":0,"len_sen":0}
+    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0, "word":word, "syllable":0,"len_sen":0}
     main_word=str(word)
-    context['word']=f"{(word)}"
+    context['word']=word
 
     #Calculate Total Word
     context['word_length']=f"{len(main_word)}"
@@ -63,10 +64,10 @@ def Word_Check(word):
                 #Set words[j] to 0 to avoid printing visited word
                 words[j] = "0"
 
-            rep=[]
+
         #Displays the duplicate word if count is greater than 1
             if(count > 1 and words[i] != "0"):
-                context["Rep_item"]=f" {(words[i])} "
+                context["Rep_item"]=f" {(words[i])}"
             else:
                 context["Rep-item"]=f"No Repated item "
 
@@ -96,7 +97,7 @@ def Word_Check(word):
     for line in list_con:
         if len(line)<=12:
             pass
- 
+
     context["is_Heading"]=f"yes, it is a Heading"
 
     #check Longest Word
