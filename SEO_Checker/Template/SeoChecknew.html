@@ -11,8 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script type="text/javascript">
@@ -156,7 +154,7 @@ a {
 
 td.alert-icon {
     border-top: none;
-    border-bottom: none;
+
 }
 </style>
 {% endblock %}
@@ -923,6 +921,7 @@ td.alert-icon {
 
 </div>
 
+
 <script>
   if ("{{context.meta_title.alert}}" !== ""){
       var perf = () => {
@@ -994,6 +993,32 @@ td.alert-icon {
     document.getElementById('media').innerHTML ="Congratulations! Your website uses media query technique, which is base for responsive design.";
     document.getElementById("media_response").innerHTML = `<a href="#" onclick="showModal('Lazy Load ', 'This Webpage Using HTTP/2 Protocol.')")"><svg class="bi flex-shrink-0 me-2 alert-success" width="24" id="example" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>`
  }
+</script>
+
+
+<script>
+  $(window).on('load', function() {
+    if('{{url}}' !== ""){
+      $.ajax({
+              // data: $(this).serialize(), // get the form data
+      type: 'GET',
+      url: "/selenium/",
+      data: {'url': '{{url}}'},
+      // on success
+      success: function (response) {
+          console.log(response)
+
+      },
+      // on error
+      error: function (response) {
+          // alert the error if any error occured
+          console.log(response.responseJSON.errors)
+        }
+      });
+    }
+
+
+  })
 </script>
 
 

@@ -6,13 +6,12 @@ import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import json
+from django.http import HttpResponse
 import re
+import base64
 from PIL import Image
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
 
 
 
@@ -677,16 +676,44 @@ def Home(request):
 
 
 def Selenium(request):
-        driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-        driver.get(url)
-        driver.save_screenshot('static/pic.png')
-        image = Image.open('static/pic.png')
-        new_image = image.resize((400, 400))
-        new_image.save('static/screenshot.png')
-        driver.quit()
+    # url = request.GET.get('url')
+    # urll = "https://www.geeksforgeeks.org/"
+    # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    # driver.get(urll)
+    # driver.save_screenshot('static/pic.png')
+    # image = Image.open('static/pic.png')
+    # new_img = image.resize((400, 400))
+    # new_img.save('static/screenshot.png')
+    # driver.quit()
 
 
-        return request
+    url = "https://www.google.com/"
+    # url = request.GET.get('url')
+    print(url,"-----------------------dataaaaa")
+    driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    driver.get(url)
+    driver.save_screenshot('static/pic.png')
+    image = Image.open('static/pic.png')
+    new_image = image.resize((400, 400))
+    new_image.save('static/screenshot.png')
+    driver.quit()
+
+    encoded_string=""
+    with open('static/screenshot.png', "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+
+    data={"text":"dfgfdgf", "img":encoded_string}
+    print(data)
+    res = json.dumps(data)
+    return HttpResponse(res)
+
+
+
+
+
+
+
+    # return (request{"new_image":new_image})
 
 
 
