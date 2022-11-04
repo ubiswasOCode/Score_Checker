@@ -1,17 +1,15 @@
-
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %} SEO Score Checker | {% endblock %}
 
-
 {% block head%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script type="text/javascript">
     var chart_data = [
@@ -154,6 +152,7 @@ a {
 
 td.alert-icon {
     border-top: none;
+    border-bottom: none;
 
 }
 </style>
@@ -759,8 +758,8 @@ td.alert-icon {
                     <tr>
                       <th><label for="">Home Page</label></th>
                           {% if url %}
-                        <td class="scr_image">
-                           <img src="{% static 'screenshot.png' %}" alt="home page">
+                        <td class="scr_image" id="page_image">
+
 
                           </td>
                           {% endif %}
@@ -927,7 +926,7 @@ td.alert-icon {
       var perf = () => {
       var duration = performance.getEntriesByType("navigation")[0].duration;
       if (!duration) setTimeout(perf, 0);
-      else console.log({ duration });
+      else { duration };
       time=duration/1000
 
       document.getElementById('loading_time').innerHTML ="The web page load time is " + time.toFixed(3)+ " seconds.";
@@ -944,7 +943,7 @@ td.alert-icon {
 
 
     let check_http2=performance.getEntriesByType('navigation')[0].nextHopProtocol
-    console.log(check_http2)
+    // console.log(check_http2)
     document.getElementById('check_http2').innerHTML ="This Webpage Using " + check_http2 ;
     let verson = check_http2.split("/")[1]
     if(parseInt(verson)<2){
@@ -998,7 +997,9 @@ td.alert-icon {
 
 <script>
   $(window).on('load', function() {
+
     if('{{url}}' !== ""){
+
       $.ajax({
               // data: $(this).serialize(), // get the form data
       type: 'GET',
@@ -1006,13 +1007,19 @@ td.alert-icon {
       data: {'url': '{{url}}'},
       // on success
       success: function (response) {
-          console.log(response)
+          // console.log(response)
+          let elem = `<img src="{% static 'screenshot.png' %}" alt="home page">`
+          $('#page_image').append(elem);
 
       },
       // on error
       error: function (response) {
           // alert the error if any error occured
-          console.log(response.responseJSON.errors)
+          response.responseJSON.errors
+
+
+          // let elem = `<img src="{% static 'screenshot.png' %}" alt="home page">`
+          // $('#page_image').append(elem);
         }
       });
     }

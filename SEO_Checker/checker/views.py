@@ -136,8 +136,8 @@ def Score_checker(request):
 
             else:
                 meta_h1["alert"] =  "danger"
-                meta_h1["alert_msg"]  = f"h1 is Missing"
-                meta_h1["data"] = f"h1 is Missing"
+                meta_h1["alert_msg"]  = "h1 is Missing"
+                meta_h1["data"] = heading1_text
                 error['h1'] = "h1 is Missing"
                 context["meta_h1_msg"]=f"h1 is Missing"
 
@@ -403,8 +403,13 @@ def Score_checker(request):
 
             ####-------------------------IDoctyp Checker--------------------
             meta_doc={"alert":"","data": ""}
-            page=metadata_parser.MetadataParser(url)
-            if "!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in page:
+            page_content = requests.get(url)
+            normal_txt = BeautifulSoup(page_content.content, 'html.parser')
+            # print(normal_txt,"-----------------------------Normal Txt")
+            # print(page,"---------------------------page")
+            # print(result,"-------------------------------<!Doctype html>")
+            # print(result1,"-------------------------------<!DOCTYPE html>")
+            if "<!DOCTYPE html>" or"<!DocType html>"or "<!Doctype html>"or "<!doctype html" in normal_txt:
                 meta_doc["alert"] =  "success"
                 meta_doc["alert_msg"]  = f"Congratulations! Your website has a doctype declaration."
                 meta_doc["data"] = page
@@ -676,20 +681,9 @@ def Home(request):
 
 
 def Selenium(request):
-    # url = request.GET.get('url')
-    # urll = "https://www.geeksforgeeks.org/"
-    # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    # driver.get(urll)
-    # driver.save_screenshot('static/pic.png')
-    # image = Image.open('static/pic.png')
-    # new_img = image.resize((400, 400))
-    # new_img.save('static/screenshot.png')
-    # driver.quit()
 
+    url = request.GET.get('url')
 
-    url = "https://www.google.com/"
-    # url = request.GET.get('url')
-    print(url,"-----------------------dataaaaa")
     driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
     driver.get(url)
     driver.save_screenshot('static/pic.png')
@@ -698,14 +692,12 @@ def Selenium(request):
     new_image.save('static/screenshot.png')
     driver.quit()
 
-    encoded_string=""
-    with open('static/screenshot.png', "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
+    baseurl = "http://127.0.0.1:7000/"
+    url = f"{baseurl}static/screenshot.png"
 
-    data={"text":"dfgfdgf", "img":encoded_string}
-    print(data)
-    res = json.dumps(data)
-    return HttpResponse(res)
+    data = json.dumps({"image_url" : url })
+
+    return HttpResponse(data)
 
 
 
