@@ -6,8 +6,5 @@ urlpatterns = [
     path('selenium/', Selenium ,name="selenium"),
     path('', Home,name="Home"),
 
-
-
-
 ]
 

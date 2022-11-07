@@ -1,10 +1,10 @@
 from django.urls import path,include
-from broken_link import views
+from broken_link.views import get_links_from_url
 
 
 urlpatterns = [
-    # path('get_links/', views.get_links_from_url,name="get_links_from_url"),
-    path('broken_link/', views.get_links_from_url,name="get_links_from_url"),
-      
+
+    path('get_links_from_url/', get_links_from_url,name="get_links_from_url"),
+
 ]
 

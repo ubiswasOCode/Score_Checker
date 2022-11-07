@@ -677,7 +677,7 @@ def Score_checker(request):
 
 def Home(request):
 
-    return render(request, "Boot_head_foot.html")
+    return render(request, "homePage.html")
 
 
 def Selenium(request):
