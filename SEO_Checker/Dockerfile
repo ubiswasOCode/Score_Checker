@@ -6,5 +6,7 @@ COPY requirements.txt /code/
 RUN apt-get update
 RUN apt-get install tesseract-ocr -y
 RUN apt-get install libtesseract-dev -y
+RUN pip3 install -U spacy
+RUN python3 -m spacy download en_core_web_sm
 RUN pip3 install -r requirements.txt
 COPY . /code/

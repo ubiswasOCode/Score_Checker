@@ -4,6 +4,8 @@ from fileinput import filename
 from django.shortcuts import render
 import readtime
 import requests
+import spacy
+import textacy
 from bs4 import BeautifulSoup
 import docx2txt
 from PyPDF2 import PdfReader
@@ -15,7 +17,7 @@ def Word_Count(request):
     word=""
     print(word,"--------------word")
     file=""
-    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,"word":word,"syllable":0,"len_sen":0}
+    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0,'Rep_item':0 ,'longest':0 ,"word":word,"syllable":0,"len_sen":0,"Phrases":0,"verbs":0}
 
 
     if request.method == "POST" :
@@ -42,7 +44,7 @@ def Word_Count(request):
     return render(request,"Word_counter.html",{'context':context,"file":file})
 
 def Word_Check(word):
-    context = {"Total_word":0, 'word_length':0 , 'Reading_Time':0, "withoutt_spc":0, "word":word, "syllable":0,"len_sen":0}
+    context = {"Total_word":0, 'word_length':0 ,'Total_word':0 ,'word_length':0 , 'Reading_Time':0, "withoutt_spc":0, "word":word, "syllable":0,"len_sen":0}
     main_word=str(word)
     context['word']=word
 
@@ -129,6 +131,14 @@ def Word_Check(word):
     sentences =main_word
     number_of_sentences = sent_tokenize(sentences)
     context["len_sen"]=f"{(len(number_of_sentences))}"
+
+    ###-----------------P
+    nlp = spacy.load("en_core_web_sm")
+    Phrases_text=nlp(main_word)
+    total_phra=[chunk.text for chunk in Phrases_text.noun_chunks]
+    context["Phrases"]=" , " .join(total_phra)
+    all_verb=[token.lemma_ for token in Phrases_text if token.pos_ == "VERB"]
+    context["verbs"]=" , ".join(all_verb)
 
 
     return context

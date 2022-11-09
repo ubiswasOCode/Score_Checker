@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% block head %}
+    <meta name="keywords" content="change case tool, change case tool in word, doddle change case tool">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% endblock %}
+
 <style>
 
 .input_url
@@ -13,10 +20,10 @@
 </head>
 <body>
 
-    
-      
+
+
     <div class="container mt-3 ">
-      
+
       {% if meta_title %}
 
       <div class="container">
@@ -25,7 +32,7 @@
 
           </div>
           <div class="col-md-4">
-            
+
           </div>
         </div>
       </div>
@@ -33,59 +40,59 @@
       <div class="container mt-4">
         <table class="table">
 
-     
+
             <tbody>
                 <tr>
                     <th><label for="">Meta Title</label><br><br></th>
-                    
+
                          <td>   {{meta_title_msg}}<br>{{meta_title}}</td>
                     </tr>
-            
+
                     <tr>
                     <th><label for="">Meta Keyword</label><br><br></th>
                     <td>{{meta_desc_msg}}<br>{{meta_desc}}</td>
                     </tr>
-            
+
                     <tr>
                     <th><label for="">Meta Description</label><br><br></th>
                     <td> {{meta_key_msg}}<br>{{meta_key}}</td>
                     </tr>
-            
+
                     <tr>
                     <th><label for="">Meta Viewport</label><br><br></th>
                     <td>{{meta_view_msg}}<br>{{meta_view}}</td>
                     </tr>
-            
+
                     <tr>
                     <th><label for="">Meta Robots</label><br><br></th>
                     <td>{{meta_robots_msg}}<br>{{meta_rob}}</td>
-                    </tr>    
-                    
+                    </tr>
+
                     <tr>
                     <th><label for="">Open Graph</label><br><br></th>
                     <td>{{meta_graph_msg}}<br>{{meta_graph}}</td>
-                    </tr> 
-    
-    
+                    </tr>
+
+
             </tbody>
           </table>
 
-   
+
       </div>
       {% else %}
       <form action='/Meta/' id="update" class="input_url" method="GET">
           <!-- {% csrf_token %} -->
-      
+
           <label for="">Enter Url </label>
               <input type="text" name="url" id=url placeholder="enter url"><br><br>
-      
-              <button type="submit" class="btn btn-primary">Submit</button>     
-          
-      </form>
-      {% endif %} 
 
-    
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+      {% endif %}
+
+
     </div>
-   
+
 </body>
 {% endblock %}
