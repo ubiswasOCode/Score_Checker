@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import metadata_parser
 import re
+import string
 
 
 def Density_Check(request):
@@ -14,15 +15,13 @@ def Density_Check(request):
     if request.method == "POST":
         url = request.POST.get('url')
         if (url):
-       
             context = Density(url)
         else:
-            context =WordDensity(wrdsrch)
-            
+            context =WordDensity()
+
         # context = WordDensity(wrdsrch)
 
         context['url']=url
-       
 
     return render(request, 'Density.html', context)
 
@@ -61,13 +60,12 @@ def Density(url):
 
       ### Keywords
     keyword=page.get_metadata("keywords")
-    print(keyword,"-------------------------keywordss")
+
 
 
     #Get Description
     meta_desc=page.get_metadata("description")
-    print(meta_desc,"---------------Description")
-    # desc_list=list(meta_desc)
+
 
 
     for para in soup.find_all("p"):
@@ -159,7 +157,9 @@ def Density(url):
 
     #After Removing
     One_Word = list(set(one))
-    print(one,"---------------------one")
+    chars = re.escape(string.punctuation)
+    One_Word=re.sub(r"[^a-zA-Z0-9]+", ' ', str(One_Word))
+
     if "C++" in One_Word:
         One_Word.remove("C++")
 
@@ -169,15 +169,12 @@ def Density(url):
         Total_word1=len(one)
         density=round((int(len(results))/int(Total_word1))*100,2)
         data[kwrd] = {"freq": len(results), "density": density}
-        # data[kwrd] = len(results)
-        # print(results,"-----------------------results")
-
 
 
     #Two Word Frequency and Density calculate
     data1={}
     Two_Word=list(set(two))
-    print(two,"--------------------------Two")
+
     for Kword1 in Two_Word:
         results1 = soup.body.find_all(string=re.compile('.*{0}.*'.format(Kword1)), recursive=True)
         Total_word2=len(two)
@@ -195,7 +192,8 @@ def Density(url):
     print(three,"-----------Three List")
     Convert_set=set(three)
     Three_word=list(set(Convert_set))
-    print(Three_word,"===============Three Word")
+    chars1 = re.escape(string.punctuation)
+    Three_word=re.sub(r"[^a-zA-Z0-9]+", ' ', str(Three_word))
 
     data2={}
     for Kword2 in Three_word:
@@ -227,9 +225,10 @@ def Density(url):
     return  {"data":data, "data1": data1, "data2":data2, "data3":data3}
 
 
-def WordDensity(wrdsrch):
-
-    convert=list(wrdsrch.split(' '))
+def WordDensity(request):
+    wrdsrch=""
+    req = requests.get(wrdsrch)
+    convert=list(req.split(' '))
 
     frequency={}
 
@@ -254,18 +253,13 @@ def WordDensity(wrdsrch):
     print(frequency)
 
 
-    # print(convert)
-    # three_word=list(map(' '.join, zip(convert[:-2], convert[2:])))
-    # print(three_word)
-
-
     three=[]
     for i in range(len(convert) - 2):
         three.append(convert[i] + ' ' + convert[i+2])
     print(three)
 
 
-    return {"frequency":frequency}
+    return render(request,"Density.html",{"frequency":frequency})
 
 
 
